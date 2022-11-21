@@ -467,7 +467,7 @@
 import HeaderTop from "@/components/HeaderTop";
 import SideBar from "@/components/SideBar";
 import FooterBottom from "@/components/FooterBottom";
-import ContentTitle from "@/components/ContentTitle";
+//import ContentTitle from "@/components/ContentTitle";
 import StatusData from "@/components/StatusData";
 import SearchBtnOption from "@/components/SearchBtnOption";
 import CheckBox from "@/components/CheckBox";
@@ -485,7 +485,7 @@ export default {
     HeaderTop,
     SideBar,
     FooterBottom,
-    ContentTitle,
+    //ContentTitle,
     StatusData,
     SearchBtnOption,
     CheckBox,

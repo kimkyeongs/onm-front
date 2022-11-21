@@ -1,49 +1,44 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import PbList from "@/views/PbList.vue";
+import Layout from "@/layout/appLayout.vue";
+import platformRoutes from "@/router/modules/platformRoutes";
+import chargerRoutes from "@/router/modules/chargerRoutes";
 
 Vue.use(VueRouter);
-const routes = [{
+const routes = [
+    //추후 대시보드로 배정해야함
+    {
         path: "/",
         name: "Layout",
-        component: () =>
-            import ("@/views/Layout.vue"),
+        component: Layout,
+        children: [{
+            path: "/",
+            name: "main",
+            props: true,
+            component: () =>
+                import ("@/views/charger/cpList.vue"),
+        }, ],
     },
     {
-        path: "/headerTop",
-        name: "HeaderTop",
-        component: () =>
-            import ("@/components/HeaderTop.vue"),
-    },
-    {
-        path: "/footerBottom",
-        name: "FooterBottom",
-        component: () =>
-            import ("@/components/FooterBottom.vue"),
-    },
-    {
-        path: "/sideBar",
-        name: "SideBar",
-        component: () =>
-            import ("@/components/SideBar.vue"),
-    },
-    {
-        path: "/allMenu",
-        name: "AllMenu",
-        component: () =>
-            import ("@/components/AllMenu.vue"),
-    },
-    {
-        path: "/agGrid",
-        name: "AgGrid",
-        component: () =>
-            import ("@/components/AgGrid.vue"),
+        path: "/114",
+        name: "Layout114",
+        component: Layout,
+        children: [{
+            path: "/",
+            name: "main114",
+            props: true,
+            component: () =>
+                import ("@/views/charger/Layout-1114.vue"),
+        }, ],
     },
     {
         path: "/pbList",
         name: "PbList",
         component: PbList,
     },
+    chargerRoutes,
+    platformRoutes,
 ];
 
 const router = new VueRouter({
