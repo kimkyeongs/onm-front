@@ -187,9 +187,14 @@
 </template>
 
 <script>
+import urltest from "@/api/setting/serverEndPoint";
 export default {
   methods: {
     onClickRedirect() {},
+  },
+  mounted() {
+    var userUrl = urltest.getUrl("cp");
+    console.log(userUrl);
   },
 };
 </script>
