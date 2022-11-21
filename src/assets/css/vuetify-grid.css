@@ -1,0 +1,206 @@
+@charset "utf-8";
+
+/*********************************************************
+ - Vuetify Customizing
+*********************************************************/
+.container .mdi-menu-down::before{
+  content: '';
+  width: 24px;
+  height: 24px;
+  background: url('@/assets/images/icon-next@2x.png') no-repeat;
+  background-size: 24px 24px;
+  transform: rotate( 90deg );
+}
+.container .v-icon.v-icon{
+  font-size: 21px;
+  color: #d4dde0;
+}
+.container .v-radio label,
+.container  .v-input--checkbox label{
+  color: #555;
+}
+.container.v-application--is-ltr .radio-group .v-input--selection-controls__input{
+  margin-bottom: -2px;
+}
+.container .v-text-field.v-text-field--solo.v-input--dense > .v-input__control{
+  min-height: 36px;
+}
+.container .selectBox.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot,
+.container .v-text-field > .v-input__control > .v-input__slot > .v-text-field__slot{
+  font-size: 14px;
+  height: 36px;
+  padding: 7px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--color-gray-200);
+}
+.container .v-input__slot::before {
+  border-style: none !important;
+}
+.container .v-text-field > .v-input__control > .v-input__slot:after {
+  border: 0;
+}
+/* Date Picker */
+.container .date-picker.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot{
+  background:#fff url('@/assets/images/calendar@2x.png') no-repeat right 10px center;
+  background-size: 24px 24px;
+}
+.container .date-picker .v-input__slot,
+.container .date-picker .v-text-field__slot > input:focus{
+  margin-bottom: 0!important;
+  background: url('@/assets/images/calendar@2x-on.png') no-repeat right 0 center;
+  background-size: 24px 24px;
+}
+.container .v-text-field .v-label{
+  transform-origin: center right!important;
+  font-size: 14px;
+  color: #ccd;
+  padding-left: 8px;
+}
+.container .v-select__slot .v-label{
+  padding-left: 0;
+}
+.container .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot{
+  box-shadow: none;
+}
+.container .v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) > .v-input__control > .v-input__slot, 
+.container .v-text-field.v-text-field--enclosed .v-text-field__details{
+  padding: 0;
+}
+.container .v-text-field.v-text-field--enclosed .v-text-field__details{
+  margin-bottom: 0;
+  display: none;
+}
+.container .selectBox.v-input--dense > .v-input__control > .v-input__slot{
+  margin-bottom: 0;
+}
+.container .multiCombox .v-input__slot{
+  margin-bottom: 0;
+}
+.container .multiCombox{
+  border: 1px solid var(--color-gray-200);
+}
+.container .multiCombox.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) > .v-input__control > .v-input__slot{
+  padding: 0 8px;
+}
+.container .multiCombox.v-text-field.v-text-field--solo .v-input__control {
+  min-height: 34px;
+}
+.container .v-select .v-chip {
+  margin: 0;
+}
+.container .multiCombox .v-chip .v-icon{
+  margin-left: 7px;
+}
+.container .v-select .v-chip + .v-chip{
+  margin-left: 6px;
+}
+.container .theme--light.v-chip:not(.v-chip--active) {
+  background: #ebf7ff;
+}
+.container .v-chip.v-size--default{
+  height: 24px;
+}
+.container .multiCombox .v-chip{
+  padding: 0 7px 0 10px;
+}
+.container .multiCombox .v-chip--label{
+  border-radius: 12px!important;
+}
+.container .multiCombox .mdi-close-circle::before {
+  content: "\F0156";
+  font-size: 11px;
+  color: #000;
+}
+.container .v-input--selection-controls{
+  margin-top: 0;
+}
+.container .v-input__slot{
+  margin-bottom: 0;
+}
+.container.v-application--is-ltr .v-input--selection-controls__input{
+  margin-right: 4px;
+}
+.container .v-messages,
+.v-btn__content{
+  display: none;
+}
+.container .v-text-field.v-text-field--solo .v-input__control{
+  min-height: auto;
+}
+.container .multiCombox  .v-select__selections{
+  flex-wrap: nowrap;
+}
+/*********************************************************
+ - AG Grid Customizing
+*********************************************************/
+/* .ag-center-cols-container{
+  width: 100%!important;
+} */
+.ag-root-wrapper{
+  border-radius: 10px;
+  border: 1px solid #d4dde0;
+}
+.ag-header{
+  background-color: #fff;
+  border-bottom: 1px solid #d4dde0;
+}
+.ag-theme-alpine {
+  --ag-font-family: 'Noto Sans KR', sans-serif;
+  --ag-header-foreground-color: #555;
+  --ag-header-background-color: #f7f8fb;
+  --ag-odd-row-background-color: none;
+  --ag-row-text-align: center;
+}
+.ag-theme-alpine .ag-header-cell {
+  font-size: 14px;
+  padding-left: 0;
+  padding-right: 0;
+}
+.ag-header-cell-label{
+  justify-content: center;
+}
+.ag-center-cols-container > div:last-child{
+  border-bottom: none;
+}
+.ag-row .ag-cell {
+  height: 36px;
+  text-align: center;
+  /* padding-left: 8px;
+  padding-right: 8px; */
+}
+.ag-row-selected::before{
+  background-color: #ebf7ff;
+}
+.container .ag-row-hover,
+.container .ag-row-hover::before,
+.container .ag-row-selected::before{
+  background-color: #fff0e6;
+}
+.ag-row-focus.ag-row-hover::before{
+  background: #fff0e6!important;
+}
+.ag-paging{
+  font-size: 12px;
+  color: #aaa;
+}
+.ag-paging-panel{
+  /* display: none; */
+}
+
+
+
+.ag-theme-alpine{
+  width: 100%;
+}
+.grid-wrap {
+  overflow: auto;
+  padding-bottom: 20px;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .ag-theme-alpine{
+    width: 1200px;
+  }
+}
