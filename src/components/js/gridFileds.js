@@ -1,3 +1,12 @@
+// ag grid 용 컬럼 filed 정의 (JSON)
+/**
+ *  filedId : [
+ *   {
+ *     field: "companyId", -> bind Key
+       headerName: "회사ID",  -> 컬럼명
+ *    }
+ *  ]
+ */
 const fileds = {
     cpList: [
         { field: "No", width: 60, maxWidth: 60, cellClass: "rag-amber" },
@@ -52,7 +61,7 @@ const fileds = {
         { field: "userNm", headerName: "이름" },
     ],
 };
-
+// id에 해당하는 컬럼 List 를 리턴 -> 사용할 페이지에 import후 메서드 실행
 export function getFileds(id) {
     if (id == null || id == "" || id == undefined)
         alert("컬럼이 존재하지 않습니다");

@@ -58,7 +58,9 @@ export default {
   },
   methods: {}, //beforeMount
   mounted() {
+    // gridFileds.js에 선언된 컬럼들을 id로 가져옴
     this.testValue = getFileds(this.filedId);
+    //api 통신으로 가져온 row 값
     (this.columnDefs = this.testValue),
       (this.rowData = this.dataList),
       (this.rowSelection = "single");
