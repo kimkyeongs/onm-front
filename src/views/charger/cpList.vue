@@ -167,7 +167,11 @@
       <search-filter :searchFilter="searchFilters" />
     </div>
     <!-- GRID -->
-    <ag-grid />
+    <ag-grid
+      v-bind:dataList="this.testdata"
+      v-bind:filedId="this.filedId"
+      :key="gridKey"
+    />
     <!--// GRID -->
   </div>
   <!--// CONTENT -->
@@ -202,29 +206,30 @@ export default {
     // ModalMobileSearch,
     AgGrid,
   },
-  data() {
-    return {
-      searchCheck: [
-        "운영사",
-        "충전기구분",
-        "권역",
-        "시군구",
-        "운영여부",
-        "충전소명",
-        "운영시작일",
-        "설치일",
-        "충전소ID",
-        "충전기ID",
-      ],
-      searchFilters: [
-        { filterTitle: "권경", filterText: "서울특별시" },
-        { filterTitle: "충전소ID", filterText: "SIG000003" },
-        { filterTitle: "충전기구분", filterText: "완속" },
-        { filterTitle: "운영시작일", filterText: "2022-10-22" },
-      ],
-      items: ["아이템-1", "아이템-2", "아이템-3"],
-    };
-  },
+  data: () => ({
+    searchCheck: [
+      "운영사",
+      "충전기구분",
+      "권역",
+      "시군구",
+      "운영여부",
+      "충전소명",
+      "운영시작일",
+      "설치일",
+      "충전소ID",
+      "충전기ID",
+    ],
+    searchFilters: [
+      { filterTitle: "권경", filterText: "서울특별시" },
+      { filterTitle: "충전소ID", filterText: "SIG000003" },
+      { filterTitle: "충전기구분", filterText: "완속" },
+      { filterTitle: "운영시작일", filterText: "2022-10-22" },
+    ],
+    items: ["아이템-1", "아이템-2", "아이템-3"],
+    testdata: null,
+    filedId: "userList",
+    gridKey: 0,
+  }),
   computed: {
     ...mapState({
       windowSize: (state) => state.settings.windowSize,
@@ -266,7 +271,10 @@ export default {
       console.log(this.$store.getters.token);
       var emptyData = { token: this.$store.getters.token };
       getUserList(emptyData)
-        .then((response) => {})
+        .then((response) => {
+          this.testdata = response.data;
+          this.gridKey += 1;
+        })
         .catch(async (err) => {
           alert(err);
         });

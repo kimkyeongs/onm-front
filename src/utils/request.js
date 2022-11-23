@@ -27,43 +27,44 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
     (response) => {
-        const res = response;
+        const data = response.data.data;
+        const headers = response.headers;
 
-        if (!res) {
+        if (!data) {
             return Promise.reject(new Error("Network Error"));
         }
         /*
-                                                                                                            if (res.code != "200") {
-                                                                                                                switch (res.code) {
-                                                                                                                    case 401:
-                                                                                                                        router.push({
-                                                                                                                            name: "error",
-                                                                                                                            params: {
-                                                                                                                                errorMessage: "연결하려는 페이지에 장애로 인하여 일시적으로 페이지를 불러올 수 없습니다. 잠시후 이용해주시기 바랍니다.",
-                                                                                                                            },
-                                                                                                                        });
-                                                                                                                        return Promise.reject(new Error("error"));
-                                                                                                                    case 403:
-                                                                                                                        router.push({
-                                                                                                                            name: "error",
-                                                                                                                            params: {
-                                                                                                                                errorMessage: "접근 경로가 맞지 않습니다. 잠시 후 이용해주시기 바랍니다.",
-                                                                                                                            },
-                                                                                                                        });
-                                                                                                                        //return Promise.reject(new Error("error"));
-                                                                                                                    case 500:
-                                                                                                                        router.push({
-                                                                                                                            name: "error",
-                                                                                                                            params: {
-                                                                                                                                errorMessage: "현재 상태가 원활하지 않습니다. 새로고침을 누르거나 잠시 후 다시 이용해 주시기 바랍니다.",
-                                                                                                                            },
-                                                                                                                        });
-                                                                                                                        return Promise.reject(new Error("error"));
-                                                                                                                    default:
-                                                                                                                        return Promise.reject(res);
-                                                                                                                }
-                                                                                                            }*/
-        return res;
+                                                                                                                            if (res.code != "200") {
+                                                                                                                                switch (res.code) {
+                                                                                                                                    case 401:
+                                                                                                                                        router.push({
+                                                                                                                                            name: "error",
+                                                                                                                                            params: {
+                                                                                                                                                errorMessage: "연결하려는 페이지에 장애로 인하여 일시적으로 페이지를 불러올 수 없습니다. 잠시후 이용해주시기 바랍니다.",
+                                                                                                                                            },
+                                                                                                                                        });
+                                                                                                                                        return Promise.reject(new Error("error"));
+                                                                                                                                    case 403:
+                                                                                                                                        router.push({
+                                                                                                                                            name: "error",
+                                                                                                                                            params: {
+                                                                                                                                                errorMessage: "접근 경로가 맞지 않습니다. 잠시 후 이용해주시기 바랍니다.",
+                                                                                                                                            },
+                                                                                                                                        });
+                                                                                                                                        //return Promise.reject(new Error("error"));
+                                                                                                                                    case 500:
+                                                                                                                                        router.push({
+                                                                                                                                            name: "error",
+                                                                                                                                            params: {
+                                                                                                                                                errorMessage: "현재 상태가 원활하지 않습니다. 새로고침을 누르거나 잠시 후 다시 이용해 주시기 바랍니다.",
+                                                                                                                                            },
+                                                                                                                                        });
+                                                                                                                                        return Promise.reject(new Error("error"));
+                                                                                                                                    default:
+                                                                                                                                        return Promise.reject(res);
+                                                                                                                                }
+                                                                                                                            }*/
+        return { data: data, headers };
     },
     (error) => {
         router.push({ name: "error", params: {} });
