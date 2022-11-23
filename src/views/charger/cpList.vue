@@ -189,7 +189,7 @@ import BtnResetSearch from "@/components/BtnResetSearch";
 import BtnDownloadSearch from "@/components/BtnDownloadSearch.vue";
 // import ModalMobileSearch from '@/components/moSearch/ModalMobileSearch'
 import AgGrid from "@/components/AgGrid";
-import { getUserList } from "@/api/cp_api";
+import { getUserList, getCpInfo } from "@/api/cp_api";
 import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
@@ -266,14 +266,27 @@ export default {
           alert(err);
         });
       this.userLists();
+      this.cpLists();
     },
     userLists() {
-      console.log(this.$store.getters.token);
+      //console.log(this.$store.getters.token);
       var emptyData = { token: this.$store.getters.token };
       getUserList(emptyData)
         .then((response) => {
           this.testdata = response.data;
           this.gridKey += 1;
+        })
+        .catch(async (err) => {
+          alert(err);
+        });
+    },
+    cpLists() {
+      var emptyData = { token: this.$store.getters.token };
+      getCpInfo(emptyData)
+        .then((response) => {
+          console.log(response.data);
+          //this.testdata = response.data;
+          //this.gridKey += 1;
         })
         .catch(async (err) => {
           alert(err);
