@@ -6,7 +6,7 @@ export default {
 
         if (svc == "cp") {
             //login
-            post_url = ":8081";
+            post_url = ":9300";
             ret = "http://" + be_host + post_url;
         }
 

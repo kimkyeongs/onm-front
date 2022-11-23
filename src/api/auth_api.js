@@ -4,8 +4,9 @@ const url = endpoints.getUrl("cp");
 
 //test -- jwt
 export function getJwtToken(data) {
+    console.log(data);
     return request({
-        url: url + "/auth/login",
+        url: url + "/auth/user/login",
         method: "post",
         data,
     });
@@ -17,6 +18,9 @@ export function getUserList(data) {
         url: url + "/user/",
         method: "get",
         data,
+        headers: {
+            Authorization: this.$this.$store.getters.token,
+        },
     });
 }
 

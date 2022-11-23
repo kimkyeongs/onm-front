@@ -174,9 +174,6 @@
 </template>
 
 <script>
-import HeaderTop from "@/components/HeaderTop";
-import SideBar from "@/components/SideBar";
-import FooterBottom from "@/components/FooterBottom";
 import HeadTitle from "@/components/HeadTitle";
 import StatusData from "@/components/StatusData";
 import SearchBtnOption from "@/components/SearchBtnOption";
@@ -188,13 +185,11 @@ import BtnResetSearch from "@/components/BtnResetSearch";
 import BtnDownloadSearch from "@/components/BtnDownloadSearch.vue";
 // import ModalMobileSearch from '@/components/moSearch/ModalMobileSearch'
 import AgGrid from "@/components/AgGrid";
+import { getUserList } from "@/api/cp_api";
 import { mapState, mapMutations } from "vuex";
 
 export default {
   components: {
-    HeaderTop,
-    SideBar,
-    FooterBottom,
     HeadTitle,
     StatusData,
     SearchBtnOption,
@@ -241,17 +236,36 @@ export default {
     ]),
   },
   created() {},
+  beforeMount() {
+    this.getJwt();
+  },
   mounted() {
     window.addEventListener("resize", () => {
       this.resize();
     });
     this.resize();
+    console.log("JWT ============ > " + this.$store.getters.token);
   },
   watch: {},
   methods: {
     ...mapMutations({
       resize: "RESIZE",
     }),
+    async getJwt() {
+      var testUserData = {
+        userId: "INSOFT1",
+        userPassword: "InSOFT1!@#$",
+      };
+      await this.$store
+        .dispatch("authUser/userLogin", testUserData)
+        .then(async (response) => {})
+        .catch(async (err) => {
+          alert(err);
+        });
+    },
+    getUserList() {
+      getUserList().then((response) => {});
+    },
   },
 };
 </script>
