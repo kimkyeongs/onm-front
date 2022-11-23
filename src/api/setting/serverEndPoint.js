@@ -4,7 +4,7 @@ export default {
         var post_url = "";
         var ret = "";
 
-        if (svc == "cp") {
+        if (svc == "gw") {
             //login
             post_url = ":9300";
             ret = "http://" + be_host + post_url;

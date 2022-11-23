@@ -186,7 +186,7 @@ import BtnDownloadSearch from "@/components/BtnDownloadSearch.vue";
 // import ModalMobileSearch from '@/components/moSearch/ModalMobileSearch'
 import AgGrid from "@/components/AgGrid";
 import { getUserList } from "@/api/cp_api";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -226,16 +226,15 @@ export default {
     };
   },
   computed: {
-    ...mapState([
-      "windowSize",
-      "deviceSideisActive",
-      "sideBarisActive",
-      "searchIsActive",
-      "searchOption",
-      "checkboxShow",
-    ]),
+    ...mapState({
+      windowSize: (state) => state.settings.windowSize,
+      deviceSideisActive: (state) => state.settings.deviceSideisActive,
+      sideBarisActive: (state) => state.settings.sideBarisActive,
+      searchIsActive: (state) => state.settings.searchIsActive,
+      searchOption: (state) => state.settings.searchOption,
+      checkboxShow: (state) => state.settings.checkboxShow,
+    }),
   },
-  created() {},
   beforeMount() {
     this.getJwt();
   },
@@ -244,12 +243,11 @@ export default {
       this.resize();
     });
     this.resize();
-    console.log("JWT ============ > " + this.$store.getters.token);
   },
   watch: {},
   methods: {
     ...mapMutations({
-      resize: "RESIZE",
+      resize: "settings/RESIZE",
     }),
     async getJwt() {
       var testUserData = {
@@ -262,9 +260,16 @@ export default {
         .catch(async (err) => {
           alert(err);
         });
+      this.userLists();
     },
-    getUserList() {
-      getUserList().then((response) => {});
+    userLists() {
+      console.log(this.$store.getters.token);
+      var emptyData = { token: this.$store.getters.token };
+      getUserList(emptyData)
+        .then((response) => {})
+        .catch(async (err) => {
+          alert(err);
+        });
     },
   },
 };

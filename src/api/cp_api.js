@@ -1,22 +1,18 @@
 import request from "@/utils/request";
 import endpoints from "./setting/serverEndPoint";
-const url = endpoints.getUrl("cp");
-
-//test -- jwt
-export function getJwtToken(data) {
-    return request({
-        url: url + "/auth/login",
-        method: "post",
-        data,
-    });
-}
+import store from "@/store";
+const url = endpoints.getUrl("gw");
 
 //test -- userList
 export function getUserList(data) {
+    console.log(data.token);
     return request({
-        url: url + "/user/",
+        url: url + "/ba/user/",
         method: "get",
         data,
+        headers: {
+            Authorization: data.token,
+        },
     });
 }
 
