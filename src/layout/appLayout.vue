@@ -12,7 +12,9 @@
     <!-- SIDE MENU -->
     <side-bar />
     <!-- CONTENT -->
-    <router-view />
+    <div class="content-wrap">
+      <router-view />
+    </div>
     <!--// CONTENT -->
     <footer>
       <footer-bottom />

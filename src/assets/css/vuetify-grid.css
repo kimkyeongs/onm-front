@@ -3,6 +3,9 @@
 /*********************************************************
  - Vuetify Customizing
 *********************************************************/
+.container.v-application p{
+  margin-bottom: 0;
+}
 .container .mdi-menu-down::before{
   content: '';
   width: 24px;

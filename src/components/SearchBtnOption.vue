@@ -5,16 +5,18 @@
         type="button"
         class="btn btn-default btn-orange btn-fixed"
         value="downLoadOption"
-        @click="searchToggle">
+        @click="searchToggle"
+      >
         다운로드옵션
         <i class="icon icon-sm icon-download-option" />
       </button>
-    </template>  
+    </template>
     <button
       type="button"
       class="btn btn-default btn-yellow btn-fixed"
       value="searchOption"
-      @click="searchToggle">
+      @click="searchToggle"
+    >
       검색옵션
       <i class="icon icon-sm icon-download-option" />
     </button>
@@ -26,28 +28,25 @@ export default {
   props: {
     searchDownloadOption: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
-  data() {
-
-  },
+  data() {},
   methods: {
     searchToggle(e) {
-      this.$store.commit('SEARCH_TOGGLE', e.target.value)
-    }
-  }
-
-}
+      this.$store.commit("settings/SEARCH_TOGGLE", e.target.value);
+    },
+  },
+};
 </script>
 
 <style scoped>
-  /*********************************************************
+/*********************************************************
   - Media Query
   *********************************************************/
-  @media screen and (max-width: 768px) {
-    .content-wrap .btn-optionArea{
-      justify-content: right;
-    }
+@media screen and (max-width: 768px) {
+  .content-wrap .btn-optionArea {
+    justify-content: right;
   }
+}
 </style>

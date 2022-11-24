@@ -9,9 +9,9 @@
       :headerHeight="34"
       :rowHeight="36"
       :rowSelection="rowSelection"
-      :autoGroupColumnDef="autoGroupColumnDef"
-      :rowGroupPanelShow="rowGroupPanelShow"
-      :pagination="false"
+      :groupDisplayType="groupDisplayType"
+      :groupDefaultExpanded="groupDefaultExpanded"
+      :pagination="true"
     />
     <div class="ag-paging">1페이지/99페이지</div>
     <pagination />
@@ -24,6 +24,14 @@ import { AgGridVue } from "ag-grid-vue";
 import GridPlusBtn from "@/components/GridPlusBtn";
 import MemberLicensesStatus from "@/components/MemberLicensesStatus";
 import { getFileds } from "@/components/js/gridFileds";
+
+import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
+import { ModuleRegistry } from "@ag-grid-community/core";
+
+// import "ag-grid-enterprise";
+// import { RowGroupingModule } from "@ag-grid-enterprise/row-grouping";
+
+ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 export default {
   props: ["dataList", "filedId"],
@@ -45,16 +53,16 @@ export default {
         // sortable: true,
         // filter: true,
       },
+      rowSelection: null,
       testValue: null,
-      autoGroupColumnDef: null,
-      rowGroupPanelShow: null,
+      groupDisplayType: null,
+      groupRowRenderer: null,
+      groupDefaultExpanded: null,
     };
   },
   created() {
-    (this.autoGroupColumnDef = {
-      minWidth: 0,
-    }),
-      (this.rowGroupPanelShow = "always");
+    this.groupDisplayType = "custom";
+    this.groupDefaultExpanded = 1;
   },
   methods: {}, //beforeMount
   mounted() {

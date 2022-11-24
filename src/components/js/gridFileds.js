@@ -37,6 +37,12 @@ const fileds = {
             width: 60,
             maxWidth: 60,
             cellClass: "rag-amber",
+            // 그룹의 제목명을 포함해서 보여줄것인가
+            showRowGroup: true,
+            // 렌더할때 필요한 함수 이름인듯
+            cellRenderer: "agGroupCellRenderer",
+            // 이 항목으로 그룹을 지을것인가?
+            rowGroup: true,
         },
         {
             field: "companyId",
@@ -46,7 +52,7 @@ const fileds = {
             //cellRenderer: "GridPlusBtn",
         },
         {
-            field: "companyId",
+            // field: "companyId",
             width: 55,
             maxWidth: 55,
             headerName: "회사ID",
@@ -57,6 +63,45 @@ const fileds = {
         { field: "mobileNo", headerName: "휴대폰번호" },
         { field: "telNo", headerName: "전화번호" },
         { field: "useYn", headerName: "사용여부" },
+        { field: "userId", headerName: "ID" },
+        { field: "userNm", headerName: "이름" },
+    ],
+    groupList: [
+        // {
+        //     headerName: "Group",
+        //     showRowGroup: true,
+        //     cellRenderer: "agGroupCellRenderer",
+        // },
+        {
+            field: "authId",
+            headerName: "권한ID",
+            width: 60,
+            maxWidth: 60,
+            cellClass: "rag-amber",
+        },
+        {
+            field: "companyId",
+            headerName: "회사ID",
+            cellRenderer: "GridPlusBtn",
+        },
+        {
+            field: "email",
+            headerName: "이메일",
+            cellClass: "countryCell",
+        },
+        { field: "empNo", headerName: "사번" },
+        {
+            field: "mobileNo",
+            headerName: "휴대폰번호",
+        },
+        {
+            field: "telNo",
+            headerName: "전화번호",
+        },
+        {
+            field: "useYn",
+            headerName: "사용여부",
+        },
         { field: "userId", headerName: "ID" },
         { field: "userNm", headerName: "이름" },
     ],

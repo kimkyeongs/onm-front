@@ -1,6 +1,6 @@
 <template>
   <!-- CONTENT -->
-  <div class="content-wrap">
+  <section class="onmContent">
     <head-title title="충전기 상태" />
     <!-- 상태영역 -->
     <div class="statusArea-wrap">
@@ -170,10 +170,11 @@
     <ag-grid
       v-bind:dataList="this.testdata"
       v-bind:filedId="this.filedId"
+      v-bind:dataCnt="this.dataCnt"
       :key="gridKey"
     />
     <!--// GRID -->
-  </div>
+  </section>
   <!--// CONTENT -->
 </template>
 
@@ -227,7 +228,8 @@ export default {
     ],
     items: ["아이템-1", "아이템-2", "아이템-3"],
     testdata: null,
-    filedId: "userList",
+    filedId: "groupList",
+    dataCnt: 0,
     gridKey: 0,
   }),
   computed: {
@@ -273,6 +275,7 @@ export default {
       getUserList(emptyData)
         .then((response) => {
           this.testdata = response.data;
+          this.dataCnt = response.data.lenght;
           this.gridKey += 1;
         })
         .catch(async (err) => {
