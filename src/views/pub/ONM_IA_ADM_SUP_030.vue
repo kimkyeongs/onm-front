@@ -157,7 +157,7 @@
       <div class="pull-right">
         <button
           type="button"
-          class="btn btn-default btn-gray btn-fixed"
+          class="btn btn-default btn-gray"
           @click="modalOpen">개인정보 마스킹제거</button>
         <button type="button" class="btn btn-default btn-orange btn-fixed">저장</button>
       </div>
@@ -166,7 +166,7 @@
     <sub-title title="이용가이드" />
     <use-guide
       :useGuideLists="useGuideLists" />
-    <onm-ia-adm-sup031/>
+    <onm-ia-adm-sup030-p />
   </section>
 </template>
 
@@ -174,7 +174,7 @@
 import HeadTitle from '@/components/HeadTitle'
 import SubTitle from '@/components/SubTitle'
 import UseGuide from '@/components/UseGuide'
-import OnmIaAdmSup031 from '@/views/OnmIaAdmSup031' //Modal
+import OnmIaAdmSup030P from '@/views/ONM_IA_ADM_SUP_030_P' //Modal
 import { mapState, mapMutations } from 'vuex'
 
 
@@ -183,7 +183,7 @@ export default {
     HeadTitle,
     SubTitle,
     UseGuide,
-    OnmIaAdmSup031
+    OnmIaAdmSup030P
   },
   data() {
     return {
