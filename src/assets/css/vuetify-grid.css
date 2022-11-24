@@ -190,8 +190,6 @@
   /* display: none; */
 }
 
-
-
 .ag-theme-alpine{
   width: 100%;
 }
@@ -200,10 +198,16 @@
   padding-bottom: 20px;
 }
 
-
-
 @media screen and (max-width: 768px) {
   .ag-theme-alpine{
     width: 1200px;
   }
+}
+
+/*********************************************************
+ - HighCharts
+*********************************************************/
+.highcharts{
+  min-height: 300px;
+  max-height: 600px;
 }
