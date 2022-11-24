@@ -19,8 +19,11 @@ export function getUserList(data) {
 //test
 export function getCpInfo(data) {
     return request({
-        url: url + "/user/",
+        url: url + "/ba/test/",
         method: "get",
         data,
+        headers: {
+            Authorization: data.token,
+        },
     });
 }
