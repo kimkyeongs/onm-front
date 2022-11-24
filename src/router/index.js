@@ -110,37 +110,37 @@ const routes = [
         path: "/ONM_IA_ADM_SUP_020",
         name: "ONM_IA_ADM_SUP_020",
         component: () =>
-            import ("@/views/pub//ONM_IA_ADM_SUP_020.vue"),
+            import ("@/views/pub/ONM_IA_ADM_SUP_020.vue"),
     },
     {
         path: "/ONM_IA_ADM_SUP_030",
         name: "ONM_IA_ADM_SUP_030",
         component: () =>
-            import ("@/views/pub//ONM_IA_ADM_SUP_030.vue"),
+            import ("@/views/pub/ONM_IA_ADM_SUP_030.vue"),
     },
     {
         path: "/OnmIaAdmSup030P",
         name: "OnmIaAdmSup030P",
         component: () =>
-            import ("@/views/pub//ONM_IA_ADM_SUP_030_P.vue"),
+            import ("@/views/pub/ONM_IA_ADM_SUP_030_P.vue"),
     },
     {
         path: "/ONM_IA_ADM_SUP_040",
         name: "ONM_IA_ADM_SUP_040",
         component: () =>
-            import ("@/views/pub//ONM_IA_ADM_SUP_040.vue"),
+            import ("@/views/pub/ONM_IA_ADM_SUP_040.vue"),
     },
     {
         path: "/ONM_IA_ADM_SUP_060",
         name: "ONM_IA_ADM_SUP_060",
         component: () =>
-            import ("@/views/pub//ONM_IA_ADM_SUP_060.vue"),
+            import ("@/views/pub/ONM_IA_ADM_SUP_060.vue"),
     },
     {
         path: "/ONM_IA_ADM_SUP_070",
         name: "ONM_IA_ADM_SUP_070",
         component: () =>
-            import ("@/views/pub//ONM_IA_ADM_SUP_070.vue"),
+            import ("@/views/pub/ONM_IA_ADM_SUP_070.vue"),
     },
     {
         path: "/OnmIaAdmSup070P",
