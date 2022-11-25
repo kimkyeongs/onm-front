@@ -1,4 +1,4 @@
-# SK Signet
+# SK Signet onm-front
 
 ## Project setup
 ```
@@ -7,7 +7,9 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run local  -> localhost 
+npm run prod   -> production
+npm run dev    -> development
 ```
 
 ### Compiles and minifies for production
