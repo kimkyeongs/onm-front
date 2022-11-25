@@ -6,80 +6,87 @@
     :return-value.sync="date"
     transition="scale-transition"
     offset-y
-    min-width="auto">
+    min-width="auto"
+  >
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
-        v-model="date"
+        v-model="dateRangeText"
         class="date-picker"
         readonly
         label="날짜/선택"
         solo
         v-bind="attrs"
-        v-on="on"></v-text-field>
+        v-on="on"
+      />
     </template>
     <v-date-picker
-      v-model="date"      
+      v-model="date"
       no-title
+      :range="range"
       :weekday-format="getDay"
       :month-format="getMonth"
-      :header-date-format="getHeaderTitleMonth">
-      <v-spacer></v-spacer>
-      <v-btn
-        text
-        color="primary"
-        @click="menu = false">
-        취소
-      </v-btn>
-      <v-btn
-        text
-        color="primary"
-        @click="$refs.menu.save(date)">
-        확인
-      </v-btn>
+      :header-date-format="getHeaderTitleMonth"
+    >
+      <v-spacer />
+      <v-btn text color="primary" @click="menu = false"> 취소 </v-btn>
+      <v-btn text color="primary" @click="$refs.menu.save(date)"> 확인 </v-btn>
     </v-date-picker>
   </v-menu>
 </template>
 
 <script>
 export default {
+  props: {
+    range: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       menu: false,
-      // date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10), menu: false
-    }
+      // date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10), menu: false,
+      date: [""],
+    };
+  },
+  computed: {
+    dateRangeText() {
+      if (this.range) {
+        return this.date.join(" - ");
+      }
+      return this.date;
+    },
   },
   methods: {
-		getDay(date) {
-		  const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토']
-			let i = new Date(date).getDay(date);
-			return daysOfWeek[i];
-		},
-		getMonth(date) {
-			const monthName = [
-        '01월', 
-        '02월', 
-        '03월', 
-        '04월', 
-        '05월', 
-        '06월', 
-        '07월', 
-        '08월', 
-        '09월', 
-        '10월', 
-        '11월', 
-        '12월'
+    getDay(date) {
+      const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+      let i = new Date(date).getDay(date);
+      return daysOfWeek[i];
+    },
+    getMonth(date) {
+      const monthName = [
+        "01월",
+        "02월",
+        "03월",
+        "04월",
+        "05월",
+        "06월",
+        "07월",
+        "08월",
+        "09월",
+        "10월",
+        "11월",
+        "12월",
       ];
-			let i = new Date(date).getMonth(date);
-			return monthName[i];
-		},
+      let i = new Date(date).getMonth(date);
+      return monthName[i];
+    },
     getHeaderTitleMonth(date) {
-      const year = new Date(date).getFullYear(date)
-      return year + '.' + this.getMonth(date)
-      },
-	},
-}
+      const year = new Date(date).getFullYear(date);
+      return year + "." + this.getMonth(date);
+    },
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

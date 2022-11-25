@@ -180,6 +180,13 @@ const routes = [
         component: () =>
             import ("@/views/pub/ONM_IA_ADM_SUP_120.vue"),
     },
+    // 플랫폼 관리
+    {
+        path: "/ONM_IA_ADM_COM_010",
+        name: "ONM_IA_ADM_COM_010",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_010.vue"),
+    },
     //=============================== 퍼블리싱 url END ==========================
 ];
 

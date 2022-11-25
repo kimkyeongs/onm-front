@@ -9,7 +9,7 @@
     <side-bar />
     <!-- CONTENT -->   
     <div class="content-wrap">
-      <section  class="onmContent">
+      <section class="onmContent">
         <head-title title="충전기 상태"/>
         <!-- 상태영역 -->
         <div class="statusArea-wrap">

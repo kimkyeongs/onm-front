@@ -200,7 +200,7 @@
 import HeadTitle from "@/components/HeadTitle";
 import SubTitle from "@/components/SubTitle";
 import UseGuide from "@/components/UseGuide";
-import OnmIaAdmSup030P from "@/views/pub/ONM_IA_ADM_SUP_030_P"; //Modal
+import OnmIaAdmSup030P from "@/views/ONM_IA_ADM_SUP_030_P"; //개인정보 마스킹제거Modal
 import { mapState, mapMutations } from "vuex";
 
 export default {

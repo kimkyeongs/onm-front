@@ -320,6 +320,18 @@
           <td>-</td>
           <td>High Chart</td>
         </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">사용자모니터링</td>
+          <td class="tal">사용자로그인 모니터링</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_010'}" target="_blank">@/views/ONM_IA_ADM_COM_010.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
         <!-- <tr>
           <td class="tal">vuetify test</td>
           <td class="tal"></td>
