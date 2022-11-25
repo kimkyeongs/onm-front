@@ -93,9 +93,11 @@ export default {
           depth2[i].parentNode.classList.remove("selected");
           e.target.parentNode.classList.add("selected");
           if (menuUrl != "" || menuUrl != null || menuUrl != undefined) {
-            this.$router.push({
-              name: "cpoManagement",
-            });
+            this.$router
+              .push({
+                name: "cpoManagement",
+              })
+              .catch(() => {});
           }
         }
       } else {

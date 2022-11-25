@@ -8,6 +8,7 @@
  *  ]
  */
 const fileds = {
+    //충전기상태
     cpList: [
         { field: "No", width: 60, maxWidth: 60, cellClass: "rag-amber" },
         { field: "+", width: 55, maxWidth: 55, cellRenderer: "GridPlusBtn" },
@@ -30,7 +31,7 @@ const fileds = {
         { field: "최근오류" },
         { field: "최근민원" },
     ],
-
+    //사용자리스트
     userList: [{
             field: "authId",
             headerName: "권한ID",
@@ -49,10 +50,8 @@ const fileds = {
             width: 55,
             maxWidth: 55,
             headerName: "회사ID",
-            //cellRenderer: "GridPlusBtn",
         },
         {
-            // field: "companyId",
             width: 55,
             maxWidth: 55,
             headerName: "회사ID",
@@ -66,6 +65,19 @@ const fileds = {
         { field: "userId", headerName: "ID" },
         { field: "userNm", headerName: "이름" },
     ],
+    //플랫폼 고객사(CPO) 관리
+    cpoList: [
+        { field: "No", width: 60, maxWidth: 60 },
+        { field: "고객사명" },
+        { field: "고객사 ID" },
+        { field: "사업자등록번호" },
+        { field: "고객사 담당자" },
+        { field: "SK시그넷 담당자" },
+        { field: "고객사 상태" },
+        { field: "등록일" },
+        { field: "수정", cellRenderer: "GridModBtn" },
+    ],
+    //ag-grid  group 기능 테스트용
     groupList: [
         // {
         //     headerName: "Group",

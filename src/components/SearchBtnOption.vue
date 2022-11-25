@@ -31,7 +31,7 @@ export default {
       default: true,
     },
   },
-  data() {},
+  data: () => ({}),
   methods: {
     searchToggle(e) {
       this.$store.commit("settings/SEARCH_TOGGLE", e.target.value);

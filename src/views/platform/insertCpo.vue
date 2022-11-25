@@ -75,21 +75,25 @@
                 <td>
                   <div class="form-inline">
                     <input
+                      v-model="headOffice.postcode"
                       type="text"
                       class="form-control"
                       placeholder="우편번호"
                       style="width: 100px"
                     />
-                    <button type="button" class="btn btn-sm btn-gray ml-2">
+                    <!-- <button type="button" class="btn btn-sm btn-gray ml-2">
                       주소검색
-                    </button>
+                    </button> -->
+                    <addressApiBtnHead @close="fnResultAddrHead" />
                   </div>
                   <input
+                    v-model="headOffice.address"
                     type="text"
                     class="form-control mt-1"
                     placeholder="큰주소"
                   />
                   <input
+                    v-model="headOffice.addressDtl"
                     type="text"
                     class="form-control mt-1"
                     placeholder="상세주소"
@@ -198,14 +202,19 @@
                   <div class="form-inline">
                     <div class="form-group">
                       <input
+                        v-model="personOffice.postcode"
                         type="text"
                         class="form-control"
                         placeholder="우편번호"
                         style="width: 100px"
                       />
-                      <button type="button" class="btn btn-sm btn-gray ml-2">
+                      <!-- <button
+                        type="button"
+                        class="btn btn-sm btn-gray ml-2"
+                      >
                         주소검색
-                      </button>
+                      </button> -->
+                      <addressApiBtnPerson @close="fnResultAddrPerson" />
                     </div>
                     <div class="form-group">
                       <v-checkbox
@@ -217,11 +226,14 @@
                     </div>
                   </div>
                   <input
+                    v-model="personOffice.address"
                     type="text"
                     class="form-control mt-1"
                     placeholder="큰주소"
                   />
                   <input
+                    v-model="personOffice.addressDtl"
+                    ref="address"
                     type="text"
                     class="form-control mt-1"
                     placeholder="상세주소"
@@ -375,6 +387,7 @@ import SideBar from "@/components/SideBar";
 import FooterBottom from "@/components/FooterBottom";
 import HeadTitle from "@/components/HeadTitle";
 import SubTitle from "@/components/SubTitle";
+import addressApiBtn from "@/components/addressApiBtn";
 import { mapState, mapMutations } from "vuex";
 
 export default {
@@ -384,16 +397,37 @@ export default {
     FooterBottom,
     HeadTitle,
     SubTitle,
+    addressApiBtnHead: addressApiBtn,
+    addressApiBtnPerson: addressApiBtn,
   },
   data() {
     return {
       customerLists: ["정상", "일시중지", "계약해지"],
       dashBoardLists: ["대시보드_A", "대시보드_B", "대시보드_C"],
-      addressCheckbox: true,
+      addressCheckbox: false,
+      headOffice: {
+        extraAddress: "",
+        address: "",
+        postcode: "",
+        addressDtl: "",
+        checkBoxCtrl: false,
+      },
+      personOffice: {
+        extraAddress: "",
+        address: "",
+        postcode: "",
+        addressDtl: "",
+        checkBoxCtrl: false,
+      },
+      status: 0,
     };
   },
   computed: {
-    ...mapState(["windowSize", "deviceSideisActive", "sideBarisActive"]),
+    ...mapState({
+      windowSize: (state) => state.settings.windowSize,
+      deviceSideisActive: (state) => state.settings.deviceSideisActive,
+      sideBarisActive: (state) => state.settings.sideBarisActive,
+    }),
   },
   created() {},
   mounted() {
@@ -402,11 +436,39 @@ export default {
     });
     this.resize();
   },
-  watch: {},
+  watch: {
+    addressCheckbox: "fnCheckBoxCtl",
+  },
   methods: {
     ...mapMutations({
-      resize: "RESIZE",
+      resize: "settings/RESIZE",
     }),
+    fnCheckBoxCtl(val) {
+      if (val) {
+        this.personOffice = this.headOffice;
+        this.personOffice.checkBoxCtrl = true;
+        this.status = 0;
+      } else {
+        if (this.status != 1) {
+          this.personOffice = {
+            extraAddress: "",
+            address: "",
+            postcode: "",
+            addressDtl: "",
+            checkBoxCtrl: false,
+          };
+        }
+      }
+      return val;
+    },
+    fnResultAddrHead(json) {
+      this.headOffice = json;
+    },
+    fnResultAddrPerson(json) {
+      this.status = 1;
+      this.personOffice = json;
+      this.addressCheckbox = this.personOffice.checkBoxCtrl;
+    },
   },
 };
 </script>

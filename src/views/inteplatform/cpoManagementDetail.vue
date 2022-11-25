@@ -172,7 +172,11 @@
 
     <div class="btn-area clearFix">
       <div class="pull-left">
-        <button type="button" class="btn btn-default btn-yellow btn-fixed">
+        <button
+          type="button"
+          class="btn btn-default btn-yellow btn-fixed"
+          @click="fnBackList()"
+        >
           목록
         </button>
       </div>
@@ -200,7 +204,7 @@
 import HeadTitle from "@/components/HeadTitle";
 import SubTitle from "@/components/SubTitle";
 import UseGuide from "@/components/UseGuide";
-import OnmIaAdmSup030P from "@/views/pub/ONM_IA_ADM_SUP_030_P"; //Modal
+import OnmIaAdmSup030P from "@/views/pub/ONM_IA_ADM_SUP_030_P"; //개인정보 마스킹제거Modal
 import { mapState, mapMutations } from "vuex";
 
 export default {
@@ -210,28 +214,35 @@ export default {
     UseGuide,
     OnmIaAdmSup030P,
   },
-  data() {
-    return {
-      customerLists: ["정상", "일시중지", "계약해지"],
-      dashBoardLists: ["대시보드_A", "대시보드_B", "대시보드_C"],
-      addressCheckbox: true,
-      useGuideLists: [
-        "- 이 페이지는 플랫폼통합관리자가 고객사(CPO)의 상세정보를 보는 페이지로 플랫폼통합관리자만 사용이 가능합니다.",
-        "- 고객사 담당자는 제휴 또는 계약담당자를 의미하며 고객사의 대표관리자를 의미하는 것은 아니며, 플랫폼에 로그인이 필요한 경우, 사용자/권한관리 > 사용자관리에서 생성하시면 됩니다.",
-        "- 고객사(CPO)의 로밍관련 인증정보, 알림톡관련 계정정보, PG관련 계정정보는 플랫폼 고객사 등록 후, 해당 고객사의 플랫폼 관리메뉴에서 관리할 수 있습니다.",
-        "- 등록된 고객사의 삭제는 위험한 작업으로 기능을 제공하지 않습니다. 필요시 일시중지 또는 계약해지를 통 해고객사의 기능을 제어하시고, 필요시 시스템관리자를 통해 수동으로 삭제를 진행하셔야 합니다.",
-      ],
-    };
-  },
+  data: () => ({
+    customerLists: ["정상", "일시중지", "계약해지"],
+    dashBoardLists: ["대시보드_A", "대시보드_B", "대시보드_C"],
+    addressCheckbox: true,
+    useGuideLists: [
+      "- 이 페이지는 플랫폼통합관리자가 고객사(CPO)의 상세정보를 보는 페이지로 플랫폼통합관리자만 사용이 가능합니다.",
+      "- 고객사 담당자는 제휴 또는 계약담당자를 의미하며 고객사의 대표관리자를 의미하는 것은 아니며, 플랫폼에 로그인이 필요한 경우, 사용자/권한관리 > 사용자관리에서 생성하시면 됩니다.",
+      "- 고객사(CPO)의 로밍관련 인증정보, 알림톡관련 계정정보, PG관련 계정정보는 플랫폼 고객사 등록 후, 해당 고객사의 플랫폼 관리메뉴에서 관리할 수 있습니다.",
+      "- 등록된 고객사의 삭제는 위험한 작업으로 기능을 제공하지 않습니다. 필요시 일시중지 또는 계약해지를 통 해고객사의 기능을 제어하시고, 필요시 시스템관리자를 통해 수동으로 삭제를 진행하셔야 합니다.",
+    ],
+  }),
   computed: {
-    ...mapState(["isActiveModal"]),
+    ...mapState({
+      isActiveModal: (state) => state.settings.isActiveModal,
+    }),
   },
   created() {},
   watch: {},
   methods: {
     ...mapMutations({
-      modalOpen: "MODAL_OPEN",
+      modalOpen: "settings/MODAL_OPEN",
     }),
+    fnBackList() {
+      this.$router
+        .replace({
+          name: "cpoManagement",
+        })
+        .catch(() => {});
+    },
   },
 };
 </script>

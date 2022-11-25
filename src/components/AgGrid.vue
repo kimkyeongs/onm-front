@@ -19,15 +19,18 @@
 </template>
 
 <script>
-import Pagination from "@/components/Pagination";
+//================== Ag grid lib =========================//
 import { AgGridVue } from "ag-grid-vue";
-import GridPlusBtn from "@/components/GridPlusBtn";
-import MemberLicensesStatus from "@/components/MemberLicensesStatus";
-import { getFileds } from "@/components/js/gridFileds";
-
 import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
 import { ModuleRegistry } from "@ag-grid-community/core";
 
+//============== ag grid Row 내부 components ============//
+import MemberLicensesStatus from "@/components/MemberLicensesStatus";
+import GridPlusBtn from "@/components/GridPlusBtn";
+import GridModBtn from "@/components/GridModBtn.vue";
+
+import { getFileds } from "@/components/js/gridFileds";
+import Pagination from "@/components/Pagination";
 // import "ag-grid-enterprise";
 // import { RowGroupingModule } from "@ag-grid-enterprise/row-grouping";
 
@@ -40,6 +43,7 @@ export default {
     Pagination,
     GridPlusBtn,
     MemberLicensesStatus,
+    GridModBtn,
   },
   data() {
     return {
@@ -54,7 +58,7 @@ export default {
         // filter: true,
       },
       rowSelection: null,
-      testValue: null,
+      columValues: null,
       groupDisplayType: null,
       groupRowRenderer: null,
       groupDefaultExpanded: null,
@@ -67,9 +71,9 @@ export default {
   methods: {}, //beforeMount
   mounted() {
     // gridFileds.js에 선언된 컬럼들을 id로 가져옴
-    this.testValue = getFileds(this.filedId);
+    this.columValues = getFileds(this.filedId);
     //api 통신으로 가져온 row 값
-    (this.columnDefs = this.testValue),
+    (this.columnDefs = this.columValues),
       (this.rowData = this.dataList),
       (this.rowSelection = "single");
   },

@@ -65,11 +65,20 @@
       <search-filter :searchFilter="searchFilters" />
     </div>
     <!-- GRID -->
-    <sample-ag-grid />
+    <ag-grid
+      v-bind:dataList="this.dataList"
+      v-bind:filedId="this.filedId"
+      v-bind:dataCnt="this.dataCnt"
+      :key="gridKey"
+    />
     <!--// GRID -->
     <div class="btn-area clearFix">
       <div class="pull-right">
-        <button type="button" class="btn btn-default btn-orange btn-fixed">
+        <button
+          type="button"
+          class="btn btn-default btn-orange btn-fixed"
+          @click="fnCpoInsert"
+        >
           등록
         </button>
       </div>
@@ -88,7 +97,7 @@ import BtnResetSearch from "@/components/BtnResetSearch";
 import PageCount from "@/components/PageCount";
 import SearchFilter from "@/components/SearchFilter";
 import UseGuide from "@/components/UseGuide";
-import SampleAgGrid from "@/components/SampleAgGrid";
+import AgGrid from "@/components/AgGrid";
 import { mapState } from "vuex";
 
 export default {
@@ -100,30 +109,157 @@ export default {
     PageCount,
     SearchFilter,
     UseGuide,
-    SampleAgGrid,
-  },
-  data() {
-    return {
-      items: ["아이템-1", "아이템-2", "아이템-3"],
-      searchFilters: [
-        { filterTitle: "권경", filterText: "서울특별시" },
-        { filterTitle: "충전소ID", filterText: "SIG000003" },
-        { filterTitle: "충전기구분", filterText: "완속" },
-        { filterTitle: "운영시작일", filterText: "2022-10-22" },
-      ],
-      useGuideLists: [
-        "- 이 페이지는 플랫폼통합관리자가 고객사의 목록을 관리하는 페이지로 플랫폼통합관리자만 사용이 가능합니다.",
-        "- 추가적인 플랫폼 통합관리자 계정이 필요한 경우 시스템관리자에게 수동으로 계정 생성을 요청하셔야 합니다.",
-        "- 고객사를 생성허산 후, 고객사 대표관리자는 사용자/권한관리 > 사용자관리에서 생성하시면 됩니다.",
-      ],
-    };
+    AgGrid,
   },
   computed: {
     // searchIsActive
     ...mapState({ searchIsActive: (state) => state.settings.searchIsActive }),
   },
-  mounted() {},
-  methods: {},
+  data: () => ({
+    items: ["아이템-1", "아이템-2", "아이템-3"],
+    searchFilters: [
+      { filterTitle: "권경", filterText: "서울특별시" },
+      { filterTitle: "충전소ID", filterText: "SIG000003" },
+      { filterTitle: "충전기구분", filterText: "완속" },
+      { filterTitle: "운영시작일", filterText: "2022-10-22" },
+    ],
+    useGuideLists: [
+      "- 이 페이지는 플랫폼통합관리자가 고객사의 목록을 관리하는 페이지로 플랫폼통합관리자만 사용이 가능합니다.",
+      "- 추가적인 플랫폼 통합관리자 계정이 필요한 경우 시스템관리자에게 수동으로 계정 생성을 요청하셔야 합니다.",
+      "- 고객사를 생성허산 후, 고객사 대표관리자는 사용자/권한관리 > 사용자관리에서 생성하시면 됩니다.",
+    ],
+    filedId: "cpoList",
+    dataList: [],
+    dataCnt: 0,
+    gridKey: 0,
+  }),
+  mounted() {
+    this.fnSetTestData();
+  },
+  methods: {
+    fnSetTestData() {
+      this.dataList = [
+        {
+          No: 1,
+          고객사명: "홈앤서비스",
+          "고객사 ID": "SIG00000302",
+          사업자등록번호: "123-456-789",
+          "고객사 담당자": "홍길동과장(마케팅팀)",
+          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
+          "고객사 상태": "일시중지",
+          등록일: "2022-09-25",
+          수정: "수정",
+        },
+        {
+          No: 2,
+          고객사명: "홈앤서비스",
+          "고객사 ID": "SIG00000302",
+          사업자등록번호: "123-456-789",
+          "고객사 담당자": "홍길동과장(마케팅팀)",
+          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
+          "고객사 상태": "일시중지",
+          등록일: "2022-09-25",
+          수정: "수정",
+        },
+        {
+          No: 3,
+          고객사명: "홈앤서비스",
+          "고객사 ID": "SIG00000302",
+          사업자등록번호: "123-456-789",
+          "고객사 담당자": "홍길동과장(마케팅팀)",
+          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
+          "고객사 상태": "일시중지",
+          등록일: "2022-09-25",
+          수정: "수정",
+        },
+        {
+          No: 4,
+          고객사명: "홈앤서비스",
+          "고객사 ID": "SIG00000302",
+          사업자등록번호: "123-456-789",
+          "고객사 담당자": "홍길동과장(마케팅팀)",
+          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
+          "고객사 상태": "일시중지",
+          등록일: "2022-09-25",
+          수정: "수정",
+        },
+        {
+          No: 5,
+          고객사명: "홈앤서비스",
+          "고객사 ID": "SIG00000302",
+          사업자등록번호: "123-456-789",
+          "고객사 담당자": "홍길동과장(마케팅팀)",
+          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
+          "고객사 상태": "일시중지",
+          등록일: "2022-09-25",
+          수정: "수정",
+        },
+        {
+          No: 6,
+          고객사명: "홈앤서비스",
+          "고객사 ID": "SIG00000302",
+          사업자등록번호: "123-456-789",
+          "고객사 담당자": "홍길동과장(마케팅팀)",
+          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
+          "고객사 상태": "일시중지",
+          등록일: "2022-09-25",
+          수정: "수정",
+        },
+        {
+          No: 7,
+          고객사명: "홈앤서비스",
+          "고객사 ID": "SIG00000302",
+          사업자등록번호: "123-456-789",
+          "고객사 담당자": "홍길동과장(마케팅팀)",
+          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
+          "고객사 상태": "일시중지",
+          등록일: "2022-09-25",
+          수정: "수정",
+        },
+        {
+          No: 8,
+          고객사명: "홈앤서비스",
+          "고객사 ID": "SIG00000302",
+          사업자등록번호: "123-456-789",
+          "고객사 담당자": "홍길동과장(마케팅팀)",
+          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
+          "고객사 상태": "일시중지",
+          등록일: "2022-09-25",
+          수정: "수정",
+        },
+        {
+          No: 9,
+          고객사명: "홈앤서비스",
+          "고객사 ID": "SIG00000302",
+          사업자등록번호: "123-456-789",
+          "고객사 담당자": "홍길동과장(마케팅팀)",
+          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
+          "고객사 상태": "일시중지",
+          등록일: "2022-09-25",
+          수정: "수정",
+        },
+        {
+          No: 10,
+          고객사명: "홈앤서비스",
+          "고객사 ID": "SIG00000302",
+          사업자등록번호: "123-456-789",
+          "고객사 담당자": "홍길동과장(마케팅팀)",
+          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
+          "고객사 상태": "일시중지",
+          등록일: "2022-09-25",
+          수정: "수정",
+        },
+      ];
+      this.gridKey += 1;
+    },
+    fnCpoInsert() {
+      this.$router
+        .replace({
+          name: "insertCpo",
+        })
+        .catch(() => {});
+    },
+  },
 };
 </script>
 
