@@ -1,6 +1,5 @@
 const getDefaultState = () => {
     return {
-        //DATA
         windowSize: 0,
         sideBarisActive: false,
         deviceSideisActive: false,
@@ -22,7 +21,7 @@ const getDefaultState = () => {
         searchIsActive: true,
         searchOption: true,
         checkboxShow: false,
-        // isActiveModal: false,
+        isActiveModal: false,
     };
 };
 
@@ -48,6 +47,14 @@ const mutations = {
             state.checkboxShow = false;
         }
     },
+
+    MODAL_OPEN(state) {
+        state.isActiveModal = true;
+    },
+    MODAL_CLOSE(state) {
+        state.isActiveModal = false;
+    },
+
     // 디바이스 해상도 1200이하
     RESIZE(state) {
         let windowSize = window.outerWidth;

@@ -184,11 +184,13 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isActiveModal"]),
+    ...mapState({
+      isActiveModal: (state) => state.settings.isActiveModal,
+    }),
   },
   methods: {
     ...mapMutations({
-      modalOpen: "MODAL_OPEN",
+      modalOpen: "settings/MODAL_OPEN",
     }),
   },
 };

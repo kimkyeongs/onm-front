@@ -1,19 +1,14 @@
 <template>
-  <div
-    v-if="true"
-    class="dialog-wrap">
+  <div v-if="true" class="dialog-wrap">
     <div class="overlay-scrim"></div>
-     <div class="dialog-container">
+    <div class="dialog-container">
       <div class="dialog-content">
         <slot name="ss" />
       </div>
-    </div>    
+    </div>
     <!-- Dialog Footer -->
     <div class="dialog-footer">
-      <button
-        type="button"
-        class="btn-modalClose"
-        @click="modalClose">
+      <button type="button" class="btn-modalClose" @click="modalClose">
         닫기
       </button>
     </div>
@@ -21,26 +16,22 @@
 </template>
 
 <script>
-
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
-  components: {
-  },
+  components: {},
 
   computed: {
-    ...mapState([
-      'isActiveModal'
-    ])
+    ...mapState({
+      isActiveModal: (state) => state.settings.isActiveModal,
+    }),
   },
   methods: {
     modalClose() {
-      this.$store.commit('MODAL_CLOSE')
-    }
-  }
-}
+      this.$store.commit("settings/MODAL_CLOSE");
+    },
+  },
+};
 </script>
 
-<style scope>
-
-</style>
+<style scope></style>
