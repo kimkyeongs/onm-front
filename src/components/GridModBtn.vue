@@ -2,7 +2,7 @@
   <button
     type="button"
     class="btn btn-default btn-gray btn-xsm"
-    @click="fnCpoDetail()"
+    @click="fnCpoUpdate()"
   >
     수정
   </button>
@@ -11,10 +11,10 @@
 <script>
 export default {
   methods: {
-    fnCpoDetail() {
+    fnCpoUpdate() {
       this.$router
         .replace({
-          name: "cpoManagementDetail",
+          name: "updateCpo",
         })
         .catch(() => {});
     },

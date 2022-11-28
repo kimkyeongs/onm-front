@@ -15,6 +15,14 @@ export const inteplatformRoutesList = [
         component: () =>
             import ("@/views/inteplatform/insertCpo.vue"),
     },
+    //플랫폼 고객사(CPO) 수정
+    {
+        path: "/inteplatform/updateCpo",
+        name: "updateCpo",
+        props: true,
+        component: () =>
+            import ("@/views/inteplatform/updateCpo.vue"),
+    },
     //플랫폼 고객사(CPO) 상세보기
     {
         path: "/inteplatform/cpoManagementDetail",
