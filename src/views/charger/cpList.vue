@@ -243,7 +243,7 @@ export default {
     }),
   },
   beforeMount() {
-    this.getJwt();
+    // this.getJwt();
   },
   mounted() {
     window.addEventListener("resize", () => {
@@ -267,8 +267,8 @@ export default {
         .catch(async (err) => {
           alert(err);
         });
-      this.userLists();
-      this.cpLists();
+      //this.userLists();
+      //this.cpLists();
     },
     userLists() {
       //console.log(this.$store.getters.token);
