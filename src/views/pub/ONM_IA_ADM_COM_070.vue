@@ -65,13 +65,9 @@
         </div>
       </div>
       <btn-reset-search v-if="searchOption" />
-      <btn-download-search  v-else>
-        <template #maskingDownload>
-          <button type="submit" class="btn btn-default btn-gray">
-            개인정보 마스킹제거 다운로드
-          </button>
-        </template>
-      </btn-download-search>
+      <btn-download-search
+        v-else
+        :maskingDownload="true" />
     </div>
     <!--// 검색영역 -->
     <!-- 필터 -->

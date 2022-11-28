@@ -20,12 +20,23 @@
       다운로드
       <i class="icon icon-sm icon-download" />
     </button>
-    <slot name="maskingDownload" />
+    <template v-if="maskingDownload">
+      <button type="submit" class="btn btn-default btn-gray">
+        개인정보 마스킹제거 다운로드
+      </button>
+    </template>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+   props: {
+    maskingDownload: {
+      type: Boolean,
+      default: false,
+    },
+  },
+};
 </script>
 
 <style scoped>

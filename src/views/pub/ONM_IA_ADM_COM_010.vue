@@ -65,15 +65,9 @@
         </div>
       </div>
       <btn-reset-search v-if="searchOption" />
-      <btn-download-search  v-else>
-        <template #maskingDownload>
-          <button type="submit" class="btn btn-default btn-gray">
-            개인정보 마스킹제거 다운로드
-          </button>
-        </template>
-      </btn-download-search>
-
-
+      <btn-download-search
+        v-else
+        :maskingDownload="true" />
     </div>
     <!--// 검색영역 -->
     <!-- 필터 -->
@@ -84,16 +78,14 @@
     <!-- GRID -->
     <sample-ag-grid />
     <!--// GRID -->
-    <div class="btn-area clearFix">
-      <div class="pull-right">
-        <button
-          type="button"
-          class="btn btn-default btn-gray"
-          @click="modalOpen"
-        >
-          개인정보 마스킹 제거
-        </button>
-      </div>
+    <div class="btn-area clearFix text-right">
+      <button
+        type="button"
+        class="btn btn-default btn-gray"
+        @click="modalOpen"
+      >
+        개인정보 마스킹 제거
+      </button>
     </div>
     <!-- 이용가이드 -->
     <sub-title title="이용가이드" />
