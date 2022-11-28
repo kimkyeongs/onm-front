@@ -11,7 +11,7 @@
       <colgroup>
         <col style="width: 190px">
         <col style="width: 180px">
-        <col style="width: 200px">
+        <col style="width: 250px">
         <col style="width: 130px">
         <col style="width: *">
         <col style="width: 100px">
@@ -327,6 +327,90 @@
           <td></td>
           <td class="tal">
             <router-link :to="{name:'ONM_IA_ADM_COM_010'}" target="_blank">@/views/ONM_IA_ADM_COM_010.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">사용자모니터링</td>
+          <td class="tal">사용자로그인 모니터링 상세보기</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_030'}" target="_blank">@/views/ONM_IA_ADM_COM_030.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">사용자모니터링</td>
+          <td class="tal">개인정보 마스킹제거 모니터링</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_040'}" target="_blank">@/views/ONM_IA_ADM_COM_040.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">사용자모니터링</td>
+          <td class="tal">개인정보 마스킹제거 모니터링 상세보기</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_060'}" target="_blank">@/views/ONM_IA_ADM_COM_060.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">사용자모니터링</td>
+          <td class="tal">회원정보 엑셀다운로드 모니터링</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_070'}" target="_blank">@/views/ONM_IA_ADM_COM_070.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">사용자모니터링</td>
+          <td class="tal">회원정보 엑셀다운로드 모니터링 상세보기</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_090'}" target="_blank">@/views/ONM_IA_ADM_COM_090.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">약관및정책관리</td>
+          <td class="tal">회원(개인/법인) 약관 관리</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_120'}" target="_blank">@/views/ONM_IA_ADM_COM_120.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">약관및정책관리</td>
+          <td class="tal">회원(개인/법인) 약관 관리 - 저장</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_110'}" target="_blank">@/views/ONM_IA_ADM_COM_110.vue</router-link>
           </td>
           <td>-</td>
           <td>-</td>

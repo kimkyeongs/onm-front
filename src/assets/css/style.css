@@ -40,6 +40,11 @@ b,strong{
   height: 0;
   width: 0;
 }
+.textAreaResizeNone{
+  width: 100%;
+  resize: none;
+  outline: none;
+}
 .clearFix::after{
   content: '';
   display: block;
@@ -477,6 +482,12 @@ select.form-control{
   font-size: 14px;
   color: #777;
 }
+/*  */
+.onmContent .panel{
+  padding: 16px;
+  color: #555;
+  border-bottom: 1px solid #d7dfe2;
+}
 /*-------------------------------
   SearchArea
 -------------------------------*/
@@ -630,10 +641,12 @@ table{
   min-height: 32px;
   height: 50px;
 }
-.table table tbody th.required > span{
+.table table tbody th.required > span,
+.searchArea .required{
   position: relative;
 }
-.table table tbody th.required > span::after{
+.table table tbody th.required > span::after,
+.searchArea .required::after{
   content: '*';
   position: absolute;
   top: -2px;

@@ -1,6 +1,6 @@
 <template>
   <section class="onmContent">
-    <head-title title="사용자로그인 모니터링" />
+    <head-title title="회원정보 엑셀다운로드 모니터링" />
     <div class="statusArea-wrap">
       <search-btnOption />
     </div>
@@ -72,8 +72,6 @@
           </button>
         </template>
       </btn-download-search>
-
-
     </div>
     <!--// 검색영역 -->
     <!-- 필터 -->
@@ -141,9 +139,7 @@ export default {
         { filterTitle: "운영시작일", filterText: "2022-10-22" },
       ],
       useGuideLists: [
-        "- 이 페이지는 고객사 플랫폼 대표관리자가 사용자의 로그인 이력을 모니터링하는 페이지 입니다.",
-        "- 상태는 접속중과 로그아웃으로 표시되며, 사용자가 웹브라우저를 닫아서 종료한 경우에는 로그아웃 추적이 불가하여 접속중으로 표시됩니다.",
-        "- 로그아웃일시는 사용자가 로그아웃버튼을 클릭하고 로그아웃 한 경우에만 표시 됩니다.",
+        "- 이 페이지는 고객사 플랫폼 대표관리자가 사용자의 회원정보 엑셀다운로드 이력을 모니터링하는 페이지 입니다."
       ],
       range: true,
     };

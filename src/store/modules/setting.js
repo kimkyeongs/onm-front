@@ -22,6 +22,7 @@ const getDefaultState = () => {
         searchOption: true,
         checkboxShow: false,
         isActiveModal: false,
+        isActiveTab: 0
     };
 };
 
@@ -53,6 +54,9 @@ const mutations = {
     },
     MODAL_CLOSE(state) {
         state.isActiveModal = false;
+    },
+    TABS(state, idx) {
+        state.isActiveTab = idx
     },
 
     // 디바이스 해상도 1200이하

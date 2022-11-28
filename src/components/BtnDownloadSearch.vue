@@ -20,6 +20,7 @@
       다운로드
       <i class="icon icon-sm icon-download" />
     </button>
+    <slot name="maskingDownload" />
   </div>
 </template>
 
