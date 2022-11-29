@@ -24,7 +24,7 @@ const routes = [
     },
 
     chargerRoutes,
-    platformRoutes,
+    // platformRoutes,
     inteplatformRoutes,
     //=============================== 개발 routing END ==========================
     //=============================== 퍼블리싱 url ==========================
