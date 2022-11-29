@@ -12,6 +12,7 @@
       :groupDisplayType="groupDisplayType"
       :groupDefaultExpanded="groupDefaultExpanded"
       :pagination="false"
+      @cellClicked="fnClick"
     />
     <div class="ag-paging">1페이지/99페이지</div>
   </div>
@@ -66,7 +67,12 @@ export default {
     this.groupDisplayType = "custom";
     this.groupDefaultExpanded = 1;
   },
-  methods: {}, //beforeMount
+  methods: {
+    //grid클릭이벤트
+    fnClick(e) {
+      this.$emit("clickData", e.data);
+    },
+  }, //beforeMount
   mounted() {
     // gridFileds.js에 선언된 컬럼들을 id로 가져옴
     this.columValues = getFileds(this.filedId);
