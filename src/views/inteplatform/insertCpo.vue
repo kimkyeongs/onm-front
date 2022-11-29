@@ -1,6 +1,6 @@
 <template>
   <!-- CONTENT -->
-  <div class="content-wrap">
+  <section class="onmContent">
     <head-title title="플랫폼 고객사(CPO) 등록" />
     <div class="flex-row">
       <!-- 고객사 기본정보 -->
@@ -378,7 +378,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
