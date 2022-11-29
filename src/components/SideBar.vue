@@ -95,7 +95,7 @@ export default {
           if (menuUrl != "" || menuUrl != null || menuUrl != undefined) {
             this.$router
               .push({
-                name: "cpoManagement",
+                name: menuUrl,
               })
               .catch(() => {});
           }
