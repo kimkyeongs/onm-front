@@ -87,7 +87,7 @@ const fileds = {
     ],
     //공통코드 관리 (소분류)
     commonChildCodeList: [
-        { field: "rownumber", width: 60, maxWidth: 60 },
+        { field: "rownumber", headerName: "No", width: 60, maxWidth: 60 },
         { field: "mdlClassCd", headerName: "소분류코드" },
         { field: "mdlClassNm", headerName: "소분류명" },
         { field: "useYn", headerName: "사용여부" },
