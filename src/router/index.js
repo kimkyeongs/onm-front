@@ -229,6 +229,72 @@ const routes = [
         component: () =>
             import ("@/views/pub/ONM_IA_ADM_COM_110.vue"),
     },
+    {
+        path: "/ONM_IA_ADM_COM_230",
+        name: "ONM_IA_ADM_COM_230",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_230.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_220",
+        name: "ONM_IA_ADM_COM_220",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_220.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_320",
+        name: "ONM_IA_ADM_COM_320",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_320.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_310",
+        name: "ONM_IA_ADM_COM_310",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_310.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_410",
+        name: "ONM_IA_ADM_COM_410",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_410.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_400",
+        name: "ONM_IA_ADM_COM_400",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_400.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_450_T1",
+        name: "ONM_IA_ADM_COM_450_T1",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_450_T1.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_450_T3",
+        name: "ONM_IA_ADM_COM_450_T3",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_450_T3.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_450_T4",
+        name: "ONM_IA_ADM_COM_450_T4",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_450_T4.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_530",
+        name: "ONM_IA_ADM_COM_530",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_530.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_540",
+        name: "ONM_IA_ADM_COM_540",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_540.vue"),
+    },
     //=============================== 퍼블리싱 url END ==========================
 ];
 

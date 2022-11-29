@@ -13,9 +13,10 @@ import { mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapState([
-      'locations',
-    ])
+    ...mapState({
+      // 'locations',
+      locations: (state) => state.settings.locations,
+    })
   }
 
 }

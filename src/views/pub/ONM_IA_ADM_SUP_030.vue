@@ -232,7 +232,7 @@ export default {
   watch: {},
   methods: {
     ...mapMutations({
-      modalOpen: "MODAL_OPEN",
+      modalOpen: "settings/MODAL_OPEN",
     }),
   },
 };

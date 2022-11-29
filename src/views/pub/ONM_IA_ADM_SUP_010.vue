@@ -122,9 +122,9 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'searchIsActive',
-    ]),
+    ...mapState({
+      searchIsActive: (state) => state.settings.searchIsActive,
+    }),
   },
   mounted() {
 

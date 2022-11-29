@@ -416,6 +416,138 @@
           <td>-</td>
           <td>-</td>
         </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">약관및정책관리</td>
+          <td class="tal">법인회원사</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_230'}" target="_blank">@/views/ONM_IA_ADM_COM_230.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">약관및정책관리</td>
+          <td class="tal">법인회원사 - 저장</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_220'}" target="_blank">@/views/ONM_IA_ADM_COM_220.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">약관및정책관리</td>
+          <td class="tal">비회원</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_320'}" target="_blank">@/views/ONM_IA_ADM_COM_320.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">약관및정책관리</td>
+          <td class="tal">비회원 - 저장</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_310'}" target="_blank">@/views/ONM_IA_ADM_COM_310.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">약관및정책관리</td>
+          <td class="tal">사용자사용자</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_410'}" target="_blank">@/views/ONM_IA_ADM_COM_410.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">약관및정책관리</td>
+          <td class="tal">사용자사용자 - 저장</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_400'}" target="_blank">@/views/ONM_IA_ADM_COM_400.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">알림톡관리</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_450_T1'}" target="_blank">@/views/ONM_IA_ADM_COM_450_T1.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">알림톡관리 - 알림톡 템플릿 상세보기(수정) </td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_450_T3'}" target="_blank">@/views/ONM_IA_ADM_COM_450_T3.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">알림톡관리 - 알림톡 템플릿 상세보기(저장) </td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_450_T4'}" target="_blank">@/views/ONM_IA_ADM_COM_450_T4.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">간편로그인관리 상세보기</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_530'}" target="_blank">@/views/ONM_IA_ADM_COM_530.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">간편로그인관리 수정</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_540'}" target="_blank">@/views/ONM_IA_ADM_COM_540.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
         <!-- <tr>
           <td class="tal">vuetify test</td>
           <td class="tal"></td>
