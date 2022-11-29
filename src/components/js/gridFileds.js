@@ -76,6 +76,27 @@ const fileds = {
         { field: "custComStat", headerName: "고객사 상태" },
         { field: "regDt", headerName: "등록일" },
     ],
+    //공통코드 관리(대분류)
+    commonCodeList: [
+        { field: "rownumber", headerName: "No", width: 60, maxWidth: 60 },
+        { field: "mainClassCd", headerName: "대분류코드" },
+        { field: "mainClassNm", headerName: "대분류명" },
+        { field: "useYn", headerName: "사용여부" },
+        { field: "descr", headerName: "설명" },
+        { field: "수정", cellRenderer: "GridModBtn" },
+    ],
+    //공통코드 관리 (소분류)
+    commonChildCodeList: [
+        { field: "rownumber", width: 60, maxWidth: 60 },
+        { field: "mdlClassCd", headerName: "소분류코드" },
+        { field: "mdlClassNm", headerName: "소분류명" },
+        { field: "useYn", headerName: "사용여부" },
+        { field: "relatCd1", headerName: "참조1" },
+        { field: "relatCd2", headerName: "참조2" },
+        { field: "relatCd3", headerName: "참조3" },
+        { field: "descr", headerName: "설명" },
+        { field: "수정", cellRenderer: "GridModBtn" },
+    ],
     //ag-grid  group 기능 테스트용
     groupList: [
         // {
