@@ -14,6 +14,7 @@
           v-bind:dataList="this.dataListMain"
           v-bind:filedId="this.gridFiledKey.key1"
           :key="gridKeys.gridKey1"
+          @clickData="setChildData"
         />
         <PaginationMain
           v-bind:listCount="this.dataCnts.dataCnt1"
@@ -116,7 +117,11 @@
             <sub-title title="소분류코드" />
             <div class="code-class ml-2">
               <strong>[선택대분류]</strong>
-              <span class="ml-1">CO00021 (충전기에러코드)</span>
+              <span class="ml-1"
+                >{{ this.dtlNav.mainClassCd }}({{
+                  this.dtlNav.mainClassNm
+                }})</span
+              >
             </div>
           </div>
           <grid-search-single />
@@ -135,7 +140,11 @@
         />
         <!--// GRID -->
         <div class="btn-area text-right">
-          <button type="button" class="btn btn-default btn-orange btn-fixed">
+          <button
+            type="button"
+            class="btn btn-default btn-orange btn-fixed"
+            @click="fnShowTab('codeChildPlace2')"
+          >
             등록
           </button>
         </div>
@@ -308,6 +317,10 @@ export default {
           page: 1,
         },
       },
+      dtlNav: {
+        mainClassCd: "",
+        mainClassNm: "",
+      },
     };
   },
   mounted() {
@@ -347,15 +360,26 @@ export default {
         console.log(this.dataListMain);
       });
     },
-    async fnCommonChildCode() {
-      await getCommonChildCode().then((response) => {
-        this.dataListChild = response.data;
+    async fnCommonChildCode(obj) {
+      await getCommonChildCode(obj).then((response) => {
+        this.dataListChild = response.data.rows;
         this.dataCnts.dataCnt2 = response.data.total;
         this.pageArgs.pageArg2.rows = response.data.rowPerPage;
         this.pageArgs.pageArg2.page = response.data.page;
         this.gridKeys.gridKey2 += 1;
         this.pageKeys.pageKey2 += 1;
       });
+    },
+    setChildData(data) {
+      var requestParam = {
+        page: this.pageArgs.pageArg2.page,
+        rows: this.pageArgs.pageArg2.rows,
+        mainClassCd: data.mainClassCd,
+      };
+      this.fnCommonChildCode(requestParam);
+      this.dtlNav.mainClassCd = data.mainClassCd;
+      this.dtlNav.mainClassNm = data.mainClassNm;
+      this.fnShowTab("codeDtlPlace");
     },
   },
 };
