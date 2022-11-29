@@ -20,9 +20,11 @@
                 <th scope="row" class="required"><span>고객사 명</span></th>
                 <td>
                   <input
+                    v-model="model.custComNm"
                     type="text"
                     class="form-control"
                     placeholder="새고객"
+                    maxlength="100"
                   />
                 </td>
               </tr>
@@ -30,9 +32,11 @@
                 <th scope="row" class="required"><span>고객사ID</span></th>
                 <td>
                   <input
+                    v-model="model.custComId"
                     type="text"
                     class="form-control"
                     placeholder="영문자 3자리"
+                    maxlength="3"
                   />
                 </td>
               </tr>
@@ -42,11 +46,29 @@
                 </th>
                 <td>
                   <div class="form-inline">
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.bizNum1"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      maxlength="3"
+                    />
                     <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.bizNum2"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      maxlength="2"
+                    />
                     <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.bizNum3"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      maxlength="5"
+                    />
                   </div>
                 </td>
               </tr>
@@ -54,6 +76,7 @@
                 <th scope="row"><span>업태</span></th>
                 <td>
                   <input
+                    v-model="model.sectCd"
                     type="text"
                     class="form-control"
                     placeholder="서비스업"
@@ -64,6 +87,7 @@
                 <th scope="row"><span>종목</span></th>
                 <td>
                   <input
+                    v-model="model.entCd"
                     type="text"
                     class="form-control"
                     placeholder="전기처 충전사업"
@@ -103,7 +127,11 @@
               <tr>
                 <th scope="row" class="required"><span>고객사상태</span></th>
                 <td>
-                  <v-radio-group class="radio-group" v-model="radioGroup" row>
+                  <v-radio-group
+                    class="radio-group"
+                    v-model="model.custComStat"
+                    row
+                  >
                     <v-radio
                       v-for="key in customerLists"
                       :key="key"
@@ -135,6 +163,7 @@
                 <th scope="row" class="required"><span>담장자 명</span></th>
                 <td>
                   <input
+                    v-model="model.mgrNm"
                     type="text"
                     class="form-control"
                     placeholder="새고객"
@@ -145,6 +174,7 @@
                 <th scope="row" class="required"><span>부서</span></th>
                 <td>
                   <input
+                    v-model="model.deptNm"
                     type="text"
                     class="form-control"
                     placeholder="영업부"
@@ -155,6 +185,7 @@
                 <th scope="row" class="required"><span>직급</span></th>
                 <td>
                   <input
+                    v-model="model.deptRank"
                     type="text"
                     class="form-control"
                     placeholder="매니저"
@@ -165,11 +196,26 @@
                 <th scope="row"><span>전화번호</span></th>
                 <td>
                   <div class="form-inline">
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.telNum1"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                    />
                     <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.telNum2"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                    />
                     <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.telNum3"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                    />
                   </div>
                 </td>
               </tr>
@@ -177,18 +223,38 @@
                 <th scope="row" class="required"><span>핸드폰번호</span></th>
                 <td>
                   <div class="form-inline">
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.hpNum1"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                    />
                     <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.hpNum2"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                    />
                     <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.hpNum3"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                    />
                   </div>
                 </td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>이메일</span></th>
                 <td>
-                  <input type="text" class="form-control" placeholder="" />
+                  <input
+                    v-model="model.email"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                  />
                 </td>
               </tr>
               <tr>
@@ -263,6 +329,7 @@
                 <th scope="row" class="required"><span>담당자 명</span></th>
                 <td>
                   <input
+                    v-model="model.signetMgrNm"
                     type="text"
                     class="form-control"
                     placeholder="담당자명"
@@ -273,6 +340,7 @@
                 <th scope="row" class="required"><span>부서</span></th>
                 <td>
                   <input
+                    v-model="model.signetDeptNm"
                     type="text"
                     class="form-control"
                     placeholder="고객1팀"
@@ -282,18 +350,38 @@
               <tr>
                 <th scope="row" class="required"><span>직급</span></th>
                 <td>
-                  <input type="text" class="form-control" placeholder="과장" />
+                  <input
+                    v-model="model.signetDeptRank"
+                    type="text"
+                    class="form-control"
+                    placeholder="과장"
+                  />
                 </td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>전화번호</span></th>
                 <td>
                   <div class="form-inline">
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.signetTelNum1"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                    />
                     <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.signetTelNum2"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                    />
                     <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.signetTelNum3"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                    />
                   </div>
                 </td>
               </tr>
@@ -301,18 +389,38 @@
                 <th scope="row" class="required"><span>휴대폰번호</span></th>
                 <td>
                   <div class="form-inline">
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.signetHpNum1"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                    />
                     <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.signetHpNum2"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                    />
                     <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="" />
+                    <input
+                      v-model="model.signetHpNum3"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                    />
                   </div>
                 </td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>이메일</span></th>
                 <td>
-                  <input type="text" class="form-control" placeholder="" />
+                  <input
+                    v-model="model.signetEmail"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                  />
                 </td>
               </tr>
             </tbody>
@@ -335,7 +443,11 @@
               <tr>
                 <th scope="row"><span>대시보드 디자인</span></th>
                 <td>
-                  <v-radio-group class="radio-group" v-model="radioGroup" row>
+                  <v-radio-group
+                    class="radio-group"
+                    v-model="model.dboardTpeTp"
+                    row
+                  >
                     <v-radio
                       v-for="key in dashBoardLists"
                       :key="key"
@@ -365,6 +477,7 @@
                 <th scope="row"><span>비고</span></th>
                 <td>
                   <textarea
+                    v-model="model.cont"
                     name=""
                     id=""
                     style="height: 180px"
@@ -378,6 +491,36 @@
         </div>
       </div>
     </div>
+    <div class="btn-area clearFix">
+      <div class="pull-left">
+        <button
+          type="button"
+          class="btn btn-default btn-yellow btn-fixed"
+          @click="fnMoveList"
+        >
+          목록
+        </button>
+      </div>
+      <div class="pull-right">
+        <button
+          type="button"
+          class="btn btn-default btn-gray btn-fixed"
+          @click="resetBtn"
+        >
+          초기화
+        </button>
+        <button
+          type="button"
+          class="btn btn-default btn-orange btn-fixed"
+          @click="saveBtn"
+        >
+          저장
+        </button>
+      </div>
+    </div>
+    <!-- 이용가이드 -->
+    <sub-title title="이용가이드" />
+    <use-guide :useGuideLists="useGuideLists" />
   </section>
 </template>
 
@@ -388,10 +531,13 @@ import FooterBottom from "@/components/FooterBottom";
 import HeadTitle from "@/components/HeadTitle";
 import SubTitle from "@/components/SubTitle";
 import addressApiBtn from "@/components/addressApiBtn";
+import UseGuide from "@/components/UseGuide";
+import { combineNumToStr } from "@/utils/commonUtil.js";
 import { mapState, mapMutations } from "vuex";
 
 export default {
   components: {
+    UseGuide,
     HeaderTop,
     SideBar,
     FooterBottom,
@@ -404,7 +550,57 @@ export default {
     return {
       customerLists: ["정상", "일시중지", "계약해지"],
       dashBoardLists: ["대시보드_A", "대시보드_B", "대시보드_C"],
+      useGuideLists: ["리에서 생성하시면 됩니다."],
       addressCheckbox: false,
+      model: {
+        custComNm: "",
+        custComId: "",
+        cpoId: "",
+        bizNum: "",
+        bizNum1: "",
+        bizNum2: "",
+        bizNum3: "",
+        sectCd: "",
+        entCd: "",
+        custComStat: "",
+        mgrNm: "",
+        deptNm: "",
+        deptRank: "",
+        telNum: "",
+        telNum1: "",
+        telNum2: "",
+        telNum3: "",
+        hpNum: "",
+        hpNum1: "",
+        hpNum1: "",
+        hpNum2: "",
+        hpNum3: "",
+        email: "",
+        signetMgrNm: "",
+        signetDeptNm: "",
+        signetDeptRank: "",
+        signetTelNum: "",
+        signetTelNum1: "",
+        signetTelNum2: "",
+        signetTelNum3: "",
+        signetHpNum: "",
+        signetHpNum1: "",
+        signetHpNum2: "",
+        signetHpNum3: "",
+        signetEmail: "",
+        dboardTpeTp: "",
+        cont: "",
+        regNm: "",
+        regDt: "",
+        modeNm: "",
+        modeDt: "",
+        hdZipcd: "",
+        hdAddr: "",
+        hdAddrDtl: "",
+        Zipcd: "",
+        Addr: "",
+        AddrDtl: "",
+      },
       headOffice: {
         extraAddress: "",
         address: "",
@@ -461,6 +657,70 @@ export default {
       }
       return val;
     },
+    resetBtn() {
+      this.model = {
+        custComNm: "",
+        custComId: "",
+        cpoId: "",
+        bizNum1: "",
+        bizNum2: "",
+        bizNum3: "",
+        sectCd: "",
+        entCd: "",
+        custComStat: "",
+        mgrNm: "",
+        deptNm: "",
+        deptRank: "",
+        telNum1: "",
+        telNum2: "",
+        telNum3: "",
+        hpNum1: "",
+        hpNum2: "",
+        hpNum3: "",
+        email: "",
+        signetMgrNm: "",
+        signetDeptNm: "",
+        signetDeptRank: "",
+        signetTelNum1: "",
+        signetTelNum2: "",
+        signetTelNum3: "",
+        signetHpNum1: "",
+        signetHpNum2: "",
+        signetHpNum3: "",
+        signetEmail: "",
+        dboardTpeTp: "",
+        cont: "",
+        regNm: "",
+        regDt: "",
+        modeNm: "",
+        modeDt: "",
+      };
+      this.headOffice = {
+        extraAddress: "",
+        address: "",
+        postcode: "",
+        addressDtl: "",
+        checkBoxCtrl: false,
+      };
+      this.personOffice = {
+        extraAddress: "",
+        address: "",
+        postcode: "",
+        addressDtl: "",
+        checkBoxCtrl: false,
+      };
+    },
+    saveBtn() {
+      this.summaryModel();
+      console.log(this.model);
+    },
+    fnMoveList() {
+      this.$router
+        .replace({
+          name: "cpoManagement",
+        })
+        .catch(() => {});
+    },
     fnResultAddrHead(json) {
       this.headOffice = json;
     },
@@ -468,6 +728,41 @@ export default {
       this.status = 1;
       this.personOffice = json;
       this.addressCheckbox = this.personOffice.checkBoxCtrl;
+    },
+    validation() {},
+    summaryModel() {
+      this.model.bizNum = combineNumToStr(
+        this.model.bizNum1,
+        this.model.bizNum2,
+        this.model.bizNum3
+      );
+      this.model.telNum = combineNumToStr(
+        this.model.telNum1,
+        this.model.telNum2,
+        this.model.telNum3
+      );
+      this.model.hpNum = combineNumToStr(
+        this.model.hpNum1,
+        this.model.hpNum2,
+        this.model.hpNum3
+      );
+      this.model.signetTelNum = combineNumToStr(
+        this.model.signetTelNum1,
+        this.model.signetTelNum2,
+        this.model.signetTelNum3
+      );
+      this.model.signetHpNum = combineNumToStr(
+        this.model.signetHpNum1,
+        this.model.signetHpNum2,
+        this.model.signetHpNum3
+      );
+      this.model.hdZipcd = this.headOffice.postcode;
+      this.model.hdAddr = this.headOffice.address;
+      this.model.hdAddrDtl = this.headOffice.addressDtl;
+
+      this.model.Zipcd = this.personOffice.postcode;
+      this.model.Addr = this.personOffice.address;
+      this.model.AddrDtl = this.personOffice.addressDtl;
     },
   },
 };

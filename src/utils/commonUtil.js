@@ -80,3 +80,8 @@ export function param2Obj(url) {
     });
     return obj;
 }
+
+export function combineNumToStr(val1, val2, val3) {
+    var combineStr = val1.toString() + val2.toString() + val3.toString();
+    return combineStr;
+}

@@ -67,15 +67,14 @@ const fileds = {
     ],
     //플랫폼 고객사(CPO) 관리
     cpoList: [
-        { field: "No", width: 60, maxWidth: 60 },
-        { field: "고객사명" },
-        { field: "고객사 ID" },
-        { field: "사업자등록번호" },
-        { field: "고객사 담당자" },
-        { field: "SK시그넷 담당자" },
-        { field: "고객사 상태" },
-        { field: "등록일" },
-        { field: "수정", cellRenderer: "GridModBtn" },
+        { field: "No", headerName: "No", width: 60, maxWidth: 60 },
+        { field: "custComNm", headerName: "고객사명" },
+        { field: "cpoId", headerName: "고객사 ID" },
+        { field: "bizNum", headerName: "사업자등록번호" },
+        { field: "mgrNm", headerName: "고객사 담당자" },
+        { field: "signetMgrNm", headerName: "SK시그넷 담당자" },
+        { field: "custComStat", headerName: "고객사 상태" },
+        { field: "regDt", headerName: "등록일" },
     ],
     //ag-grid  group 기능 테스트용
     groupList: [
