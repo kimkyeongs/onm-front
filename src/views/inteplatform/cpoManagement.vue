@@ -156,8 +156,9 @@ export default {
         this.rows = response.data.rowPerPage;
         this.page = response.data.page;
         this.dataCnt = response.data.total;
-        this.pageKey += 1;
-        console.log(response.data);
+        this.dataList = response.data.rows;
+        //console.log(this.dataList);
+        this.fnForceLender();
       });
     },
     async nextGetList(pageParam) {
@@ -175,8 +176,12 @@ export default {
         this.rows = response.data.rowPerPage;
         this.page = response.data.page;
         this.dataCnt = response.data.total;
-        this.pageKey += 1;
+        this.fnForceLender();
       });
+    },
+    fnForceLender() {
+      this.gridKey += 1;
+      this.pageKey += 1;
     },
     fnCpoInsert() {
       this.$router

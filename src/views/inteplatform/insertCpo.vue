@@ -534,6 +534,7 @@ import addressApiBtn from "@/components/addressApiBtn";
 import UseGuide from "@/components/UseGuide";
 import { combineNumToStr } from "@/utils/commonUtil.js";
 import { mapState, mapMutations } from "vuex";
+import { insertCpo } from "@/api/cpo_api";
 
 export default {
   components: {
@@ -555,7 +556,6 @@ export default {
       model: {
         custComNm: "",
         custComId: "",
-        cpoId: "",
         bizNum: "",
         bizNum1: "",
         bizNum2: "",
@@ -590,16 +590,16 @@ export default {
         signetEmail: "",
         dboardTpeTp: "",
         cont: "",
-        regNm: "",
-        regDt: "",
-        modeNm: "",
-        modeDt: "",
         hdZipcd: "",
         hdAddr: "",
         hdAddrDtl: "",
         Zipcd: "",
         Addr: "",
         AddrDtl: "",
+        regId: "",
+        regDt: "",
+        modeId: "",
+        modeDt: "",
       },
       headOffice: {
         extraAddress: "",
@@ -639,6 +639,11 @@ export default {
     ...mapMutations({
       resize: "settings/RESIZE",
     }),
+    async fnInsertCpo(obj) {
+      await insertCpo(obj).then((response) => {
+        console.log(response.data);
+      });
+    },
     fnCheckBoxCtl(val) {
       if (val) {
         this.personOffice = this.headOffice;
@@ -713,6 +718,7 @@ export default {
     saveBtn() {
       this.summaryModel();
       console.log(this.model);
+      this.fnInsertCpo(this.model);
     },
     fnMoveList() {
       this.$router
@@ -729,7 +735,30 @@ export default {
       this.personOffice = json;
       this.addressCheckbox = this.personOffice.checkBoxCtrl;
     },
-    validation() {},
+    validation() {
+      if (values.title === "") {
+        alert("제목을 입력해주세요.");
+        this.$refs.title.focus();
+        return false;
+      } else if (this.model.projectNo === "") {
+        alert("프로젝트를 선택해주세요.");
+        this.$refs.projectNo.focus();
+        return false;
+      } else if (values.boardMasterIndex === "") {
+        alert("게시판을 선택해주세요.");
+        this.$refs.boardMasterIndex.focus();
+        return false;
+      } else if (values.contents === "") {
+        alert("내용을 입력해주세요.");
+        this.$refs.contents.focus();
+        return false;
+      } else if (values.postType === "") {
+        alert("공지종류를 선택해주세요.");
+        this.$refs.postType.focus();
+        return false;
+      }
+      return true;
+    },
     summaryModel() {
       this.model.bizNum = combineNumToStr(
         this.model.bizNum1,
