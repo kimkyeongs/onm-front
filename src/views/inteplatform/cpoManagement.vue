@@ -145,6 +145,7 @@ export default {
       rows: 10,
       page: 1,
     },
+    model: "",
   }),
   mounted() {
     this.fnGetCpoLists(this.pageArg);
@@ -156,6 +157,7 @@ export default {
         this.page = response.data.page;
         this.dataCnt = response.data.total;
         this.pageKey += 1;
+        console.log(response.data);
       });
     },
     async nextGetList(pageParam) {
