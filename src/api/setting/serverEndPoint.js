@@ -6,7 +6,7 @@ export default {
 
         if (svc == "gw") {
             //login
-            post_url = ":6800";
+            post_url = ":9300";
             ret = "http://" + be_host + post_url;
         }
 
