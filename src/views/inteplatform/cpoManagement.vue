@@ -68,6 +68,7 @@
     <ag-grid
       v-bind:dataList="this.dataList"
       v-bind:filedId="this.filedId"
+      @clickData="fnClickRowData"
       :key="gridKey"
     />
     <pagination
@@ -178,6 +179,14 @@ export default {
         this.dataCnt = response.data.total;
         this.fnForceLender();
       });
+    },
+    fnClickRowData(val) {
+      this.$router
+        .replace({
+          name: "cpoManagementDetail",
+        })
+        .catch(() => {});
+      console.log(val);
     },
     fnForceLender() {
       this.gridKey += 1;

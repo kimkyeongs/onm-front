@@ -1,6 +1,6 @@
 <template>
   <section class="onmContent">
-    <head-title title="플랫폼 고객사(CPO) 등록" />
+    <head-title title="플랫폼 고객사(CPO) 상세보기" />
     <div class="flex-row">
       <!-- 고객사 기본정보 -->
       <div class="col-lg-6 col-md-12">
