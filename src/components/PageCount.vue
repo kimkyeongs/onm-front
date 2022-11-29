@@ -10,11 +10,16 @@
       {{ key }}
     </button> -->
     <!-- AG GRID 참조 -->
-    <select class="form-control sm" style="width: 92px;">
+    <select
+      v-model="pageCountNumber"
+      class="form-control sm"
+      style="width: 92px"
+      @change="setSelectedValue"
+    >
       <option value="10" selected="">10개씩</option>
-      <option value="100">30개씩</option>
-      <option value="500">50개씩</option>
-      <option value="1000">1000개씩</option>
+      <option value="30">30개씩</option>
+      <option value="50">50개씩</option>
+      <option value="100">100개씩</option>
     </select>
   </div>
 </template>
@@ -23,21 +28,21 @@
 export default {
   data() {
     return {
-      // pageCountNumber: [10, 30, 50, 100],
-      // isActive: 0
-    }
+      //default
+      pageCountNumber: 10,
+    };
   },
   methods: {
-    // addClass(idx) {
-    //   this.isActive = idx
-    // }
-  }
-}
+    setSelectedValue(e) {
+      this.$emit("selected", e.target.value);
+    },
+  },
+};
 </script>
 
 <style scoped>
-  .content-wrap .pageCount-wrap{
-    flex: 0 0 auto;
-    /* margin-right: 20px; */
-  }
+.content-wrap .pageCount-wrap {
+  flex: 0 0 auto;
+  /* margin-right: 20px; */
+}
 </style>

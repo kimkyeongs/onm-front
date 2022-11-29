@@ -11,10 +11,9 @@
       :rowSelection="rowSelection"
       :groupDisplayType="groupDisplayType"
       :groupDefaultExpanded="groupDefaultExpanded"
-      :pagination="true"
+      :pagination="false"
     />
     <div class="ag-paging">1페이지/99페이지</div>
-    <pagination />
   </div>
 </template>
 
@@ -30,7 +29,7 @@ import GridPlusBtn from "@/components/GridPlusBtn";
 import GridModBtn from "@/components/GridModBtn.vue";
 
 import { getFileds } from "@/components/js/gridFileds";
-import Pagination from "@/components/Pagination";
+
 // import "ag-grid-enterprise";
 // import { RowGroupingModule } from "@ag-grid-enterprise/row-grouping";
 
@@ -40,7 +39,6 @@ export default {
   props: ["dataList", "filedId"],
   components: {
     AgGridVue,
-    Pagination,
     GridPlusBtn,
     MemberLicensesStatus,
     GridModBtn,
