@@ -61,15 +61,20 @@
     <!--// 검색영역 -->
     <!-- 필터 -->
     <div class="pagekeyWord-wrap">
-      <page-count />
+      <page-count @selected="getSelectedValue" />
       <search-filter :searchFilter="searchFilters" />
     </div>
     <!-- GRID -->
     <ag-grid
       v-bind:dataList="this.dataList"
       v-bind:filedId="this.filedId"
-      v-bind:dataCnt="this.dataCnt"
       :key="gridKey"
+    />
+    <pagination
+      v-bind:listCount="this.dataCnt"
+      v-bind:customLimit="this.pageArg.rows"
+      @paging="nextGetList"
+      :key="pageKey"
     />
     <!--// GRID -->
     <div class="btn-area clearFix">
@@ -98,7 +103,9 @@ import PageCount from "@/components/PageCount";
 import SearchFilter from "@/components/SearchFilter";
 import UseGuide from "@/components/UseGuide";
 import AgGrid from "@/components/AgGrid";
+import Pagination from "@/components/Pagination";
 import { mapState } from "vuex";
+import { getCpoLists } from "@/api/cpo_api";
 
 export default {
   components: {
@@ -110,6 +117,7 @@ export default {
     SearchFilter,
     UseGuide,
     AgGrid,
+    Pagination,
   },
   computed: {
     // searchIsActive
@@ -130,127 +138,43 @@ export default {
     ],
     filedId: "cpoList",
     dataList: [],
-    dataCnt: 0,
+    dataCnt: 1,
     gridKey: 0,
+    pageKey: 100,
+    pageArg: {
+      rows: 10,
+      page: 1,
+    },
   }),
   mounted() {
-    this.fnSetTestData();
+    this.fnGetCpoLists(this.pageArg);
   },
   methods: {
-    fnSetTestData() {
-      this.dataList = [
-        {
-          No: 1,
-          고객사명: "홈앤서비스",
-          "고객사 ID": "SIG00000302",
-          사업자등록번호: "123-456-789",
-          "고객사 담당자": "홍길동과장(마케팅팀)",
-          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
-          "고객사 상태": "일시중지",
-          등록일: "2022-09-25",
-          수정: "수정",
-        },
-        {
-          No: 2,
-          고객사명: "홈앤서비스",
-          "고객사 ID": "SIG00000302",
-          사업자등록번호: "123-456-789",
-          "고객사 담당자": "홍길동과장(마케팅팀)",
-          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
-          "고객사 상태": "일시중지",
-          등록일: "2022-09-25",
-          수정: "수정",
-        },
-        {
-          No: 3,
-          고객사명: "홈앤서비스",
-          "고객사 ID": "SIG00000302",
-          사업자등록번호: "123-456-789",
-          "고객사 담당자": "홍길동과장(마케팅팀)",
-          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
-          "고객사 상태": "일시중지",
-          등록일: "2022-09-25",
-          수정: "수정",
-        },
-        {
-          No: 4,
-          고객사명: "홈앤서비스",
-          "고객사 ID": "SIG00000302",
-          사업자등록번호: "123-456-789",
-          "고객사 담당자": "홍길동과장(마케팅팀)",
-          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
-          "고객사 상태": "일시중지",
-          등록일: "2022-09-25",
-          수정: "수정",
-        },
-        {
-          No: 5,
-          고객사명: "홈앤서비스",
-          "고객사 ID": "SIG00000302",
-          사업자등록번호: "123-456-789",
-          "고객사 담당자": "홍길동과장(마케팅팀)",
-          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
-          "고객사 상태": "일시중지",
-          등록일: "2022-09-25",
-          수정: "수정",
-        },
-        {
-          No: 6,
-          고객사명: "홈앤서비스",
-          "고객사 ID": "SIG00000302",
-          사업자등록번호: "123-456-789",
-          "고객사 담당자": "홍길동과장(마케팅팀)",
-          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
-          "고객사 상태": "일시중지",
-          등록일: "2022-09-25",
-          수정: "수정",
-        },
-        {
-          No: 7,
-          고객사명: "홈앤서비스",
-          "고객사 ID": "SIG00000302",
-          사업자등록번호: "123-456-789",
-          "고객사 담당자": "홍길동과장(마케팅팀)",
-          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
-          "고객사 상태": "일시중지",
-          등록일: "2022-09-25",
-          수정: "수정",
-        },
-        {
-          No: 8,
-          고객사명: "홈앤서비스",
-          "고객사 ID": "SIG00000302",
-          사업자등록번호: "123-456-789",
-          "고객사 담당자": "홍길동과장(마케팅팀)",
-          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
-          "고객사 상태": "일시중지",
-          등록일: "2022-09-25",
-          수정: "수정",
-        },
-        {
-          No: 9,
-          고객사명: "홈앤서비스",
-          "고객사 ID": "SIG00000302",
-          사업자등록번호: "123-456-789",
-          "고객사 담당자": "홍길동과장(마케팅팀)",
-          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
-          "고객사 상태": "일시중지",
-          등록일: "2022-09-25",
-          수정: "수정",
-        },
-        {
-          No: 10,
-          고객사명: "홈앤서비스",
-          "고객사 ID": "SIG00000302",
-          사업자등록번호: "123-456-789",
-          "고객사 담당자": "홍길동과장(마케팅팀)",
-          "SK시그넷 담당자": "홍길동매니저(영업1팀)",
-          "고객사 상태": "일시중지",
-          등록일: "2022-09-25",
-          수정: "수정",
-        },
-      ];
-      this.gridKey += 1;
+    async fnGetCpoLists(obj) {
+      await getCpoLists(obj).then((response) => {
+        this.rows = response.data.rowPerPage;
+        this.page = response.data.page;
+        this.dataCnt = response.data.total;
+        this.pageKey += 1;
+      });
+    },
+    async nextGetList(pageParam) {
+      this.pageArg = pageParam;
+      await getCpoLists(this.pageArg).then((response) => {
+        this.rows = response.data.rowPerPage;
+        this.page = response.data.page;
+        this.dataCnt = response.data.total;
+      });
+    },
+    async getSelectedValue(param) {
+      this.pageArg.rows = param;
+      console.log(this.pageArg);
+      await getCpoLists(this.pageArg).then((response) => {
+        this.rows = response.data.rowPerPage;
+        this.page = response.data.page;
+        this.dataCnt = response.data.total;
+        this.pageKey += 1;
+      });
     },
     fnCpoInsert() {
       this.$router
