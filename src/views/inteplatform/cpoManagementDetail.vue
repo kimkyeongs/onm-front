@@ -206,7 +206,7 @@
         <button
           type="button"
           class="btn btn-default btn-orange btn-fixed"
-          @click="fnUnMasking"
+          @click="fnCpoUpdate"
         >
           수정
         </button>
@@ -262,10 +262,7 @@ export default {
   },
   beforeMount() {},
   mounted() {
-    console.log(this.$store.getters.routeParams);
-    console.log(this.$route.params);
     if (this.$store.getters.routeParams.viewData == undefined) {
-      console.log(1);
       this.viewData = this.$route.params;
       this.viewData.orgEmail = this.$route.params.email;
       this.viewData.orgHpNum = this.$route.params.hpNum;
@@ -276,7 +273,6 @@ export default {
         viewData: this.viewData,
       });
     } else {
-      console.log(2);
       this.viewData = this.$store.getters.routeParams.viewData;
       this.orgData.email = this.$store.getters.routeParams.viewData.orgEmail;
       this.orgData.hpNum = this.$store.getters.routeParams.viewData.orgHpNum;
@@ -309,6 +305,13 @@ export default {
       this.$router
         .push({
           name: "cpoManagement",
+        })
+        .catch(() => {});
+    },
+    fnCpoUpdate() {
+      this.$router
+        .push({
+          name: "updateCpo",
         })
         .catch(() => {});
     },

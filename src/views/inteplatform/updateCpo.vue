@@ -17,33 +17,129 @@
             <tbody>
               <tr>
                 <th scope="row" class="required"><span>고객사 명</span></th>
-                <td></td>
+                <td>
+                  <input
+                    v-model="model.custComNm"
+                    type="text"
+                    class="form-control"
+                    placeholder="새고객"
+                    maxlength="100"
+                  />
+                </td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>고객사ID</span></th>
-                <td></td>
+                <td>
+                  <input
+                    v-model="model.custComId"
+                    type="text"
+                    class="form-control"
+                    placeholder="영문자 3자리"
+                    maxlength="3"
+                  />
+                </td>
               </tr>
               <tr>
                 <th scope="row" class="required">
                   <span>사업자등록번호</span>
                 </th>
-                <td></td>
+                <td>
+                  <div class="form-inline">
+                    <input
+                      v-model="model.bizNum1"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      maxlength="3"
+                    />
+                    <span class="bridge">-</span>
+                    <input
+                      v-model="model.bizNum2"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      maxlength="2"
+                    />
+                    <span class="bridge">-</span>
+                    <input
+                      v-model="model.bizNum3"
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      maxlength="5"
+                    />
+                  </div>
+                </td>
               </tr>
               <tr>
                 <th scope="row"><span>업태</span></th>
-                <td></td>
+                <td>
+                  <input
+                    v-model="model.sectCd"
+                    type="text"
+                    class="form-control"
+                    placeholder="서비스업"
+                  />
+                </td>
               </tr>
               <tr>
                 <th scope="row"><span>종목</span></th>
-                <td></td>
+                <td>
+                  <input
+                    v-model="model.entCd"
+                    type="text"
+                    class="form-control"
+                    placeholder="전기처 충전사업"
+                  />
+                </td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>본사주소</span></th>
-                <td></td>
+                <td>
+                  <div class="form-inline">
+                    <input
+                      v-model="headOffice.postcode"
+                      type="text"
+                      class="form-control"
+                      placeholder="우편번호"
+                      style="width: 100px"
+                    />
+                    <!-- <button type="button" class="btn btn-sm btn-gray ml-2">
+                      주소검색
+                    </button> -->
+                    <addressApiBtnHead @close="fnResultAddrHead" />
+                  </div>
+                  <input
+                    v-model="headOffice.address"
+                    type="text"
+                    class="form-control mt-1"
+                    placeholder="큰주소"
+                  />
+                  <input
+                    v-model="headOffice.addressDtl"
+                    type="text"
+                    class="form-control mt-1"
+                    placeholder="상세주소"
+                  />
+                </td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>고객사상태</span></th>
-                <td></td>
+                <td>
+                  <v-radio-group
+                    class="radio-group"
+                    v-model="model.custComStat"
+                    row
+                  >
+                    <v-radio
+                      v-for="key in customerLists"
+                      :key="key"
+                      :label="key"
+                      :value="key"
+                      color="orange"
+                    />
+                  </v-radio-group>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -205,6 +301,7 @@ import HeadTitle from "@/components/HeadTitle";
 import SubTitle from "@/components/SubTitle";
 import UseGuide from "@/components/UseGuide";
 import OnmIaAdmSup030P from "@/views/pub/ONM_IA_ADM_SUP_030_P"; //개인정보 마스킹제거Modal
+import addressApiBtn from "@/components/addressApiBtn";
 import { mapState, mapMutations } from "vuex";
 
 export default {
@@ -213,6 +310,7 @@ export default {
     SubTitle,
     UseGuide,
     OnmIaAdmSup030P,
+    addressApiBtnHead: addressApiBtn,
   },
   data: () => ({
     customerLists: ["정상", "일시중지", "계약해지"],
@@ -224,6 +322,25 @@ export default {
       "- 고객사(CPO)의 로밍관련 인증정보, 알림톡관련 계정정보, PG관련 계정정보는 플랫폼 고객사 등록 후, 해당 고객사의 플랫폼 관리메뉴에서 관리할 수 있습니다.",
       "- 등록된 고객사의 삭제는 위험한 작업으로 기능을 제공하지 않습니다. 필요시 일시중지 또는 계약해지를 통 해고객사의 기능을 제어하시고, 필요시 시스템관리자를 통해 수동으로 삭제를 진행하셔야 합니다.",
     ],
+    model: {},
+    orgData: {
+      email: "",
+      hpNum: "",
+    },
+    headOffice: {
+      extraAddress: "",
+      address: "",
+      postcode: "",
+      addressDtl: "",
+      checkBoxCtrl: false,
+    },
+    personOffice: {
+      extraAddress: "",
+      address: "",
+      postcode: "",
+      addressDtl: "",
+      checkBoxCtrl: false,
+    },
   }),
   computed: {
     ...mapState({
@@ -231,6 +348,23 @@ export default {
     }),
   },
   created() {},
+  mounted() {
+    if (this.$store.getters.routeParams.viewData == undefined) {
+      this.model = this.$route.params;
+      this.model.orgEmail = this.$route.params.email;
+      this.model.orgHpNum = this.$route.params.hpNum;
+      this.orgData.email = this.$route.params.email;
+      this.orgData.hpNum = this.$route.params.hpNum;
+      //this.fnMasking(this.viewData);
+      this.$store.dispatch("setRouterParams/setParams", {
+        viewData: this.model,
+      });
+    } else {
+      this.model = this.$store.getters.routeParams.viewData;
+      this.orgData.email = this.$store.getters.routeParams.viewData.orgEmail;
+      this.orgData.hpNum = this.$store.getters.routeParams.viewData.orgHpNum;
+    }
+  },
   watch: {},
   methods: {
     ...mapMutations({
@@ -242,6 +376,9 @@ export default {
           name: "cpoManagement",
         })
         .catch(() => {});
+    },
+    fnResultAddrHead(json) {
+      this.headOffice = json;
     },
   },
 };

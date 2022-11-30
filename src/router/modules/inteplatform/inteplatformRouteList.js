@@ -31,4 +31,11 @@ export const inteplatformRoutesList = [
         component: () =>
             import ("@/views/inteplatform/cpoManagementDetail.vue"),
     },
+    {
+        path: "/inteplatform/updateCpo",
+        name: "updateCpo",
+        props: true,
+        component: () =>
+            import ("@/views/inteplatform/updateCpo.vue"),
+    },
 ];

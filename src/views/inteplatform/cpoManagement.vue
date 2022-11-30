@@ -287,7 +287,7 @@ export default {
       this.$router
         .push({
           name: "cpoManagementDetail",
-          params: val,
+          params: val.data,
         })
         .catch(() => {});
     },
