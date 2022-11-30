@@ -14,7 +14,9 @@
       :pagination="false"
       @cellClicked="fnClick"
     />
-    <div class="ag-paging">1페이지/99페이지</div>
+    <div class="ag-paging">
+      {{ this.nowPage }}페이지/{{ this.totalPage }}페이지
+    </div>
   </div>
 </template>
 
@@ -37,7 +39,7 @@ import { getFileds } from "@/components/js/gridFileds";
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 export default {
-  props: ["dataList", "filedId"],
+  props: ["dataList", "filedId", "pageCnt", "page"],
   components: {
     AgGridVue,
     GridPlusBtn,
@@ -61,6 +63,8 @@ export default {
       groupDisplayType: null,
       groupRowRenderer: null,
       groupDefaultExpanded: null,
+      totalPage: this.$props.pageCnt,
+      nowPage: this.$props.page,
     };
   },
   created() {

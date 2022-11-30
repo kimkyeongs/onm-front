@@ -83,6 +83,8 @@
     <ag-grid
       v-bind:dataList="this.dataList"
       v-bind:filedId="this.filedId"
+      v-bind:pageCnt="this.pageCnt"
+      v-bind:page="this.page"
       @clickData="fnClickRowData"
       :key="gridKey"
     />
@@ -165,7 +167,7 @@ export default {
       rows: 10,
       page: 1,
     },
-    model: "",
+    page: 1,
     custComStat: [],
     searchValue: {
       custComStat: [],
