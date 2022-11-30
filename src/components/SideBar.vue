@@ -93,6 +93,7 @@ export default {
           depth2[i].parentNode.classList.remove("selected");
           e.target.parentNode.classList.add("selected");
           if (menuUrl != "" || menuUrl != null || menuUrl != undefined) {
+            this.$store.dispatch("setRouterParams/setParams", {});
             this.$router
               .push({
                 name: menuUrl,

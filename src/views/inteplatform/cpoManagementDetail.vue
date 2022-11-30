@@ -203,8 +203,12 @@
         >
           개인정보 마스킹제거
         </button>
-        <button type="button" class="btn btn-default btn-orange btn-fixed">
-          저장
+        <button
+          type="button"
+          class="btn btn-default btn-orange btn-fixed"
+          @click="fnUnMasking"
+        >
+          수정
         </button>
       </div>
     </div>
@@ -222,6 +226,7 @@ import UseGuide from "@/components/UseGuide";
 import OnmIaAdmSup030P from "@/views/pub/ONM_IA_ADM_SUP_030_P"; //개인정보 마스킹제거Modal
 import { mapState, mapMutations } from "vuex";
 import { selectCpo } from "@/api/cpo_api";
+import { maskingEmail } from "@/utils/commonUtil.js";
 
 export default {
   components: {
@@ -241,16 +246,41 @@ export default {
       "- 등록된 고객사의 삭제는 위험한 작업으로 기능을 제공하지 않습니다. 필요시 일시중지 또는 계약해지를 통 해고객사의 기능을 제어하시고, 필요시 시스템관리자를 통해 수동으로 삭제를 진행하셔야 합니다.",
     ],
     viewData: {},
+    orgData: {
+      email: "",
+      hpNum: "",
+    },
   }),
   computed: {
     ...mapState({
       isActiveModal: (state) => state.settings.isActiveModal,
     }),
   },
-  created() {},
+  created() {
+    if (this.$store.getters.routeParams.viewData != undefined) {
+    }
+  },
+  beforeMount() {},
   mounted() {
-    this.viewData = this.$route.params;
-    console.log(this.viewData);
+    console.log(this.$store.getters.routeParams);
+    console.log(this.$route.params);
+    if (this.$store.getters.routeParams.viewData == undefined) {
+      console.log(1);
+      this.viewData = this.$route.params;
+      this.viewData.orgEmail = this.$route.params.email;
+      this.viewData.orgHpNum = this.$route.params.hpNum;
+      this.orgData.email = this.$route.params.email;
+      this.orgData.hpNum = this.$route.params.hpNum;
+      this.fnMasking(this.viewData);
+      this.$store.dispatch("setRouterParams/setParams", {
+        viewData: this.viewData,
+      });
+    } else {
+      console.log(2);
+      this.viewData = this.$store.getters.routeParams.viewData;
+      this.orgData.email = this.$store.getters.routeParams.viewData.orgEmail;
+      this.orgData.hpNum = this.$store.getters.routeParams.viewData.orgHpNum;
+    }
 
     //this.fnGetCpo("20221129CPO000000001");
   },
@@ -264,6 +294,16 @@ export default {
     ...mapMutations({
       modalOpen: "settings/MODAL_OPEN",
     }),
+    fnMasking(obj) {
+      if (obj.hpNum != undefined && obj.email != undefined) {
+        obj.hpNum = obj.hpNum.substring(0, 9) + "*".repeat(4);
+        obj.email = maskingEmail(obj.email);
+      }
+    },
+    fnUnMasking() {
+      this.viewData.email = this.orgData.email;
+      this.viewData.hpNum = this.orgData.hpNum;
+    },
     fnBackList() {
       this.$router
         .replace({
