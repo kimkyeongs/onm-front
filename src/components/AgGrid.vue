@@ -74,12 +74,19 @@ export default {
   methods: {
     //grid클릭이벤트
     fnClick(e) {
-      this.$emit("clickData", e.data);
+      this.$emit("clickData", e);
+    },
+    fnClickBtn(e) {
+      this.$emit("clickBtnData", e.rowData.data);
     },
   }, //beforeMount
   mounted() {
     // gridFileds.js에 선언된 컬럼들을 id로 가져옴
-    this.columValues = getFileds(this.filedId);
+    // 만약에 updateBtn 이라는 이름의 field 가 있다면 버튼 이벤트를 심어준다. -> fnClickBtn
+    // * 수정버튼 이름은 무조건 updateBtn으로 field 를 지정 할 것
+    this.columValues = getFileds(this.filedId, {
+      onClick: this.fnClickBtn.bind(this),
+    });
     //api 통신으로 가져온 row 값
     (this.columnDefs = this.columValues),
       (this.rowData = this.dataList),

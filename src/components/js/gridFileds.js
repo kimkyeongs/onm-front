@@ -83,7 +83,7 @@ const fileds = {
         { field: "mainClassNm", headerName: "대분류명" },
         { field: "useYn", headerName: "사용여부" },
         { field: "descr", headerName: "설명" },
-        { field: "수정", cellRenderer: "GridModBtn" },
+        { field: "updateBtn", headerName: "수정", cellRenderer: "GridModBtn" },
     ],
     //공통코드 관리 (소분류)
     commonChildCodeList: [
@@ -94,8 +94,8 @@ const fileds = {
         { field: "relatCd1", headerName: "참조1" },
         { field: "relatCd2", headerName: "참조2" },
         { field: "relatCd3", headerName: "참조3" },
-        { field: "descr", headerName: "설명" },
-        { field: "수정", cellRenderer: "GridModBtn" },
+        { field: "desrc", headerName: "설명" },
+        { field: "updateBtn", headerName: "수정", cellRenderer: "GridModBtn" },
     ],
     //ag-grid  group 기능 테스트용
     groupList: [
@@ -139,8 +139,24 @@ const fileds = {
     ],
 };
 // id에 해당하는 컬럼 List 를 리턴 -> 사용할 페이지에 import후 메서드 실행
-export function getFileds(id) {
-    if (id == null || id == "" || id == undefined)
-        alert("컬럼이 존재하지 않습니다");
-    return fileds[id];
+export function getFileds(id, setting) {
+    var setFileds = fileds[id];
+    setFileds.forEach((obj) => {
+        if (obj.field === "updateBtn") {
+            obj.cellRendererParams = setting;
+            return;
+        }
+    });
+    return setFileds;
+}
+
+export function setBindRenderer(id) {
+    var setFileds = fileds[id];
+    setFileds.forEach((obj) => {
+        if (obj.field === "updateBtn") {
+            obj.cellRendererParams = setting;
+        }
+    });
+
+    return setFileds;
 }
