@@ -171,7 +171,7 @@
                     </v-radio-group>
                   </td>
                   <th scope="row"><span>최종수정일</span></th>
-                  <td>{{ this.mainDataParam.modDt }}</td>
+                  <td>{{ this.mainDtlData.modDt }}</td>
                 </tr>
                 <tr>
                   <th scope="row"><span>비고</span></th>
@@ -246,7 +246,7 @@
                     </v-radio-group>
                   </td>
                   <th scope="row"><span>최종수정일</span></th>
-                  <td></td>
+                  <td>{{ mainUpdateData.modDt }}</td>
                 </tr>
                 <tr>
                   <th scope="row"><span>비고</span></th>
@@ -266,7 +266,7 @@
             <button
               type="button"
               class="btn btn-default btn-orange btn-fixed"
-              @click="modalOpen"
+              @click="modalOpen('1')"
             >
               저장
             </button>
@@ -574,7 +574,7 @@
                     </v-radio-group>
                   </td>
                   <th scope="row"><span>최종수정일</span></th>
-                  <td>{{ this.childUpdateData.moDt }}</td>
+                  <td>{{ this.childUpdateData.modDt }}</td>
                 </tr>
                 <tr>
                   <th scope="row"><span>참조</span></th>
@@ -632,7 +632,7 @@
             <button
               type="button"
               class="btn btn-default btn-orange btn-fixed"
-              @click="modalOpen"
+              @click="modalOpen('2')"
             >
               저장
             </button>
@@ -644,6 +644,11 @@
     <!-- 이용가이드 -->
     <sub-title title="이용가이드" />
     <use-guide :useGuideLists="useGuideLists" />
+    <commonCodePop
+      v-bind:popupGubun="this.popupGubun"
+      @checkBool="pwCheckVal"
+      :key="this.popupKey"
+    />
   </section>
 </template>
 
@@ -660,6 +665,8 @@ import {
   getCommonChildCode,
   setCommonMainCode,
   setCommonChildCode,
+  updateCommonMainCode,
+  updateCommonChildCode,
 } from "@/api/commonCode_api";
 
 import { mapState, mapMutations } from "vuex";
@@ -704,7 +711,8 @@ export default {
       codeUpdatePlace2: "",
       dataListMain: null,
       dataListChild: null,
-
+      popupGubun: 1,
+      popupKey: 1000000,
       gridFiledKey: {
         key1: "commonCodeList",
         key2: "commonChildCodeList",
@@ -734,6 +742,7 @@ export default {
       dtlNav: {
         mainClassCd: "",
         mainClassNm: "",
+        mdlClassCd: "",
       },
       mainDataParam: {
         mainClassCd: "",
@@ -781,9 +790,9 @@ export default {
     this.fnCommonMainCode(this.pageArgs.pageArg1);
   },
   methods: {
-    ...mapMutations({
-      modalOpen: "settings/MODAL_OPEN",
-    }),
+    // ...mapMutations({
+    //   modalOpen: "settings/MODAL_OPEN",
+    // }),
     //code 등록/상세정보 form ON
     fnShowTab(gubun) {
       if (gubun === "codeInsertPlace1") {
@@ -880,8 +889,28 @@ export default {
       });
     },
     //update
-    fnUpdateMainCode() {},
-    fnUpdateChildCode() {},
+    async fnUpdateMainCode() {
+      console.log(this.mainUpdateData);
+      this.validationChk(this.mainUpdateData, "0");
+      this.mainUpdateData.beforeMainClassCd = this.dtlNav.mainClassCd;
+      await updateCommonMainCode(this.mainUpdateData).then((response) => {
+        console.log(response);
+        if (response.data === "SUCCESS") {
+          this.$router.go();
+        }
+      });
+    },
+    async fnUpdateChildCode() {
+      this.validationChk(this.childUpdateData, "1");
+      this.childUpdateData.mainClassCd = this.dtlNav.mainClassCd;
+      this.childUpdateData.beforeMdlClassCd = this.dtlNav.mdlClassCd;
+      await updateCommonChildCode(this.childUpdateData).then((response) => {
+        console.log(response);
+        if (response.data === "SUCCESS") {
+          this.$router.go();
+        }
+      });
+    },
     //저장/수정시 유효성 체크 gubun -> 0:대분류 , 1 : 소분류
     validationChk(obj, gubun) {
       if (gubun === "0") {
@@ -957,6 +986,7 @@ export default {
     setChildCodeUpdate(e) {
       console.log(e);
       this.childUpdateData = e;
+      this.dtlNav.mdlClassCd = this.childUpdateData.mdlClassCd;
       this.fnShowTab("codeUpdatePlace2");
     },
     //상세 -> 수정 화면으로 전환 ->  1 : 대분류 , 2 : 소분류
@@ -964,7 +994,20 @@ export default {
       if (gubun === "1") {
         this.setMainCodeUpdate(this.mainDtlData);
       } else {
+        this.dtlNav.mdlClassCd = this.childDtlData.mdlClassCd;
         this.setChildCodeUpdate(this.childDtlData);
+      }
+    },
+    //비밀번호 체크 팝업 오픈
+    modalOpen(gubun) {
+      this.popupGubun = gubun;
+      this.popupKey += 1;
+      this.$store.commit("settings/MODAL_OPEN");
+    },
+    //비밀번호 체크 팝업
+    pwCheckVal(e) {
+      if (e.result) {
+        e.gubun === "1" ? this.fnUpdateMainCode() : this.fnUpdateChildCode();
       }
     },
   },

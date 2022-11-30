@@ -32,6 +32,7 @@
           <button
             type="button"
             class="btn btn-default btn-orange btn-md btn-fixed mt-2"
+            @click="checkPassword"
           >
             확인
           </button>
@@ -55,17 +56,24 @@
 import { mapState, mapMutations } from "vuex";
 
 export default {
+  props: ["popupGubun"],
   components: {},
-
   computed: {
     ...mapState({
       isActiveModal: (state) => state.settings.isActiveModal,
     }),
   },
+  mounted() {
+    console.log(this.popupGubun);
+  },
   methods: {
     ...mapMutations({
       modalClose: "settings/MODAL_CLOSE",
     }),
+    checkPassword() {
+      this.$store.commit("settings/MODAL_CLOSE");
+      this.$emit("checkBool", { result: true, gubun: this.popupGubun });
+    },
   },
 };
 </script>

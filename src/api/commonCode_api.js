@@ -20,6 +20,15 @@ export function setCommonMainCode(data) {
     });
 }
 
+//공통코드관리수정(대분류)
+export function updateCommonMainCode(data) {
+    return request({
+        url: url + "/inteplatform/code/updateCommonMainCode",
+        method: "post",
+        data,
+    });
+}
+
 //공통코드관리(소분류)
 export function getCommonChildCode(data) {
     return request({
@@ -33,6 +42,15 @@ export function getCommonChildCode(data) {
 export function setCommonChildCode(data) {
     return request({
         url: url + "/inteplatform/code/insertCommonChildCode",
+        method: "post",
+        data,
+    });
+}
+
+//공통코드관리수정(소분류)
+export function updateCommonChildCode(data) {
+    return request({
+        url: url + "/inteplatform/code/updateCommonChildCode",
         method: "post",
         data,
     });
