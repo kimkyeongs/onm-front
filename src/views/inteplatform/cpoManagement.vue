@@ -12,7 +12,7 @@
         </div>
         <div class="col-lg-2 col-md-4">
           <v-combobox
-            v-model="model"
+            v-model="custComStat"
             :items="items"
             class="multiCombox text-crop"
             label="멀티선택"
@@ -20,13 +20,17 @@
             multiple
             small-chips
             solo
+            return-object
+            item-text="itemKey"
+            item-value="itemValue"
+            @change="fnCustComStat"
           >
             <template v-slot:selection="{ item, parent }">
               <v-chip label>
                 <span>
-                  {{ item }}
+                  {{ item.itemKey }}
                 </span>
-                <v-icon small @click="parent.selectItem(item)">
+                <v-icon small @click="parent.selectItem(item.itemKey)">
                   $delete
                 </v-icon>
               </v-chip>
@@ -37,26 +41,37 @@
           <label for="">고객사명</label>
         </div>
         <div class="col-lg-2 col-md-4">
-          <input type="text" class="form-control" placeholder="고객사명" />
+          <input
+            v-model="searchValue.custComNm"
+            type="text"
+            class="form-control"
+            placeholder="고객사명"
+          />
         </div>
         <div class="col-lg-1 col-md-2">
           <label for="">고객사ID</label>
         </div>
         <div class="col-lg-2 col-md-4">
-          <input type="text" class="form-control" placeholder="고객사ID" />
+          <input
+            v-model="searchValue.custComId"
+            type="text"
+            class="form-control"
+            placeholder="고객사ID"
+          />
         </div>
         <div class="col-lg-1 col-md-2">
           <label for="">고객사 담당자명</label>
         </div>
         <div class="col-lg-2 col-md-4">
           <input
+            v-model="searchValue.mrgNm"
             type="text"
             class="form-control"
             placeholder="고객사 담당자명"
           />
         </div>
       </div>
-      <btn-reset-search />
+      <btn-reset-search @searchBtn="fnSearchBtn" @resetBtn="fnResetBtn" />
     </div>
     <!--// 검색영역 -->
     <!-- 필터 -->
@@ -72,7 +87,7 @@
       :key="gridKey"
     />
     <pagination
-      v-bind:listCount="this.dataCnt"
+      v-bind:listCount="this.pageCnt"
       v-bind:customLimit="this.pageArg.rows"
       @paging="nextGetList"
       :key="pageKey"
@@ -125,7 +140,11 @@ export default {
     ...mapState({ searchIsActive: (state) => state.settings.searchIsActive }),
   },
   data: () => ({
-    items: ["아이템-1", "아이템-2", "아이템-3"],
+    items: [
+      { itemKey: "아이템-1", itemvalue: 1 },
+      { itemKey: "아이템-2", itemvalue: 2 },
+      { itemKey: "아이템-3", itemvalue: 3 },
+    ],
     searchFilters: [
       { filterTitle: "권경", filterText: "서울특별시" },
       { filterTitle: "충전소ID", filterText: "SIG000003" },
@@ -139,7 +158,7 @@ export default {
     ],
     filedId: "cpoList",
     dataList: [],
-    dataCnt: 1,
+    pageCnt: 1,
     gridKey: 0,
     pageKey: 100,
     pageArg: {
@@ -147,6 +166,13 @@ export default {
       page: 1,
     },
     model: "",
+    custComStat: [],
+    searchValue: {
+      custComStat: [],
+      custComNm: "",
+      custComId: "",
+      mgrNm: "",
+    },
   }),
   mounted() {
     this.fnGetCpoLists(this.pageArg);
@@ -154,11 +180,11 @@ export default {
   methods: {
     async fnGetCpoLists(obj) {
       await getCpoLists(obj).then((response) => {
-        this.rows = response.data.rowPerPage;
-        this.page = response.data.page;
-        this.dataCnt = response.data.total;
-        this.dataList = response.data.rows;
-        //console.log(this.dataList);
+        this.rows = response.data.rowPerPage; //페이지당 보여줄 row 갯수
+        this.page = response.data.page; // 현재 페이지
+        this.pageCnt = response.data.total; //총페이지 갯수
+        this.dataList = response.data.rows; // 그리드에 뿌려질 데이터
+        console.log(response);
         this.fnForceLender();
       });
     },
@@ -167,7 +193,7 @@ export default {
       await getCpoLists(this.pageArg).then((response) => {
         this.rows = response.data.rowPerPage;
         this.page = response.data.page;
-        this.dataCnt = response.data.total;
+        this.pageCnt = response.data.total;
       });
     },
     async getSelectedValue(param) {
@@ -176,9 +202,16 @@ export default {
       await getCpoLists(this.pageArg).then((response) => {
         this.rows = response.data.rowPerPage;
         this.page = response.data.page;
-        this.dataCnt = response.data.total;
+        this.pageCnt = response.data.total;
         this.fnForceLender();
       });
+    },
+    fnCustComStat() {
+      this.searchValue.custComStat = [];
+      this.custComStat.forEach((item) => {
+        this.searchValue.custComStat.push(item.itemvalue);
+      });
+      console.log(this.searchValue);
     },
     fnClickRowData(val) {
       this.$router
@@ -198,6 +231,12 @@ export default {
           name: "insertCpo",
         })
         .catch(() => {});
+    },
+    fnSearchBtn() {
+      console.log("search");
+    },
+    fnResetBtn() {
+      console.log("reset");
     },
   },
 };

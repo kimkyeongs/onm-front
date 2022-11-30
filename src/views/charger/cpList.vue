@@ -243,7 +243,7 @@ export default {
     }),
   },
   beforeMount() {
-    this.getJwt();
+    //this.getJwt();
   },
   mounted() {
     window.addEventListener("resize", () => {
