@@ -77,7 +77,7 @@
     <!-- 필터 -->
     <div class="pagekeyWord-wrap">
       <page-count @selected="getSelectedValue" />
-      <search-filter :searchFilter="searchFilters" />
+      <search-filter :searchFilter="searchFilters" @resetBtn="fnGridResetBtn" />
     </div>
     <!-- GRID -->
     <ag-grid
@@ -147,12 +147,7 @@ export default {
       { itemKey: "아이템-2", itemValue: 2 },
       { itemKey: "아이템-3", itemValue: 3 },
     ],
-    searchFilters: [
-      { filterTitle: "고객사상태", filterText: "서울특별시" },
-      { filterTitle: "고객사명", filterText: "SIG000003" },
-      { filterTitle: "충전기구분", filterText: "완속" },
-      { filterTitle: "운영시작일", filterText: "2022-10-22" },
-    ],
+    searchFilters: [{ filterTitle: "검색결과필터 표시", filterText: "" }],
     useGuideLists: [
       "- 이 페이지는 플랫폼통합관리자가 고객사의 목록을 관리하는 페이지로 플랫폼통합관리자만 사용이 가능합니다.",
       "- 추가적인 플랫폼 통합관리자 계정이 필요한 경우 시스템관리자에게 수동으로 계정 생성을 요청하셔야 합니다.",
@@ -169,6 +164,7 @@ export default {
     },
     custComStat: [],
     searchValue: {
+      custComStatNm: [],
       custComStat: [],
       custComNm: "",
       custComId: "",
@@ -222,15 +218,25 @@ export default {
       this.fnGetCpoLists(this.searchValue);
     },
     fnSetSearchFilterList() {
+      var stat = this.searchValue.custComStatNm;
+      var nm = this.searchValue.custComStatNm;
+      var id = this.searchValue.custComId;
+      var mrgNm = this.searchValue.mgrNm;
+
       this.searchFilters = [];
+      if (this.searchValue.custComStatNm == "") {
+        this.searchValue.custComStatNm = "";
+      }
       this.searchFilters.push({
         filterTitle: "고객사상태",
         filterText: this.searchValue.custComStatNm,
       });
+      this.searchValue.custComNm != "";
       this.searchFilters.push({
         filterTitle: "고객사명",
         filterText: this.searchValue.custComNm,
       });
+
       this.searchFilters.push({
         filterTitle: "고객사ID",
         filterText: this.searchValue.custComId,
@@ -243,6 +249,12 @@ export default {
     fnResetBtn() {
       console.log("reset");
     },
+    fnGridResetBtn() {
+      (this.searchFilters = [
+        { filterTitle: "검색결과필터 표시", filterText: "" },
+      ]),
+        this.fnGetCpoLists(this.pageArg);
+    },
     fnCpoInsert() {
       this.$router
         .replace({
@@ -251,8 +263,9 @@ export default {
         .catch(() => {});
     },
     fnClickRowData(val) {
+      this.$store.dispatch("setRouterParams/setParams", {});
       this.$router
-        .replace({
+        .push({
           name: "cpoManagementDetail",
           params: val,
         })

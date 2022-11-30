@@ -305,8 +305,9 @@ export default {
       this.viewData.hpNum = this.orgData.hpNum;
     },
     fnBackList() {
+      this.$store.dispatch("setRouterParams/setParams", {});
       this.$router
-        .replace({
+        .push({
           name: "cpoManagement",
         })
         .catch(() => {});
