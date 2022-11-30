@@ -17,33 +17,39 @@
             <tbody>
               <tr>
                 <th scope="row" class="required"><span>고객사 명</span></th>
-                <td></td>
+                <td>{{ viewData.custComNm }}</td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>고객사ID</span></th>
-                <td></td>
+                <td>{{ viewData.custComId }}</td>
               </tr>
               <tr>
                 <th scope="row" class="required">
                   <span>사업자등록번호</span>
                 </th>
-                <td></td>
+                <td>{{ viewData.bizNum }}</td>
               </tr>
               <tr>
                 <th scope="row"><span>업태</span></th>
-                <td></td>
+                <td>{{ viewData.sectCd }}</td>
               </tr>
               <tr>
                 <th scope="row"><span>종목</span></th>
-                <td></td>
+                <td>{{ viewData.entCd }}</td>
               </tr>
               <tr>
-                <th scope="row" class="required"><span>본사주소</span></th>
-                <td></td>
+                <th scope="row" class="required">
+                  <span>본사주소</span>
+                </th>
+                <td>
+                  {{ viewData.hdZipcd }},{{ viewData.hdAddr }},{{
+                    viewData.hdAddrDtl
+                  }}
+                </td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>고객사상태</span></th>
-                <td></td>
+                <td>{{ viewData.custComStat }}</td>
               </tr>
             </tbody>
           </table>
@@ -64,27 +70,27 @@
             <tbody>
               <tr>
                 <th scope="row" class="required"><span>담장자 명</span></th>
-                <td></td>
+                <td>{{ viewData.mgrNm }}</td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>부서</span></th>
-                <td></td>
+                <td>{{ viewData.deptNm }}</td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>직급</span></th>
-                <td></td>
+                <td>{{ viewData.deptRank }}</td>
               </tr>
               <tr>
                 <th scope="row"><span>전화번호</span></th>
-                <td></td>
+                <td>{{ viewData.telNum }}</td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>핸드폰번호</span></th>
-                <td></td>
+                <td>{{ viewData.hpNum }}</td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>이메일</span></th>
-                <td></td>
+                <td>{{ viewData.email }}</td>
               </tr>
               <tr>
                 <th scope="row">
@@ -93,7 +99,11 @@
                     근무지 주소</span
                   >
                 </th>
-                <td></td>
+                <td>
+                  {{ viewData.zipcd }},{{ viewData.addr }},{{
+                    viewData.addrDtl
+                  }}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -114,26 +124,29 @@
               SK시그넷 담당자 정보
             </caption>
             <tbody>
-              <tr></tr>
+              <tr>
+                <th scope="row" class="required"><span>담당자명</span></th>
+                <td>{{ viewData.signetMgrNm }}</td>
+              </tr>
               <tr>
                 <th scope="row" class="required"><span>부서</span></th>
-                <td></td>
+                <td>{{ viewData.signetDeptNm }}</td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>직급</span></th>
-                <td></td>
+                <td>{{ viewData.signetDeptRank }}</td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>전화번호</span></th>
-                <td></td>
+                <td>{{ viewData.signetTelNum }}</td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>휴대폰번호</span></th>
-                <td></td>
+                <td>{{ viewData.signetHpNum }}</td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>이메일</span></th>
-                <td></td>
+                <td>{{ viewData.signetEmail }}</td>
               </tr>
             </tbody>
           </table>
@@ -154,7 +167,7 @@
             <tbody>
               <tr>
                 <th scope="row"><span>대시보드 디자인</span></th>
-                <td></td>
+                <td>{{ viewData.dboardTpeTp }}</td>
               </tr>
             </tbody>
           </table>
@@ -162,10 +175,12 @@
         <!-- 비고 -->
         <sub-title class="mt-20" title="비고" />
         <textarea
+          v-model="viewData.cont"
           name=""
           id=""
           style="height: 147px"
           class="form-control"
+          readonly
         ></textarea>
       </div>
     </div>
@@ -206,6 +221,7 @@ import SubTitle from "@/components/SubTitle";
 import UseGuide from "@/components/UseGuide";
 import OnmIaAdmSup030P from "@/views/pub/ONM_IA_ADM_SUP_030_P"; //개인정보 마스킹제거Modal
 import { mapState, mapMutations } from "vuex";
+import { selectCpo } from "@/api/cpo_api";
 
 export default {
   components: {
@@ -224,6 +240,7 @@ export default {
       "- 고객사(CPO)의 로밍관련 인증정보, 알림톡관련 계정정보, PG관련 계정정보는 플랫폼 고객사 등록 후, 해당 고객사의 플랫폼 관리메뉴에서 관리할 수 있습니다.",
       "- 등록된 고객사의 삭제는 위험한 작업으로 기능을 제공하지 않습니다. 필요시 일시중지 또는 계약해지를 통 해고객사의 기능을 제어하시고, 필요시 시스템관리자를 통해 수동으로 삭제를 진행하셔야 합니다.",
     ],
+    viewData: {},
   }),
   computed: {
     ...mapState({
@@ -231,8 +248,19 @@ export default {
     }),
   },
   created() {},
+  mounted() {
+    this.viewData = this.$route.params;
+    console.log(this.viewData);
+
+    //this.fnGetCpo("20221129CPO000000001");
+  },
   watch: {},
   methods: {
+    async fnGetCpo(obj) {
+      await selectCpo(obj).then((response) => {
+        console.log(reponse);
+      });
+    },
     ...mapMutations({
       modalOpen: "settings/MODAL_OPEN",
     }),

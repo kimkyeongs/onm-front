@@ -64,7 +64,7 @@
         </div>
         <div class="col-lg-2 col-md-4">
           <input
-            v-model="searchValue.mrgNm"
+            v-model="searchValue.mgrNm"
             type="text"
             class="form-control"
             placeholder="고객사 담당자명"
@@ -84,7 +84,7 @@
       v-bind:dataList="this.dataList"
       v-bind:filedId="this.filedId"
       v-bind:pageCnt="this.pageCnt"
-      v-bind:page="this.page"
+      v-bind:page="this.pageArg.page"
       @clickData="fnClickRowData"
       :key="gridKey"
     />
@@ -143,13 +143,13 @@ export default {
   },
   data: () => ({
     items: [
-      { itemKey: "아이템-1", itemvalue: 1 },
-      { itemKey: "아이템-2", itemvalue: 2 },
-      { itemKey: "아이템-3", itemvalue: 3 },
+      { itemKey: "아이템-1", itemValue: 1 },
+      { itemKey: "아이템-2", itemValue: 2 },
+      { itemKey: "아이템-3", itemValue: 3 },
     ],
     searchFilters: [
-      { filterTitle: "권경", filterText: "서울특별시" },
-      { filterTitle: "충전소ID", filterText: "SIG000003" },
+      { filterTitle: "고객사상태", filterText: "서울특별시" },
+      { filterTitle: "고객사명", filterText: "SIG000003" },
       { filterTitle: "충전기구분", filterText: "완속" },
       { filterTitle: "운영시작일", filterText: "2022-10-22" },
     ],
@@ -167,7 +167,6 @@ export default {
       rows: 10,
       page: 1,
     },
-    page: 1,
     custComStat: [],
     searchValue: {
       custComStat: [],
@@ -183,10 +182,9 @@ export default {
     async fnGetCpoLists(obj) {
       await getCpoLists(obj).then((response) => {
         this.rows = response.data.rowPerPage; //페이지당 보여줄 row 갯수
-        this.page = response.data.page; // 현재 페이지
+        this.pageArg.page = response.data.page; // 현재 페이지
         this.pageCnt = response.data.total; //총페이지 갯수
         this.dataList = response.data.rows; // 그리드에 뿌려질 데이터
-        console.log(response);
         this.fnForceLender();
       });
     },
@@ -194,7 +192,7 @@ export default {
       this.pageArg = pageParam;
       await getCpoLists(this.pageArg).then((response) => {
         this.rows = response.data.rowPerPage;
-        this.page = response.data.page;
+        this.pageArg.page = response.data.page;
         this.pageCnt = response.data.total;
       });
     },
@@ -203,29 +201,47 @@ export default {
       console.log(this.pageArg);
       await getCpoLists(this.pageArg).then((response) => {
         this.rows = response.data.rowPerPage;
-        this.page = response.data.page;
+        this.pageArg.page = response.data.page;
         this.pageCnt = response.data.total;
         this.fnForceLender();
       });
     },
     fnCustComStat() {
       this.searchValue.custComStat = [];
+      this.searchValue.custComStatNm = [];
       this.custComStat.forEach((item) => {
-        this.searchValue.custComStat.push(item.itemvalue);
+        this.searchValue.custComStat.push(item.itemValue);
+        this.searchValue.custComStatNm.push(item.itemKey);
       });
+    },
+    fnSearchBtn() {
+      this.searchValue.rows = this.pageArg.rows;
+      this.searchValue.page = this.pageArg.page;
       console.log(this.searchValue);
+      this.fnSetSearchFilterList();
+      this.fnGetCpoLists(this.searchValue);
     },
-    fnClickRowData(val) {
-      this.$router
-        .replace({
-          name: "cpoManagementDetail",
-        })
-        .catch(() => {});
-      console.log(val);
+    fnSetSearchFilterList() {
+      this.searchFilters = [];
+      this.searchFilters.push({
+        filterTitle: "고객사상태",
+        filterText: this.searchValue.custComStatNm,
+      });
+      this.searchFilters.push({
+        filterTitle: "고객사명",
+        filterText: this.searchValue.custComNm,
+      });
+      this.searchFilters.push({
+        filterTitle: "고객사ID",
+        filterText: this.searchValue.custComId,
+      });
+      this.searchFilters.push({
+        filterTitle: "고객사 담당자명",
+        filterText: this.searchValue.mgrNm,
+      });
     },
-    fnForceLender() {
-      this.gridKey += 1;
-      this.pageKey += 1;
+    fnResetBtn() {
+      console.log("reset");
     },
     fnCpoInsert() {
       this.$router
@@ -234,11 +250,17 @@ export default {
         })
         .catch(() => {});
     },
-    fnSearchBtn() {
-      console.log("search");
+    fnClickRowData(val) {
+      this.$router
+        .replace({
+          name: "cpoManagementDetail",
+          params: val,
+        })
+        .catch(() => {});
     },
-    fnResetBtn() {
-      console.log("reset");
+    fnForceLender() {
+      this.gridKey += 1;
+      this.pageKey += 1;
     },
   },
 };

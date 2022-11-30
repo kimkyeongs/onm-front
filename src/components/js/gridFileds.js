@@ -69,7 +69,7 @@ const fileds = {
     cpoList: [
         { field: "No", headerName: "No", width: 60, maxWidth: 60 },
         { field: "custComNm", headerName: "고객사명" },
-        { field: "cpoId", headerName: "고객사 ID" },
+        { field: "custComId", headerName: "고객사 ID" },
         { field: "bizNum", headerName: "사업자등록번호" },
         { field: "mgrNm", headerName: "고객사 담당자" },
         { field: "signetMgrNm", headerName: "SK시그넷 담당자" },
