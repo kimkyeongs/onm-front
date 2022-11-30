@@ -1,6 +1,6 @@
 <template>
   <section class="onmContent">
-    <head-title title="플랫폼 고객사(CPO) 관리"/>
+    <head-title title="REST API 키 관리"/>
     <div class="statusArea-wrap">
       <search-btnOption :searchDownloadOption="false"/>  
     </div>
@@ -10,50 +10,33 @@
       class="searchArea mt-3 mb-5">
       <div class="row-form mb-3">
         <div class="col-lg-1 col-md-2">
-          <label for="">고객사상태</label>
+          <label for="">고객사명</label>
         </div>  
         <div class="col-lg-2 col-md-4">
-          <v-combobox
-            v-model="model"
+          <v-select
             :items="items"
-            class="multiCombox text-crop"
-            label="멀티선택"
-            hide-selected
-            multiple
-            small-chips
-            solo >
-            <template v-slot:selection="{ item, parent}">
-              <v-chip
-                label>
-                <span>
-                  {{ item }}
-                </span>
-                <v-icon
-                  small
-                  @click="parent.selectItem(item)" >
-                  $delete
-                </v-icon>
-              </v-chip>
-            </template>
-          </v-combobox>
+            class="selectBox"
+            label="전체"
+            dense
+            solo />
         </div>
         <div class="col-lg-1 col-md-2">
-          <label for="">고객사명</label>
+          <label for="">검색일</label>
         </div>
         <div class="col-lg-2 col-md-4">
-          <input type="text" class="form-control" placeholder="고객사명">
+          <date-picker :range="range"/>
         </div>
         <div class="col-lg-1 col-md-2">
-          <label for="">고객사ID</label>
+          <label for="">사용자ID</label>
         </div>
         <div class="col-lg-2 col-md-4">
-          <input type="text" class="form-control" placeholder="고객사ID">
+          <input type="text" class="form-control" placeholder="사용자ID">
         </div>
         <div class="col-lg-1 col-md-2">
-          <label for="">고객사 담당자명</label>
+          <label for="">사용자명</label>
         </div>
         <div class="col-lg-2 col-md-4">
-          <input type="text" class="form-control" placeholder="고객사 담당자명">
+          <input type="text" class="form-control" placeholder="사용자명">
         </div>
         
       </div>
@@ -70,12 +53,17 @@
     <sample-ag-grid />
     <!--// GRID -->
     <div class="btn-area text-right">
+      <button
+        type="button"
+        class="btn btn-default btn-gray"
+        @click="modalOpen">개인정보 마스킹제거</button>
       <button type="button" class="btn btn-default btn-orange btn-fixed">등록</button>
     </div>
     <!-- 이용가이드 -->
     <sub-title title="이용가이드" />
     <use-guide
       :useGuideLists="useGuideLists" />
+    <onm-ia-adm-sup030-p />  
   </section>
 
 </template>
@@ -90,7 +78,10 @@ import PageCount from '@/components/PageCount'
 import SearchFilter from '@/components/SearchFilter'
 import UseGuide from '@/components/UseGuide'
 import SampleAgGrid from '@/components/SampleAgGrid'
-import { mapState } from 'vuex'
+import DatePicker from '@/components/DatePicker.vue'
+import OnmIaAdmSup030P from "@/views/pub/ONM_IA_ADM_SUP_030_P"; //개인정보 마스킹제거Modal
+import { mapState, mapMutations } from 'vuex'
+
 
 export default {
   components: {
@@ -101,10 +92,13 @@ export default {
     PageCount,
     SearchFilter,
     UseGuide,
-    SampleAgGrid
+    SampleAgGrid,
+    OnmIaAdmSup030P,
+    DatePicker
   },
   data() {
     return {
+      range: true,
       items: ['아이템-1', '아이템-2', '아이템-3'],
       searchFilters: [
         { filterTitle: '권경', filterText: '서울특별시'},
@@ -113,22 +107,23 @@ export default {
         { filterTitle: '운영시작일', filterText: '2022-10-22'}
       ],
       useGuideLists: [
-        '- 이 페이지는 플랫폼통합관리자가 고객사의 목록을 관리하는 페이지로 플랫폼통합관리자만 사용이 가능합니다.',
-        '- 추가적인 플랫폼 통합관리자 계정이 필요한 경우 시스템관리자에게 수동으로 계정 생성을 요청하셔야 합니다.',
-        '- 고객사를 생성허산 후, 고객사 대표관리자는 사용자/권한관리 > 사용자관리에서 생성하시면 됩니다.'
+        '- Rest API 키 관리는 외부에 연동할 사업자에 발행할 API Key를 관리하는 메뉴 입니다.',
       ]
     }
   },
   computed: {
     ...mapState({
       searchIsActive: (state) => state.settings.searchIsActive,
+      isActiveModal: (state) => state.settings.isActiveModal,
     }),
   },
   mounted() {
 
   },
   methods: {
-
+    ...mapMutations({
+      modalOpen: "settings/MODAL_OPEN",
+    }),
   }
 }
 </script>

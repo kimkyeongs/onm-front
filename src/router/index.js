@@ -295,6 +295,54 @@ const routes = [
         component: () =>
             import ("@/views/pub/ONM_IA_ADM_COM_540.vue"),
     },
+    {
+        path: "/ONM_IA_ADM_COM_490",
+        name: "ONM_IA_ADM_COM_490",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_490.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_500",
+        name: "ONM_IA_ADM_COM_500",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_500.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_510",
+        name: "ONM_IA_ADM_COM_510",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_510.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_520",
+        name: "ONM_IA_ADM_COM_520",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_520.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_550",
+        name: "ONM_IA_ADM_COM_550",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_550.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_551",
+        name: "ONM_IA_ADM_COM_551",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_551.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_460",
+        name: "ONM_IA_ADM_COM_460",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_460.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_COM_470",
+        name: "ONM_IA_ADM_COM_470",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_COM_470.vue"),
+    },
     //=============================== 퍼블리싱 url END ==========================
 ];
 

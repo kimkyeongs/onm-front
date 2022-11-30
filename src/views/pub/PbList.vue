@@ -548,6 +548,102 @@
           <td>-</td>
           <td>-</td>
         </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">크레딧 및 PG관리 상세보기</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_490'}" target="_blank">@/views/ONM_IA_ADM_COM_490.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">크레딧 및 PG관리 수정</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_500'}" target="_blank">@/views/ONM_IA_ADM_COM_500.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">로밍연동관리 상세보기</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_510'}" target="_blank">@/views/ONM_IA_ADM_COM_510.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">로밍연동관리 수정</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_520'}" target="_blank">@/views/ONM_IA_ADM_COM_520.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">앱다운로드경로관리 상세보기</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_550'}" target="_blank">@/views/ONM_IA_ADM_COM_550.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">앱다운로드경로 수정</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_551'}" target="_blank">@/views/ONM_IA_ADM_COM_551.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">REST API 키 관리</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_460'}" target="_blank">@/views/ONM_IA_ADM_COM_460.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">REST API 키 등록</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_470'}" target="_blank">@/views/ONM_IA_ADM_COM_470.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
         <!-- <tr>
           <td class="tal">vuetify test</td>
           <td class="tal"></td>

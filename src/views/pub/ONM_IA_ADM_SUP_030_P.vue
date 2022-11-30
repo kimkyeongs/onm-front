@@ -72,9 +72,5 @@ export default {
 </script>
 
 <style scoped>
-.checkError {
-  margin-top: -3px;
-  color: var(--color-red);
-  text-align: left;
-}
+
 </style>

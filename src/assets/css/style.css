@@ -50,6 +50,9 @@ b,strong{
   display: block;
   clear: both;
 }
+.font14{
+  font-size: 14px;
+}
 .pull-left{
   float: left;
 }
@@ -65,6 +68,14 @@ b,strong{
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: -4px;
+}
+.checkError{
+  font-size: 14px;
+  color: var(--color-red);
+  text-align: left;
+}
+.dialog-content .checkError{
+  margin-top: -7px;
 }
 .form-inline{
   display: flex;
