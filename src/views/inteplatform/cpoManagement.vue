@@ -147,7 +147,12 @@ export default {
       { itemKey: "아이템-2", itemValue: 2 },
       { itemKey: "아이템-3", itemValue: 3 },
     ],
-    searchFilters: [{ filterTitle: "검색결과필터 표시", filterText: "" }],
+    searchFilters: [
+      { filterTitle: "고객사상태", filterText: "" },
+      { filterTitle: "고객사명", filterText: "" },
+      { filterTitle: "고객사ID", filterText: "" },
+      { filterTitle: "고객사 담당자명", filterText: "" },
+    ],
     useGuideLists: [
       "- 이 페이지는 플랫폼통합관리자가 고객사의 목록을 관리하는 페이지로 플랫폼통합관리자만 사용이 가능합니다.",
       "- 추가적인 플랫폼 통합관리자 계정이 필요한 경우 시스템관리자에게 수동으로 계정 생성을 요청하셔야 합니다.",
@@ -175,6 +180,7 @@ export default {
     this.fnGetCpoLists(this.pageArg);
   },
   methods: {
+    //그리드 데이터
     async fnGetCpoLists(obj) {
       await getCpoLists(obj).then((response) => {
         this.rows = response.data.rowPerPage; //페이지당 보여줄 row 갯수
@@ -192,6 +198,7 @@ export default {
         this.pageCnt = response.data.total;
       });
     },
+    // 그리드에 row 몇 개씩 뿌릴지 선택
     async getSelectedValue(param) {
       this.pageArg.rows = param;
       console.log(this.pageArg);
@@ -202,6 +209,7 @@ export default {
         this.fnForceLender();
       });
     },
+    // 고객사 상태 멀티셀렉트
     fnCustComStat() {
       this.searchValue.custComStat = [];
       this.searchValue.custComStatNm = [];
@@ -210,6 +218,7 @@ export default {
         this.searchValue.custComStatNm.push(item.itemKey);
       });
     },
+    // 검색버튼
     fnSearchBtn() {
       this.searchValue.rows = this.pageArg.rows;
       this.searchValue.page = this.pageArg.page;
@@ -217,6 +226,7 @@ export default {
       this.fnSetSearchFilterList();
       this.fnGetCpoLists(this.searchValue);
     },
+    // 검색결과 필터표시
     fnSetSearchFilterList() {
       var stat = this.searchValue.custComStatNm;
       var nm = this.searchValue.custComStatNm;
@@ -246,15 +256,24 @@ export default {
         filterText: this.searchValue.mgrNm,
       });
     },
+    //검색조건 초기화
     fnResetBtn() {
-      console.log("reset");
+      this.custComStat = [];
+      this.searchValue = {
+        custComStatNm: [],
+        custComStat: [],
+        custComNm: "",
+        custComId: "",
+        mgrNm: "",
+      };
     },
+    //검색필터 초기화후 그리드 초기화
     fnGridResetBtn() {
-      (this.searchFilters = [
-        { filterTitle: "검색결과필터 표시", filterText: "" },
-      ]),
-        this.fnGetCpoLists(this.pageArg);
+      this.pageArg.page = 1;
+      this.pageArg.rows = 10;
+      this.fnGetCpoLists(this.pageArg);
     },
+    //등록페이지로 이동
     fnCpoInsert() {
       this.$router
         .replace({
@@ -262,6 +281,7 @@ export default {
         })
         .catch(() => {});
     },
+    //그리드 row 클릭시 상세페이지로 이동
     fnClickRowData(val) {
       this.$store.dispatch("setRouterParams/setParams", {});
       this.$router
