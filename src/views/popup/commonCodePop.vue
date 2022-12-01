@@ -22,11 +22,12 @@
             아래 비밀번호를 입력하고 확인을 누르시면 반영 됩니다
           </div>
           <input
+            v-model="userPassword"
             type="password"
             class="form-control mt-20 mb-2"
             placeholder="로그인 비밀번호를 입력해 주세요."
           />
-          <p v-if="true" class="checkError mb-3">
+          <p v-if="true" class="checkError mb-3" v-show="this.show">
             비밀번호를 다시 확인해 주세요.
           </p>
           <button
@@ -54,14 +55,32 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
+import { popupPwCheck } from "@/api/auth_api";
+import store from "@/store";
 
 export default {
   props: ["popupGubun"],
   components: {},
+  data: () => ({
+    userPassword: "",
+    status: null,
+    show: "",
+  }),
   computed: {
     ...mapState({
       isActiveModal: (state) => state.settings.isActiveModal,
     }),
+  },
+  watch: {
+    status: function () {
+      console.log(this.status);
+      if (this.status) {
+        this.$store.commit("settings/MODAL_CLOSE");
+        this.$emit("checkBool", { result: true, gubun: this.popupGubun });
+      } else {
+        this.show = "ok";
+      }
+    },
   },
   mounted() {
     console.log(this.popupGubun);
@@ -70,9 +89,19 @@ export default {
     ...mapMutations({
       modalClose: "settings/MODAL_CLOSE",
     }),
+    //비밀번호 인증
+    async pwCheck(val) {
+      var userId = store.getters.userId;
+      var requestParam = {
+        userId,
+        userPassword: val,
+      };
+      await popupPwCheck(requestParam).then((response) => {
+        this.status = response.data === "success" ? true : false;
+      });
+    },
     checkPassword() {
-      this.$store.commit("settings/MODAL_CLOSE");
-      this.$emit("checkBool", { result: true, gubun: this.popupGubun });
+      this.pwCheck(this.userPassword);
     },
   },
 };

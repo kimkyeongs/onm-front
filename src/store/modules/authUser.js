@@ -40,6 +40,7 @@ const actions = {
                     const key = "Authorization";
                     const token = result.headers.get(key);
                     commit("SET_TOKEN", token);
+                    commit("SET_USERID", userId.trim());
                     resolve(response);
                 })
                 .catch((error) => {
