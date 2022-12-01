@@ -1,12 +1,7 @@
 <template>
-
   <!-- eslint-disable -->
   <div class="pub_list">
-    <h1>SK시그넷 Vue Publish</h1>
-    <ul class="sub_navi tabs">
-      <li class=""><router-link to="pblist"> O &amp; M</router-link></li>
-    </ul>
-    <p style="margin-top: 20px"><strong style="font-weight: 800;">&lt;PC&gt;</strong></p>
+    <h1>SK시그넷-O&M Vue Publish</h1>
     <table class="table_style_01">
       <colgroup>
         <col style="width: 190px">
@@ -674,7 +669,7 @@ export default {
 
 <style scoped>
   .pub_list {padding: 20px; color: #333; letter-spacing: 0;}
-  h1 { font-size:20px; margin-bottom: 20px}
+  h1 { font-size:30px; margin-bottom: 16px}
   ul li a { font-size:14px; color:#444; }
   .table_style_01 {width: 100%;border-collapse: collapse;margin: 0 0 20px 0; background: #fff; table-layout: fixed; min-width: 1500px; }
   .table_style_01 td { padding: 7px 15px; border: 1px solid #dfdede; padding-left: 10px;  font-size: 12px; line-height: 1.6; text-align: center;}

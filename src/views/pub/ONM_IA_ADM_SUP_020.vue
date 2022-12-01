@@ -226,6 +226,33 @@
             </tbody>
           </table>
         </div>
+        <!-- 미수금 회원 탈퇴 정책 -->
+        <sub-title class="mt-20" title="미수금 회원 탈퇴 정책" />
+        <div class="table">
+          <table>
+            <colgroup>
+              <col width="30%">
+              <col width="*">
+            </colgroup>
+            <caption class="sr-only">미수금 회원 탈퇴 정책</caption>
+            <tbody>
+              <tr>
+                <th scope="row"><span>미수금 회원 탈퇴여부</span></th>
+                <td>
+                  <v-radio-group class="radio-group" v-model="radioGroup2" row>
+                    <v-radio
+                      v-for="key in radioLists2"
+                      :key="key"
+                      :label="key"
+                      :value="key"
+                      color="orange"
+                    />
+                  </v-radio-group>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <!-- 고객사 대시보드 템플릿 정보 -->
       <div class="col-lg-6 col-md-12 subject">
@@ -292,6 +319,7 @@ export default {
     return {
       customerLists: ['정상', '일시중지', '계약해지'],
       radioLists: ['대시보드_A', '대시보드_B', '대시보드_C'],
+      radioLists2: ['탈퇴가능', '탈퇴불가'], 
       addressCheckbox: true,
       useGuideLists: [
         '- 이 페이지는 플랫폼통합관리자가 고객사(CPO)를 등록하는 페이지로 플랫폼통합관리자만 사용이 가능합니다.',
