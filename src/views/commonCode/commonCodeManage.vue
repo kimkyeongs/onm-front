@@ -796,20 +796,26 @@ export default {
     };
   },
   beforeMount() {
-    if (this.$store.getters.searchParams.serchText1 != undefined) {
-      this.serchText1 = this.$store.getters.searchParams.serchText1;
-    }
-    if (this.$store.getters.searchParams.serchText2 != undefined) {
-      this.serchText2 = this.$store.getters.searchParams.serchText2;
-    }
-    //this.dtlNav.mainClassCd;
-    if (this.$store.getters.searchParams.dtlNav.mainClassCd != undefined) {
-      this.dtlNav.mainClassCd =
-        this.$store.getters.searchParams.dtlNav.mainClassCd;
-    }
-    if (this.$store.getters.searchParams.dtlNav.mainClassNm != undefined) {
-      this.dtlNav.mainClassNm =
-        this.$store.getters.searchParams.dtlNav.mainClassNm;
+    try {
+      if (this.$store.getters.searchParams.serchText1 != undefined) {
+        this.serchText1 = this.$store.getters.searchParams.serchText1;
+      }
+      if (this.$store.getters.searchParams.serchText2 != undefined) {
+        this.serchText2 = this.$store.getters.searchParams.serchText2;
+      }
+      if (this.$store.getters.searchParams.dtlNav.mainClassCd != undefined) {
+        this.dtlNav.mainClassCd =
+          this.$store.getters.searchParams.dtlNav.mainClassCd;
+      }
+      if (this.$store.getters.searchParams.dtlNav.mainClassNm != undefined) {
+        this.dtlNav.mainClassNm =
+          this.$store.getters.searchParams.dtlNav.mainClassNm;
+      }
+    } catch (e) {
+      this.serchText1 = "";
+      this.serchText2 = "";
+      this.dtlNav.mainClassCd = "";
+      this.dtlNav.mainClassNm = "";
     }
   },
   mounted() {
@@ -818,7 +824,6 @@ export default {
       this.serchText(this.serchText1, "1");
     }
     if (this.serchText2 != "") {
-      console.log("dd?");
       this.serchText(this.serchText2, "2");
       this.fnShowTab("codeChildPlace");
     }
