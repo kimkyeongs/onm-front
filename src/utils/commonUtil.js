@@ -82,7 +82,8 @@ export function param2Obj(url) {
 }
 
 export function combineNumToStr(val1, val2, val3) {
-    var combineStr = val1.toString() + val2.toString() + val3.toString();
+    var combineStr =
+        val1.toString() + "-" + val2.toString() + "-" + val3.toString();
     return combineStr;
 }
 
@@ -95,4 +96,10 @@ export function maskingEmail(str) {
     } else {
         return str;
     }
+}
+
+export function separatNum(val) {
+    var separatNumList = [];
+    separatNumList = val.split("-");
+    return separatNumList;
 }

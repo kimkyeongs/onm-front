@@ -593,9 +593,9 @@ export default {
         hdZipcd: "",
         hdAddr: "",
         hdAddrDtl: "",
-        Zipcd: "",
-        Addr: "",
-        AddrDtl: "",
+        zipcd: "",
+        addr: "",
+        addrDtl: "",
         regId: "",
         regDt: "",
         modeId: "",
@@ -789,9 +789,9 @@ export default {
       this.model.hdAddr = this.headOffice.address;
       this.model.hdAddrDtl = this.headOffice.addressDtl;
 
-      this.model.Zipcd = this.personOffice.postcode;
-      this.model.Addr = this.personOffice.address;
-      this.model.AddrDtl = this.personOffice.addressDtl;
+      this.model.zipcd = this.personOffice.postcode;
+      this.model.addr = this.personOffice.address;
+      this.model.addrDtl = this.personOffice.addressDtl;
     },
   },
 };

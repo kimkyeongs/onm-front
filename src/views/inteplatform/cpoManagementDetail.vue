@@ -225,7 +225,6 @@ import SubTitle from "@/components/SubTitle";
 import UseGuide from "@/components/UseGuide";
 import OnmIaAdmSup030P from "@/views/pub/ONM_IA_ADM_SUP_030_P"; //개인정보 마스킹제거Modal
 import { mapState, mapMutations } from "vuex";
-import { selectCpo } from "@/api/cpo_api";
 import { maskingEmail } from "@/utils/commonUtil.js";
 
 export default {
@@ -282,11 +281,6 @@ export default {
   },
   watch: {},
   methods: {
-    async fnGetCpo(obj) {
-      await selectCpo(obj).then((response) => {
-        console.log(reponse);
-      });
-    },
     ...mapMutations({
       modalOpen: "settings/MODAL_OPEN",
     }),

@@ -23,7 +23,7 @@ export function insertCpo(data) {
 //CPO 상세조회
 export function selectCpo(data) {
     return request({
-        url: url + "/inteplatform/cpo/selectCpoList",
+        url: url + "/inteplatform/cpo/selectCpo",
         method: "post",
         data,
     });
