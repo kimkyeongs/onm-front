@@ -199,6 +199,7 @@
         <button
           type="button"
           class="btn btn-default btn-gray"
+          v-show="this.btnShow"
           @click="modalOpen"
         >
           개인정보 마스킹제거
@@ -215,7 +216,8 @@
     <!-- 이용가이드 -->
     <sub-title title="이용가이드" />
     <use-guide :useGuideLists="useGuideLists" />
-    <onm-ia-adm-sup030-p />
+    <!-- 개인정보마스킹제거 팝업 -->
+    <removeMaskingPop @pwdCheck="fnPwdCheck" />
   </section>
 </template>
 
@@ -223,7 +225,7 @@
 import HeadTitle from "@/components/HeadTitle";
 import SubTitle from "@/components/SubTitle";
 import UseGuide from "@/components/UseGuide";
-import OnmIaAdmSup030P from "@/views/pub/ONM_IA_ADM_SUP_030_P"; //개인정보 마스킹제거Modal
+import removeMaskingPop from "@/views/popup/removeMaskingPop"; //개인정보 마스킹제거Modal
 import { mapState, mapMutations } from "vuex";
 import { maskingEmail } from "@/utils/commonUtil.js";
 
@@ -232,7 +234,7 @@ export default {
     HeadTitle,
     SubTitle,
     UseGuide,
-    OnmIaAdmSup030P,
+    removeMaskingPop,
   },
   data: () => ({
     customerLists: ["정상", "일시중지", "계약해지"],
@@ -249,6 +251,7 @@ export default {
       email: "",
       hpNum: "",
     },
+    btnShow: "ok",
   }),
   computed: {
     ...mapState({
@@ -308,6 +311,12 @@ export default {
           name: "updateCpo",
         })
         .catch(() => {});
+    },
+    fnPwdCheck(val) {
+      if (val.result) {
+        this.fnUnMasking();
+        this.btnShow = "";
+      }
     },
   },
 };
