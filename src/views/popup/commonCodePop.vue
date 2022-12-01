@@ -82,9 +82,7 @@ export default {
       }
     },
   },
-  mounted() {
-    console.log(this.popupGubun);
-  },
+  mounted() {},
   methods: {
     ...mapMutations({
       modalClose: "settings/MODAL_CLOSE",

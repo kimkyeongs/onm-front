@@ -670,6 +670,7 @@ import {
   updateCommonChildCode,
 } from "@/api/commonCode_api";
 
+import { getNowDate, getNowTime } from "@/utils/dataFormatUtils";
 import { mapState, mapMutations } from "vuex";
 
 export default {
@@ -700,8 +701,8 @@ export default {
         "- 엑셀다운로드는 대분류코드와 소분류코드가 모두 표시되어 다운로드 됩니다.",
       ],
       radioLists: [
-        { itemNm: "사용", itemValue: "Y" },
-        { itemNm: "미사용", itemValue: "N" },
+        { itemNm: "사용", itemValue: "1" },
+        { itemNm: "미사용", itemValue: "0" },
       ],
       codeInsertPlace1: "",
       codeInsertPlace2: "",
@@ -873,9 +874,10 @@ export default {
     async fnInsertMainCode() {
       this.validationChk(this.mainDataParam, "0");
       await setCommonMainCode(this.mainDataParam).then((response) => {
-        console.log(response);
         if (response.data === "SUCCESS") {
-          this.$router.go();
+          //this.$router.go();
+          // this.mainDtlData = this.mainDataParam;
+          this.fnRefreshMain();
         }
       });
     },
@@ -883,9 +885,10 @@ export default {
       this.validationChk(this.childDataParam, "1");
       this.childDataParam.mainClassCd = this.dtlNav.mainClassCd;
       await setCommonChildCode(this.childDataParam).then((response) => {
-        console.log(response);
         if (response.data === "SUCCESS") {
-          this.$router.go();
+          this.fnRefreshChild();
+          this.childDtlData = this.childDataParam;
+          this.childDtlData.modDt = getNowDate() + " " + getNowTime();
         }
       });
     },
@@ -897,7 +900,7 @@ export default {
       await updateCommonMainCode(this.mainUpdateData).then((response) => {
         console.log(response);
         if (response.data === "SUCCESS") {
-          this.$router.go();
+          this.fnRefreshMain();
         }
       });
     },
@@ -905,10 +908,11 @@ export default {
       this.validationChk(this.childUpdateData, "1");
       this.childUpdateData.mainClassCd = this.dtlNav.mainClassCd;
       this.childUpdateData.beforeMdlClassCd = this.dtlNav.mdlClassCd;
+      this.childUpdateData.modId = this.$store.getters.userId;
       await updateCommonChildCode(this.childUpdateData).then((response) => {
         console.log(response);
         if (response.data === "SUCCESS") {
-          this.$router.go();
+          this.fnRefreshChild();
         }
       });
     },
@@ -1008,8 +1012,26 @@ export default {
     //비밀번호 체크 팝업
     pwCheckVal(e) {
       if (e.result) {
-        e.gubun === "1" ? this.fnUpdateMainCode() : this.fnUpdateChildCode();
+        // e.gubun === "1" ? this.fnUpdateMainCode() : this.fnUpdateChildCode();
+        if (e.gubun === "1") {
+          this.fnUpdateMainCode();
+        } else {
+          this.fnUpdateChildCode();
+        }
       }
+    },
+    fnRefreshMain() {
+      this.fnCommonMainCode(this.pageArgs.pageArg1);
+      this.fnShowTab("codeDtlPlace1");
+    },
+    fnRefreshChild() {
+      var requestParam = {
+        page: this.pageArgs.pageArg2.page,
+        rows: this.pageArgs.pageArg2.rows,
+        mainClassCd: this.dtlNav.mainClassCd,
+      };
+      this.fnCommonChildCode(requestParam);
+      this.fnShowTab("codeDtlPlace2");
     },
   },
 };
