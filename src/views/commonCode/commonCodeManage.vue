@@ -211,12 +211,13 @@
                 <tr>
                   <th scope="row"><span>대분류코드</span></th>
                   <td>
-                    <input
+                    {{ mainUpdateData.mainClassCd }}
+                    <!-- <input
                       v-model="mainUpdateData.mainClassCd"
                       type="text"
                       class="form-control"
                       placeholder="대분류 코드"
-                    />
+                    /> -->
                   </td>
                   <th scope="row"><span>대분류명</span></th>
                   <td>
