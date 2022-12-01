@@ -1,6 +1,7 @@
 <template>
   <div class="grid-serach-single">
     <input
+      v-model="serchText"
       type="text"
       class="form-control"
       :placeholder="this.holderMsg"
@@ -15,10 +16,16 @@
 
 <script>
 export default {
-  props: ["holderMsg"],
+  props: ["holderMsg", "textValue"],
   data: () => ({
     serchText: "",
   }),
+  // watch: {
+  //   serchText: "fnGetText",
+  // },
+  mounted() {
+    this.serchText = this.textValue;
+  },
   methods: {
     fnGetText(e) {
       this.serchText = e.target.value;

@@ -94,6 +94,7 @@ export default {
           e.target.parentNode.classList.add("selected");
           if (menuUrl != "" || menuUrl != null || menuUrl != undefined) {
             this.$store.dispatch("setRouterParams/setParams", {});
+            this.$store.dispatch("setSearchParams/setParams", {});
             this.$router
               .push({
                 name: menuUrl,

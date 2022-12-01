@@ -8,6 +8,7 @@
           <sub-title title="대분류코드" />
           <GridMainSearchBtn
             v-bind:holderMsg="holderMsg1"
+            v-bind:textValue="serchText1"
             @serchText="serchText($event, '1')"
           />
         </div>
@@ -291,6 +292,8 @@
           </div>
           <GridChildSearchBtn
             v-bind:holderMsg="holderMsg2"
+            v-bind:textValue="serchText2"
+            :key="serchKey"
             @serchText="serchText($event, '2')"
           />
         </div>
@@ -704,6 +707,7 @@ export default {
         { itemNm: "사용", itemValue: "1" },
         { itemNm: "미사용", itemValue: "0" },
       ],
+
       codeInsertPlace1: "",
       codeInsertPlace2: "",
       codeChildPlace: "",
@@ -711,8 +715,11 @@ export default {
       codeDtlPlace2: "",
       codeUpdatePlace1: "",
       codeUpdatePlace2: "",
+      serchKey: 0,
       dataListMain: null,
       dataListChild: null,
+      serchText1: "",
+      serchText2: "",
       popupGubun: 1,
       popupKey: 1000000,
       gridFiledKey: {
@@ -788,8 +795,33 @@ export default {
       },
     };
   },
+  beforeMount() {
+    if (this.$store.getters.searchParams.serchText1 != undefined) {
+      this.serchText1 = this.$store.getters.searchParams.serchText1;
+    }
+    if (this.$store.getters.searchParams.serchText2 != undefined) {
+      this.serchText2 = this.$store.getters.searchParams.serchText2;
+    }
+    //this.dtlNav.mainClassCd;
+    if (this.$store.getters.searchParams.dtlNav.mainClassCd != undefined) {
+      this.dtlNav.mainClassCd =
+        this.$store.getters.searchParams.dtlNav.mainClassCd;
+    }
+    if (this.$store.getters.searchParams.dtlNav.mainClassNm != undefined) {
+      this.dtlNav.mainClassNm =
+        this.$store.getters.searchParams.dtlNav.mainClassNm;
+    }
+  },
   mounted() {
     this.fnCommonMainCode(this.pageArgs.pageArg1);
+    if (this.serchText1 != "") {
+      this.serchText(this.serchText1, "1");
+    }
+    if (this.serchText2 != "") {
+      console.log("dd?");
+      this.serchText(this.serchText2, "2");
+      this.fnShowTab("codeChildPlace");
+    }
   },
   methods: {
     // ...mapMutations({
@@ -872,74 +904,94 @@ export default {
     },
     //insert
     async fnInsertMainCode() {
-      this.validationChk(this.mainDataParam, "0");
-      await setCommonMainCode(this.mainDataParam).then((response) => {
-        if (response.data === "SUCCESS") {
-          //this.$router.go();
-          // this.mainDtlData = this.mainDataParam;
-          this.fnRefreshMain();
-        }
-      });
+      var result = this.validationChk(this.mainDataParam, "0");
+      if (result) {
+        await setCommonMainCode(this.mainDataParam).then((response) => {
+          if (response.data === "SUCCESS") {
+            //this.$router.go();
+            // this.mainDtlData = this.mainDataParam;
+            this.fnRefreshMain();
+          }
+        });
+      }
     },
     async fnInsertChildCode() {
-      this.validationChk(this.childDataParam, "1");
+      var result = this.validationChk(this.childDataParam, "1");
       this.childDataParam.mainClassCd = this.dtlNav.mainClassCd;
-      await setCommonChildCode(this.childDataParam).then((response) => {
-        if (response.data === "SUCCESS") {
-          this.fnRefreshChild();
-          this.childDtlData = this.childDataParam;
-          this.childDtlData.modDt = getNowDate() + " " + getNowTime();
-        }
-      });
+      if (result) {
+        await setCommonChildCode(this.childDataParam).then((response) => {
+          if (response.data === "SUCCESS") {
+            this.fnRefreshChild();
+            this.childDtlData = this.childDataParam;
+            this.childDtlData.modDt = getNowDate() + " " + getNowTime();
+          }
+        });
+      }
     },
     //update
     async fnUpdateMainCode() {
-      console.log(this.mainUpdateData);
-      this.validationChk(this.mainUpdateData, "0");
-      this.mainUpdateData.beforeMainClassCd = this.dtlNav.mainClassCd;
-      await updateCommonMainCode(this.mainUpdateData).then((response) => {
-        console.log(response);
-        if (response.data === "SUCCESS") {
-          this.fnRefreshMain();
-        }
-      });
+      var result = this.validationChk(this.mainUpdateData, "0");
+      if (result) {
+        this.mainUpdateData.beforeMainClassCd = this.dtlNav.mainClassCd;
+        await updateCommonMainCode(this.mainUpdateData).then((response) => {
+          console.log(response);
+          if (response.data === "SUCCESS") {
+            this.fnRefreshMain();
+          }
+        });
+      }
     },
     async fnUpdateChildCode() {
-      this.validationChk(this.childUpdateData, "1");
-      this.childUpdateData.mainClassCd = this.dtlNav.mainClassCd;
-      this.childUpdateData.beforeMdlClassCd = this.dtlNav.mdlClassCd;
-      this.childUpdateData.modId = this.$store.getters.userId;
-      await updateCommonChildCode(this.childUpdateData).then((response) => {
-        console.log(response);
-        if (response.data === "SUCCESS") {
-          this.fnRefreshChild();
-        }
-      });
+      var result = this.validationChk(this.childUpdateData, "1");
+      if (result) {
+        this.childUpdateData.mainClassCd = this.dtlNav.mainClassCd;
+        this.childUpdateData.beforeMdlClassCd = this.dtlNav.mdlClassCd;
+        this.childUpdateData.modId = this.$store.getters.userId;
+        await updateCommonChildCode(this.childUpdateData).then((response) => {
+          console.log(response);
+          if (response.data === "SUCCESS") {
+            this.fnRefreshChild();
+          }
+        });
+      }
     },
     //저장/수정시 유효성 체크 gubun -> 0:대분류 , 1 : 소분류
     validationChk(obj, gubun) {
       if (gubun === "0") {
         if (!obj.mainClassCd) {
           alert("대분류 코드를 입력 해주세요.");
+          return false;
         } else if (!obj.mainClassNm) {
           alert("대분류 코드명을 입력 해주세요.");
+          return false;
         } else if (!obj.useYn) {
           alert("사용여부를 체크해주세요.");
+          return false;
         }
       } else {
         if (!obj.mdlClassCd) {
           alert("소분류 코드명을 입력 해주세요.");
+          return false;
         } else if (!obj.mdlClassNm) {
           alert("소분류 코드명을 입력 해주세요.");
+          return false;
         } else if (!obj.useYn) {
           alert("사용여부를 체크해주세요.");
+          return false;
         }
       }
+      return true;
     },
     //대분류 코드 상세 및 우측 소분류코드 리스트 노출
     setChildData(obj) {
       //수정버튼 예외처리
       if (obj.column.colId != "updateBtn") {
+        //소분류 검색어 초기화
+        this.serchText2 = "";
+        var searchParams = this.$store.getters.searchParams;
+        searchParams.serchText2 = "";
+        this.$store.dispatch("setSearchParams/setParams", searchParams);
+        this.serchKey += 1;
         //기존 영역 show 초기화
         this.fnShowTab("ALL");
         var requestParam = {
@@ -976,11 +1028,21 @@ export default {
         mainClassCd: this.dtlNav.mainClassCd,
       };
       if (gubun === "1") {
+        this.serchText1 = sText;
         this.fnCommonMainCode(requestParam);
         this.fnShowTab("ALL");
       } else {
+        this.serchText2 = sText;
         this.fnCommonChildCode(requestParam);
       }
+      this.$store.dispatch("setSearchParams/setParams", {
+        serchText1: this.serchText1,
+        serchText2: this.serchText2,
+        dtlNav: {
+          mainClassCd: this.dtlNav.mainClassCd,
+          mainClassNm: this.dtlNav.mainClassNm,
+        },
+      });
     },
     //수정버튼 이벤트 (대분류)
     setMainCodeUpdate(e) {
