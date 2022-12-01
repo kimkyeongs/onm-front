@@ -12,7 +12,7 @@
         </div>
         <div class="col-lg-2 col-md-4">
           <v-combobox
-            v-model="model"
+            v-model="custComStat"
             :items="items"
             class="multiCombox text-crop"
             label="멀티선택"
@@ -20,13 +20,17 @@
             multiple
             small-chips
             solo
+            return-object
+            item-text="itemKey"
+            item-value="itemValue"
+            @change="fnCustComStat"
           >
             <template v-slot:selection="{ item, parent }">
               <v-chip label>
                 <span>
-                  {{ item }}
+                  {{ item.itemKey }}
                 </span>
-                <v-icon small @click="parent.selectItem(item)">
+                <v-icon small @click="parent.selectItem(item.itemKey)">
                   $delete
                 </v-icon>
               </v-chip>
@@ -37,41 +41,55 @@
           <label for="">고객사명</label>
         </div>
         <div class="col-lg-2 col-md-4">
-          <input type="text" class="form-control" placeholder="고객사명" />
+          <input
+            v-model="searchValue.custComNm"
+            type="text"
+            class="form-control"
+            placeholder="고객사명"
+          />
         </div>
         <div class="col-lg-1 col-md-2">
           <label for="">고객사ID</label>
         </div>
         <div class="col-lg-2 col-md-4">
-          <input type="text" class="form-control" placeholder="고객사ID" />
+          <input
+            v-model="searchValue.custComId"
+            type="text"
+            class="form-control"
+            placeholder="고객사ID"
+          />
         </div>
         <div class="col-lg-1 col-md-2">
           <label for="">고객사 담당자명</label>
         </div>
         <div class="col-lg-2 col-md-4">
           <input
+            v-model="searchValue.mgrNm"
             type="text"
             class="form-control"
             placeholder="고객사 담당자명"
           />
         </div>
       </div>
-      <btn-reset-search />
+      <btn-reset-search @searchBtn="fnSearchBtn" @resetBtn="fnResetBtn" />
     </div>
     <!--// 검색영역 -->
     <!-- 필터 -->
     <div class="pagekeyWord-wrap">
       <page-count @selected="getSelectedValue" />
-      <search-filter :searchFilter="searchFilters" />
+      <search-filter :searchFilter="searchFilters" @resetBtn="fnGridResetBtn" />
     </div>
     <!-- GRID -->
     <ag-grid
       v-bind:dataList="this.dataList"
       v-bind:filedId="this.filedId"
+      v-bind:pageCnt="this.pageCnt"
+      v-bind:page="this.pageArg.page"
+      @clickData="fnClickRowData"
       :key="gridKey"
     />
     <pagination
-      v-bind:listCount="this.dataCnt"
+      v-bind:listCount="this.pageCnt"
       v-bind:customLimit="this.pageArg.rows"
       @paging="nextGetList"
       :key="pageKey"
@@ -124,12 +142,16 @@ export default {
     ...mapState({ searchIsActive: (state) => state.settings.searchIsActive }),
   },
   data: () => ({
-    items: ["아이템-1", "아이템-2", "아이템-3"],
+    items: [
+      { itemKey: "아이템-1", itemValue: 1 },
+      { itemKey: "아이템-2", itemValue: 2 },
+      { itemKey: "아이템-3", itemValue: 3 },
+    ],
     searchFilters: [
-      { filterTitle: "권경", filterText: "서울특별시" },
-      { filterTitle: "충전소ID", filterText: "SIG000003" },
-      { filterTitle: "충전기구분", filterText: "완속" },
-      { filterTitle: "운영시작일", filterText: "2022-10-22" },
+      { filterTitle: "고객사상태", filterText: "" },
+      { filterTitle: "고객사명", filterText: "" },
+      { filterTitle: "고객사ID", filterText: "" },
+      { filterTitle: "고객사 담당자명", filterText: "" },
     ],
     useGuideLists: [
       "- 이 페이지는 플랫폼통합관리자가 고객사의 목록을 관리하는 페이지로 플랫폼통합관리자만 사용이 가능합니다.",
@@ -138,50 +160,140 @@ export default {
     ],
     filedId: "cpoList",
     dataList: [],
-    dataCnt: 1,
+    pageCnt: 1,
     gridKey: 0,
     pageKey: 100,
     pageArg: {
       rows: 10,
       page: 1,
     },
+    custComStat: [],
+    searchValue: {
+      custComStatNm: [],
+      custComStat: [],
+      custComNm: "",
+      custComId: "",
+      mgrNm: "",
+    },
   }),
   mounted() {
     this.fnGetCpoLists(this.pageArg);
   },
   methods: {
+    //그리드 데이터
     async fnGetCpoLists(obj) {
       await getCpoLists(obj).then((response) => {
-        this.rows = response.data.rowPerPage;
-        this.page = response.data.page;
-        this.dataCnt = response.data.total;
-        this.pageKey += 1;
+        this.rows = response.data.rowPerPage; //페이지당 보여줄 row 갯수
+        this.pageArg.page = response.data.page; // 현재 페이지
+        this.pageCnt = response.data.total; //총페이지 갯수
+        this.dataList = response.data.rows; // 그리드에 뿌려질 데이터
+        this.fnForceLender();
       });
     },
     async nextGetList(pageParam) {
       this.pageArg = pageParam;
       await getCpoLists(this.pageArg).then((response) => {
         this.rows = response.data.rowPerPage;
-        this.page = response.data.page;
-        this.dataCnt = response.data.total;
+        this.pageArg.page = response.data.page;
+        this.pageCnt = response.data.total;
       });
     },
+    // 그리드에 row 몇 개씩 뿌릴지 선택
     async getSelectedValue(param) {
       this.pageArg.rows = param;
       console.log(this.pageArg);
       await getCpoLists(this.pageArg).then((response) => {
         this.rows = response.data.rowPerPage;
-        this.page = response.data.page;
-        this.dataCnt = response.data.total;
-        this.pageKey += 1;
+        this.pageArg.page = response.data.page;
+        this.pageCnt = response.data.total;
+        this.fnForceLender();
       });
     },
+    // 고객사 상태 멀티셀렉트
+    fnCustComStat() {
+      this.searchValue.custComStat = [];
+      this.searchValue.custComStatNm = [];
+      this.custComStat.forEach((item) => {
+        this.searchValue.custComStat.push(item.itemValue);
+        this.searchValue.custComStatNm.push(item.itemKey);
+      });
+    },
+    // 검색버튼
+    fnSearchBtn() {
+      this.searchValue.rows = this.pageArg.rows;
+      this.searchValue.page = this.pageArg.page;
+      console.log(this.searchValue);
+      this.fnSetSearchFilterList();
+      this.fnGetCpoLists(this.searchValue);
+    },
+    // 검색결과 필터표시
+    fnSetSearchFilterList() {
+      var stat = this.searchValue.custComStatNm;
+      var nm = this.searchValue.custComStatNm;
+      var id = this.searchValue.custComId;
+      var mrgNm = this.searchValue.mgrNm;
+
+      this.searchFilters = [];
+      if (this.searchValue.custComStatNm == "") {
+        this.searchValue.custComStatNm = "";
+      }
+      this.searchFilters.push({
+        filterTitle: "고객사상태",
+        filterText: this.searchValue.custComStatNm,
+      });
+      this.searchValue.custComNm != "";
+      this.searchFilters.push({
+        filterTitle: "고객사명",
+        filterText: this.searchValue.custComNm,
+      });
+
+      this.searchFilters.push({
+        filterTitle: "고객사ID",
+        filterText: this.searchValue.custComId,
+      });
+      this.searchFilters.push({
+        filterTitle: "고객사 담당자명",
+        filterText: this.searchValue.mgrNm,
+      });
+    },
+    //검색조건 초기화
+    fnResetBtn() {
+      this.custComStat = [];
+      this.searchValue = {
+        custComStatNm: [],
+        custComStat: [],
+        custComNm: "",
+        custComId: "",
+        mgrNm: "",
+      };
+    },
+    //검색필터 초기화후 그리드 초기화
+    fnGridResetBtn() {
+      this.pageArg.page = 1;
+      this.pageArg.rows = 10;
+      this.fnGetCpoLists(this.pageArg);
+    },
+    //등록페이지로 이동
     fnCpoInsert() {
       this.$router
         .replace({
           name: "insertCpo",
         })
         .catch(() => {});
+    },
+    //그리드 row 클릭시 상세페이지로 이동
+    fnClickRowData(val) {
+      this.$store.dispatch("setRouterParams/setParams", {});
+      this.$router
+        .push({
+          name: "cpoManagementDetail",
+          params: val.data,
+        })
+        .catch(() => {});
+    },
+    fnForceLender() {
+      this.gridKey += 1;
+      this.pageKey += 1;
     },
   },
 };

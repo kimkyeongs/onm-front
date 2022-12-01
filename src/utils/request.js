@@ -14,7 +14,6 @@ service.interceptors.request.use(
     (config) => {
         config.headers["Content-Type"] = "application/json; charset=utf-8";
         config.headers["Authorization"] = store.getters.token;
-        console.log(store);
 
         return config;
     },
