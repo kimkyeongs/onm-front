@@ -1144,7 +1144,7 @@ export default {
     fnRefreshChild() {
       var requestParam = {
         page: this.pageArgs.pageArg2.page,
-        searchText1,
+        searchText: this.searchText2,
         rows: this.pageArgs.pageArg2.rows,
         mainClassCd: this.dtlNav.mainClassCd,
       };

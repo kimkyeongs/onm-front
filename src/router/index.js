@@ -6,6 +6,7 @@ import platformRoutes from "@/router/modules/platform/platformRoutes";
 import chargerRoutes from "@/router/modules/charger/chargerRoutes";
 import inteplatformRoutes from "@/router/modules/inteplatform/cpo/inteplatformRoutes";
 import commonCodeRoutes from "@/router/modules/inteplatform/commonCode/commonCodeRoutes";
+import batchJobInfoRoutes from "@/router/modules/inteplatform/batchJobInfo/batchJobInfoRoutes";
 
 Vue.use(VueRouter);
 const routes = [
@@ -28,6 +29,7 @@ const routes = [
     // platformRoutes,
     inteplatformRoutes,
     commonCodeRoutes,
+    batchJobInfoRoutes,
     //=============================== 개발 routing END ==========================
     //=============================== 퍼블리싱 url ==========================
     {
