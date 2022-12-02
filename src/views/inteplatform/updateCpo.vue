@@ -552,7 +552,11 @@ export default {
         { itemKey: "대시보드_B", itemValue: "1" },
         { itemKey: "대시보드_C", itemValue: "2" },
       ],
-      useGuideLists: ["리에서 생성하시면 됩니다."],
+      useGuideLists: [
+        "- 이 페이지는 플랫폼통합관리자가 고객사(CPO) 정보를 수정하는 페이지로 플랫폼통합관리자만 사용이 가능합니다.",
+        "- 고객사 담당자는 제휴 또는 계약 담당자를 의미하며 고객사의 대표관리자를 의미하는 것은 아니며, 플랫폼에 로그인이 필요한 경우, 사용자/권한관리 > 사용자관리에서 생성하시면 됩니다.",
+        "- 고객사ID를 변경하는 경우 기존에 소스코드에서 수동으로 분기처리한 내역이 있다면, 새로운 고객사ID로 변경하여야 합니다.",
+      ],
       addressCheckbox: false,
       model: {
         custComNm: "",
@@ -632,7 +636,17 @@ export default {
       this.resize();
     });
     this.resize();
-    this.fnGetCpo({ cpoId: "20221129CPO000000001" });
+    if (this.$store.getters.routeParams.viewData == undefined) {
+      this.fnGetCpo({ cpoId: "20221129CPO000000001" });
+      this.$store.dispatch("setRouterParams/setParams", {
+        viewData: this.model,
+      });
+    } else {
+      this.model = this.$store.getters.routeParams.viewData;
+      this.model.email = this.$store.getters.routeParams.viewData.orgEmail;
+      this.model.hpNum = this.$store.getters.routeParams.viewData.orgHpNum;
+      this.fnBindModel();
+    }
   },
   watch: {
     addressCheckbox: "fnCheckBoxCtl",
@@ -644,7 +658,7 @@ export default {
 
     async fnUpdateCpo(obj) {
       await updateCpo(obj).then((response) => {
-        console.log(response.data);
+        this.fnCpoUpdate();
       });
     },
     async fnGetCpo(obj) {
@@ -676,7 +690,7 @@ export default {
     saveBtn() {
       this.fnSummaryModel();
       console.log(this.model);
-      //this.fnInsertCpo(this.model);
+      this.fnUpdateCpo(this.model);
     },
     fnBackList() {
       this.$router
@@ -774,6 +788,13 @@ export default {
       this.model.Zipcd = this.personOffice.postcode;
       this.model.Addr = this.personOffice.address;
       this.model.AddrDtl = this.personOffice.addressDtl;
+    },
+    fnCpoUpdate() {
+      this.$router
+        .push({
+          name: "cpoManagementDetail",
+        })
+        .catch(() => {});
     },
   },
 };

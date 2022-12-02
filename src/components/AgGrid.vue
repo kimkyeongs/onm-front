@@ -71,15 +71,7 @@ export default {
     this.groupDisplayType = "custom";
     this.groupDefaultExpanded = 1;
   },
-  methods: {
-    //grid클릭이벤트
-    fnClick(e) {
-      this.$emit("clickData", e);
-    },
-    fnClickBtn(e) {
-      this.$emit("clickBtnData", e.rowData.data);
-    },
-  }, //beforeMount
+  //beforeMount
   mounted() {
     // gridFileds.js에 선언된 컬럼들을 id로 가져옴
     // 만약에 updateBtn 이라는 이름의 field 가 있다면 버튼 이벤트를 심어준다. -> fnClickBtn
@@ -91,6 +83,19 @@ export default {
     (this.columnDefs = this.columValues),
       (this.rowData = this.dataList),
       (this.rowSelection = "single");
+  },
+  methods: {
+    //grid클릭이벤트
+    fnClick(e) {
+      this.$emit("clickData", e);
+    },
+    fnClickBtn(e) {
+      this.$emit("clickBtnData", e.rowData.data);
+    },
+    fnGetGridData(e) {
+      console.log(1);
+      console.log(e);
+    },
   },
 };
 </script>

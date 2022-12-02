@@ -278,6 +278,7 @@ export default {
       this.viewData = this.$store.getters.routeParams.viewData;
       this.orgData.email = this.$store.getters.routeParams.viewData.orgEmail;
       this.orgData.hpNum = this.$store.getters.routeParams.viewData.orgHpNum;
+      this.fnMasking(this.viewData);
     }
 
     //this.fnGetCpo("20221129CPO000000001");

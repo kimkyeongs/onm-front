@@ -100,7 +100,7 @@
         <button
           type="button"
           class="btn btn-default btn-orange btn-fixed"
-          @click="fnCpoInsert"
+          @click="excelTest"
         >
           등록
         </button>
@@ -124,6 +124,9 @@ import AgGrid from "@/components/AgGrid";
 import Pagination from "@/components/Pagination";
 import { mapState } from "vuex";
 import { getCpoLists } from "@/api/cpo_api";
+//엑셀테스트
+import { excelDownload } from "@/api/stat_api";
+import { getFileds } from "@/components/js/gridFileds";
 
 export default {
   components: {
@@ -175,9 +178,12 @@ export default {
       custComId: "",
       mgrNm: "",
     },
+    //엑셀테스트
+    columValues: [],
   }),
   mounted() {
     this.fnGetCpoLists(this.pageArg);
+    this.fnGetFileds();
   },
   methods: {
     //그리드 데이터
@@ -295,6 +301,79 @@ export default {
       this.gridKey += 1;
       this.pageKey += 1;
     },
+    fnGetFileds() {
+      this.columValues = getFileds(this.filedId, null);
+
+      console.log(this.columValues);
+    },
+
+    async excelTest() {
+      var tmp = {
+        excelHeader: [],
+        excelKey: [],
+        excelWidth: [
+          "4000",
+          "4000",
+          "4000",
+          "4000",
+          "4000",
+          "4000",
+          "4000",
+          "4000",
+        ],
+        excelDataType: [
+          "string",
+          "string",
+          "string",
+          "string",
+          "string",
+          "string",
+          "string",
+          "string",
+        ],
+        pageId: "test",
+        excelNm: "테스트",
+      };
+      this.columValues.forEach((items) => {
+        tmp.excelHeader.push(items.headerName);
+        tmp.excelKey.push(items.field);
+      });
+      await excelDownload(tmp).then((response) => {
+        console.log(response.headers);
+        const url = window.URL.createObjectURL(
+          new Blob([response.data], { type: response.headers["content-type"] })
+        );
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "test.xlsx";
+        link.click();
+        console.log(response);
+      });
+    },
+    /**
+     * {
+     * "excelHeader": [
+     * "No",
+     * "고객사명",
+     * "고객사 ID",
+     * "사업자등록번호",
+     * "고객사 담당자",
+     * "SK시그넷 담당자",
+     * "고객사 상태",
+     * "등록일"
+     * ],
+     * "excelKey": [
+     * "rownumber",
+     * "custComNm",
+     * "custComId",
+     * "bizNum",
+     * "mgrNm",
+     * "signetMgrNm",
+     * "custComStat",
+     * "regDt"
+     * ]
+     * }
+     */
   },
 };
 </script>
