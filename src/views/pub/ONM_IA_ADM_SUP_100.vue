@@ -94,10 +94,10 @@
 </template>
 
 <script>
-import HeadTitle from '@/components/HeadTitle'
-import SubTitle from '@/components/SubTitle'
-import UseGuide from '@/components/UseGuide'
-import DatePicker from '@/components/DatePicker'
+import HeadTitle from '@/views/pub/components/HeadTitle'
+import SubTitle from '@/views/pub/components/SubTitle'
+import UseGuide from '@/views/pub/components/UseGuide'
+import DatePicker from '@/views/pub/components/DatePicker'
 
 export default {
   components: {

@@ -70,15 +70,15 @@
 
 <script>
 
-import HeadTitle from '@/components/HeadTitle'
-import SubTitle from '@/components/SubTitle'
-import SearchBtnOption from '@/components/SearchBtnOption'
-import BtnResetSearch from '@/components/BtnResetSearch'
-import PageCount from '@/components/PageCount'
-import SearchFilter from '@/components/SearchFilter'
-import UseGuide from '@/components/UseGuide'
-import SampleAgGrid from '@/components/SampleAgGrid'
-import DatePicker from '@/components/DatePicker.vue'
+import HeadTitle from '@/views/pub/components/HeadTitle'
+import SubTitle from '@/views/pub/components/SubTitle'
+import SearchBtnOption from '@/views/pub/components/SearchBtnOption'
+import BtnResetSearch from '@/views/pub/components/BtnResetSearch'
+import PageCount from '@/views/pub/components/PageCount'
+import SearchFilter from '@/views/pub/components/SearchFilter'
+import UseGuide from '@/views/pub/components/UseGuide'
+import SampleAgGrid from '@/views/pub/components/SampleAgGrid'
+import DatePicker from '@/views/pub/components/DatePicker.vue'
 import OnmIaAdmSup030P from "@/views/pub/ONM_IA_ADM_SUP_030_P"; //개인정보 마스킹제거Modal
 import { mapState, mapMutations } from 'vuex'
 

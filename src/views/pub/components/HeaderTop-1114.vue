@@ -70,9 +70,9 @@
 </template>
 
 <script>
-import NoticeList from '@/components/NoticeList'
-import ErrorList from '@/components/ErrorList'
-import AllMenu from '@/components/AllMenu'
+import NoticeList from '@/views/pub/components/NoticeList'
+import ErrorList from '@/views/pub/components/ErrorList'
+import AllMenu from '@/views/pub/components/AllMenu'
 import { mapState, mapMutations } from 'vuex'
 
 export default {

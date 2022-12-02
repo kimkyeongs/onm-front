@@ -167,15 +167,15 @@
 </template>
 
 <script>
-import HeadTitle from "@/components/HeadTitle"
-import SubTitle from "@/components/SubTitle"
-import UseGuide from "@/components/UseGuide"
+import HeadTitle from "@/views/pub/components/HeadTitle"
+import SubTitle from "@/views/pub/components/SubTitle"
+import UseGuide from "@/views/pub/components/UseGuide"
 import NavTabs from "@/views/pub/components/NavTabs"
-import SearchBtnOption from '@/components/SearchBtnOption'
-import BtnResetSearch from '@/components/BtnResetSearch'
-import PageCount from '@/components/PageCount'
-import SearchFilter from '@/components/SearchFilter'
-import SampleAgGrid from '@/components/SampleAgGrid'
+import SearchBtnOption from '@/views/pub/components/SearchBtnOption'
+import BtnResetSearch from '@/views/pub/components/BtnResetSearch'
+import PageCount from '@/views/pub/components/PageCount'
+import SearchFilter from '@/views/pub/components/SearchFilter'
+import SampleAgGrid from '@/views/pub/components/SampleAgGrid'
 import { mapState } from "vuex"
 
 export default {

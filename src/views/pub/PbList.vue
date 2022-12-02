@@ -44,7 +44,7 @@
           <td class="tal"></td>
           <td></td>
           <td class="tal">
-            <router-link :to="{name: 'HeaderTop'}" target="_blank">@/components/Header.vue</router-link>
+            <router-link :to="{name: 'HeaderTop'}" target="_blank">@/views/pub/components/Header.vue</router-link>
           </td>
           <td>-</td>
           <td>-</td>
@@ -56,7 +56,7 @@
           <td class="tal"></td>
           <td></td>
           <td class="tal">
-            <router-link :to="{name: 'FooterBottom'}" target="_blank">@/components/Footer.vue</router-link>
+            <router-link :to="{name: 'FooterBottom'}" target="_blank">@/views/pub/components/Footer.vue</router-link>
           </td>
           <td>-</td>
           <td>-</td>
@@ -68,7 +68,7 @@
           <td class="tal"></td>
           <td></td>
           <td class="tal">
-            <router-link :to="{name: 'SideBar'}" target="_blank">@/components/SideBar.vue</router-link>
+            <router-link :to="{name: 'SideBar'}" target="_blank">@/views/pub/components/SideBar.vue</router-link>
           </td>
           <td>-</td>
           <td>-</td>
@@ -80,7 +80,7 @@
           <td class="tal"></td>
           <td></td>
           <td class="tal">
-            <router-link :to="{name: 'NoticeList'}" target="_blank">@/components/NoticeList.vue</router-link>
+            <router-link :to="{name: 'NoticeList'}" target="_blank">@/views/pub/components/NoticeList.vue</router-link>
           </td>
           <td>-</td>
           <td>-</td>
@@ -92,7 +92,7 @@
           <td class="tal"></td>
           <td></td>
           <td class="tal">
-            <router-link :to="{name: 'ErrorList'}" target="_blank">@/components/ErrorList.vue</router-link>
+            <router-link :to="{name: 'ErrorList'}" target="_blank">@/views/pub/components/ErrorList.vue</router-link>
           </td>
           <td>-</td>
           <td>-</td>
@@ -104,7 +104,7 @@
           <td class="tal"></td>
           <td></td>
           <td class="tal">
-            <router-link :to="{name: 'AllMenu'}" target="_blank">@/components/AllMenu.vue</router-link>
+            <router-link :to="{name: 'AllMenu'}" target="_blank">@/views/pub/components/AllMenu.vue</router-link>
           </td>
           <td>-</td>
           <td>-</td>
@@ -116,7 +116,7 @@
           <td class="tal"></td>
           <td></td>
           <td class="tal">
-            <router-link :to="{name: 'AgGrid'}" target="_blank">@/components/AgGrid.vue</router-link>
+            <router-link :to="{name: 'AgGrid'}" target="_blank">@/views/pub/components/AgGrid.vue</router-link>
           </td>
           <td>-</td>
           <td>-</td>
@@ -128,7 +128,7 @@
           <td class="tal"></td>
           <td></td>
           <td class="tal">
-            <router-link :to="{name: 'SampleAgGrid'}" target="_blank">@/components/SampleAgGrid.vue</router-link>
+            <router-link :to="{name: 'SampleAgGrid'}" target="_blank">@/views/pub/components/SampleAgGrid.vue</router-link>
           </td>
           <td>-</td>
           <td>-</td>
@@ -140,7 +140,7 @@
           <td class="tal"></td>
           <td></td>
           <td class="tal">
-            <router-link :to="{name: 'Modal'}" target="_blank">@/components/Modal.vue</router-link>
+            <router-link :to="{name: 'Modal'}" target="_blank">@/views/pub/components/Modal.vue</router-link>
           </td>
           <td>-</td>
           <td>-</td>
@@ -670,6 +670,19 @@
           <td></td>
           <td class="tal">
             <router-link :to="{name:'ONM_IA_ADM_COM_560'}" target="_blank">@/views/ONM_IA_ADM_COM_560.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">사용자</td>
+          <td class="tal">권한관리</td>
+          <td class="tal">사용자관리</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_USE_010'}" target="_blank">@/views/ONM_IA_ADM_USE_010
+.vue</router-link>
           </td>
           <td>-</td>
           <td>-</td>
