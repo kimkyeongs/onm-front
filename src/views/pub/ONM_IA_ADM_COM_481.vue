@@ -1,6 +1,6 @@
 <template>
   <section class="onmContent">
-    <head-title title="REST API 키 등록" />
+    <head-title title="REST API 키 수정" />
 
     <div class="flex-row">  
       <!-- Rest API 키 정보 -->
@@ -33,8 +33,14 @@
                 <td></td>
               </tr>
               <tr>
-                <th scope="row" class="required"><span>API Key</span></th>
-                <td></td>
+                <th scope="row" rowspan="2" class="required"><span>API Key</span></th>
+                <td>
+                  3ef1a88f670b4e75067f95ae0081f0eb
+                  <button type="button" class="btn btn-md btn-gray ml-2">재발급</button>
+                </td>
+              </tr>
+              <tr>
+                <td>재발급 2회 (최종재발급일 2022-12-12 12:12</td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>API 상태</span></th>
@@ -46,6 +52,7 @@
                       :label="key"
                       :value="key"
                       color="orange"
+                      :readonly="true"
                     />
                   </v-radio-group>
                 </td>
@@ -210,7 +217,6 @@
         <button type="button" class="btn btn-default btn-yellow btn-fixed">목록</button>
       </div>
       <div class="pull-right">
-        <button type="button" class="btn btn-default btn-gray btn-fixed">초기화</button>
         <button type="button" class="btn btn-default btn-orange btn-fixed">저장</button>
       </div>
       
