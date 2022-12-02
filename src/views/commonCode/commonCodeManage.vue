@@ -419,7 +419,7 @@
                   <th scope="row"><span>비고</span></th>
                   <td colspan="3">
                     <input
-                      v-model="childDataParam.descr"
+                      v-model="childDataParam.desrc"
                       type="text"
                       class="form-control"
                       placeholder="비고"
@@ -756,29 +756,29 @@ export default {
       mainDataParam: {
         mainClassCd: "",
         mainClassNm: "",
-        descr: "",
+        desrc: "",
         useYn: "",
-        regId: "ROOT", //임시
+        regId: this.$store.getters.userId, //임시
       },
       childDataParam: {
         mainClassCd: "",
         mdlClassCd: "",
         mdlClassNm: "",
-        descr: "",
+        desrc: "",
         relatCd1: "",
         relatCd2: "",
         relatCd3: "",
         useYn: "",
-        regId: "ROOT", //임시
+        regId: this.$store.getters.userId, //임시
       },
       mainDtlData: {},
       childDtlData: {},
       mainUpdateData: {
         mainClassCd: "",
         mainClassNm: "",
-        descr: "",
+        desrc: "",
         useYn: "",
-        modId: "ROOT", //임시
+        modId: this.$store.getters.userId, //임시
         modDt: "",
       },
       childUpdateData: {
@@ -790,7 +790,7 @@ export default {
         relatCd2: "",
         relatCd3: "",
         useYn: "",
-        modId: "ROOT", //임시
+        modId: this.$store.getters.userId, //임시
         modDt: "",
       },
     };
@@ -922,7 +922,14 @@ export default {
         await setCommonMainCode(this.mainDataParam).then((response) => {
           if (response.data === "SUCCESS") {
             //this.$router.go();
-            // this.mainDtlData = this.mainDataParam;
+            this.mainDtlData = this.mainDataParam;
+            this.mainDataParam = {
+              mainClassCd: "",
+              mainClassNm: "",
+              descr: "",
+              useYn: "",
+              regId: this.$store.getters.userId, //임시
+            };
             this.fnRefreshMain();
           } else {
             alert("중복된 대분류 코드 입니다.");
@@ -939,6 +946,17 @@ export default {
             if (response.data === "SUCCESS") {
               this.fnRefreshChild();
               this.childDtlData = this.childDataParam;
+              this.childDataParam = {
+                mainClassCd: "",
+                mdlClassCd: "",
+                mdlClassNm: "",
+                descr: "",
+                relatCd1: "",
+                relatCd2: "",
+                relatCd3: "",
+                useYn: "",
+                regId: this.$store.getters.userId,
+              };
               this.childDtlData.modDt = getNowDate() + " " + getNowTime();
             } else {
               alert("중복된 소분류 코드 입니다.");
