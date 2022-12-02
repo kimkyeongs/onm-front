@@ -5,6 +5,7 @@ import Layout from "@/layout/appLayout.vue";
 import platformRoutes from "@/router/modules/platformRoutes";
 import chargerRoutes from "@/router/modules/chargerRoutes";
 import inteplatformRoutes from "@/router/modules/inteplatformRoutes";
+import commonCodeRoutes from "@/router/modules/commonCodeRoutes";
 
 Vue.use(VueRouter);
 const routes = [
@@ -24,8 +25,9 @@ const routes = [
     },
 
     chargerRoutes,
-    platformRoutes,
+    // platformRoutes,
     inteplatformRoutes,
+    commonCodeRoutes,
     //=============================== 개발 routing END ==========================
     //=============================== 퍼블리싱 url ==========================
     {

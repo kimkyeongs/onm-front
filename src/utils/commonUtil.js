@@ -80,3 +80,19 @@ export function param2Obj(url) {
     });
     return obj;
 }
+
+export function combineNumToStr(val1, val2, val3) {
+    var combineStr = val1.toString() + val2.toString() + val3.toString();
+    return combineStr;
+}
+
+export function maskingEmail(str) {
+    var tmp = str.indexOf("@");
+    if (tmp > -1) {
+        var maskingEmail =
+            str.substring(0, 1) + "*".repeat(tmp - 1) + str.substring(tmp);
+        return maskingEmail;
+    } else {
+        return str;
+    }
+}

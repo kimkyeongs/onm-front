@@ -2,7 +2,7 @@
   <button
     type="button"
     class="btn btn-default btn-gray btn-xsm"
-    @click="fnCpoUpdate()"
+    @click="getData($event)"
   >
     수정
   </button>
@@ -10,13 +10,19 @@
 
 <script>
 export default {
+  data: () => ({
+    returnData: null,
+  }),
   methods: {
-    fnCpoUpdate() {
-      this.$router
-        .replace({
-          name: "updateCpo",
-        })
-        .catch(() => {});
+    getData(e) {
+      //this.returnData = this.params;
+      //console.log(this.returnData);
+      // this.$emit("clickBtnData", this.returnData);
+      const params = {
+        rowData: this.params,
+        // ...something
+      };
+      this.params.onClick(params);
     },
   },
 };

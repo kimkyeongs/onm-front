@@ -144,7 +144,7 @@ export default [{
             },
             {
                 menuTitle: "공통코드관리",
-                menuUrl: "/ipm/commonCodeManagement",
+                menuUrl: "commonCodeManage",
             },
             {
                 menuTitle: "배치이력관리",

@@ -67,15 +67,35 @@ const fileds = {
     ],
     //플랫폼 고객사(CPO) 관리
     cpoList: [
-        { field: "No", width: 60, maxWidth: 60 },
-        { field: "고객사명" },
-        { field: "고객사 ID" },
-        { field: "사업자등록번호" },
-        { field: "고객사 담당자" },
-        { field: "SK시그넷 담당자" },
-        { field: "고객사 상태" },
-        { field: "등록일" },
-        { field: "수정", cellRenderer: "GridModBtn" },
+        { field: "No", headerName: "No", width: 60, maxWidth: 60 },
+        { field: "custComNm", headerName: "고객사명" },
+        { field: "custComId", headerName: "고객사 ID" },
+        { field: "bizNum", headerName: "사업자등록번호" },
+        { field: "mgrNm", headerName: "고객사 담당자" },
+        { field: "signetMgrNm", headerName: "SK시그넷 담당자" },
+        { field: "custComStat", headerName: "고객사 상태" },
+        { field: "regDt", headerName: "등록일" },
+    ],
+    //공통코드 관리(대분류)
+    commonCodeList: [
+        { field: "rownumber", headerName: "No", width: 60, maxWidth: 60 },
+        { field: "mainClassCd", headerName: "대분류코드" },
+        { field: "mainClassNm", headerName: "대분류명" },
+        { field: "useYn", headerName: "사용여부" },
+        { field: "descr", headerName: "설명" },
+        { field: "updateBtn", headerName: "수정", cellRenderer: "GridModBtn" },
+    ],
+    //공통코드 관리 (소분류)
+    commonChildCodeList: [
+        { field: "rownumber", headerName: "No", width: 60, maxWidth: 60 },
+        { field: "mdlClassCd", headerName: "소분류코드" },
+        { field: "mdlClassNm", headerName: "소분류명" },
+        { field: "useYn", headerName: "사용여부" },
+        { field: "relatCd1", headerName: "참조1" },
+        { field: "relatCd2", headerName: "참조2" },
+        { field: "relatCd3", headerName: "참조3" },
+        { field: "desrc", headerName: "설명" },
+        { field: "updateBtn", headerName: "수정", cellRenderer: "GridModBtn" },
     ],
     //ag-grid  group 기능 테스트용
     groupList: [
@@ -119,8 +139,24 @@ const fileds = {
     ],
 };
 // id에 해당하는 컬럼 List 를 리턴 -> 사용할 페이지에 import후 메서드 실행
-export function getFileds(id) {
-    if (id == null || id == "" || id == undefined)
-        alert("컬럼이 존재하지 않습니다");
-    return fileds[id];
+export function getFileds(id, setting) {
+    var setFileds = fileds[id];
+    setFileds.forEach((obj) => {
+        if (obj.field === "updateBtn") {
+            obj.cellRendererParams = setting;
+            return;
+        }
+    });
+    return setFileds;
+}
+
+export function setBindRenderer(id) {
+    var setFileds = fileds[id];
+    setFileds.forEach((obj) => {
+        if (obj.field === "updateBtn") {
+            obj.cellRendererParams = setting;
+        }
+    });
+
+    return setFileds;
 }
