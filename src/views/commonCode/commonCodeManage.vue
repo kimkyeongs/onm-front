@@ -8,7 +8,7 @@
           <sub-title title="대분류코드" />
           <GridMainSearchBtn
             v-bind:holderMsg="holderMsg1"
-            v-bind:textValue="serchText1"
+            v-bind:textValue="searchText1"
             @serchText="serchText($event, '1')"
           />
         </div>
@@ -34,6 +34,7 @@
             <button
               type="button"
               class="btn btn-default btn-darkGreen btn-fixed"
+              @click="fnExcelDownload"
             >
               엑셀다운로드
             </button>
@@ -292,7 +293,7 @@
           </div>
           <GridChildSearchBtn
             v-bind:holderMsg="holderMsg2"
-            v-bind:textValue="serchText2"
+            v-bind:textValue="searchText2"
             :key="serchKey"
             @serchText="serchText($event, '2')"
           />
@@ -672,6 +673,10 @@ import {
   updateCommonMainCode,
   updateCommonChildCode,
 } from "@/api/commonCode_api";
+//엑셀 다운로드
+import { excelDownload } from "@/api/stat_api";
+import { getFileds } from "@/components/js/gridFileds";
+import { getExcelFileds } from "@/components/js/excelFileds";
 
 import { getNowDate, getNowTime } from "@/utils/dataFormatUtils";
 import { mapState, mapMutations } from "vuex";
@@ -718,14 +723,15 @@ export default {
       serchKey: 0,
       dataListMain: null,
       dataListChild: null,
-      serchText1: "",
-      serchText2: "",
+      searchText1: "",
+      searchText2: "",
       popupGubun: 1,
       popupKey: 1000000,
       gridFiledKey: {
         key1: "commonCodeList",
         key2: "commonChildCodeList",
       },
+      excelFiledKey: "commonCodeManage",
       pageCnts: {
         pageCnt1: 0,
         pageCnt2: 0,
@@ -797,11 +803,11 @@ export default {
   },
   beforeMount() {
     try {
-      if (this.$store.getters.searchParams.serchText1 != undefined) {
-        this.serchText1 = this.$store.getters.searchParams.serchText1;
+      if (this.$store.getters.searchParams.searchText1 != undefined) {
+        this.searchText1 = this.$store.getters.searchParams.searchText1;
       }
-      if (this.$store.getters.searchParams.serchText2 != undefined) {
-        this.serchText2 = this.$store.getters.searchParams.serchText2;
+      if (this.$store.getters.searchParams.searchText2 != undefined) {
+        this.searchText2 = this.$store.getters.searchParams.searchText2;
       }
       if (this.$store.getters.searchParams.dtlNav.mainClassCd != undefined) {
         this.dtlNav.mainClassCd =
@@ -812,19 +818,19 @@ export default {
           this.$store.getters.searchParams.dtlNav.mainClassNm;
       }
     } catch (e) {
-      this.serchText1 = "";
-      this.serchText2 = "";
+      this.searchText1 = "";
+      this.searchText2 = "";
       this.dtlNav.mainClassCd = "";
       this.dtlNav.mainClassNm = "";
     }
   },
   mounted() {
     this.fnCommonMainCode(this.pageArgs.pageArg1);
-    if (this.serchText1 != "") {
-      this.serchText(this.serchText1, "1");
+    if (this.searchText1 != "") {
+      this.serchText(this.searchText1, "1");
     }
-    if (this.serchText2 != "") {
-      this.serchText(this.serchText2, "2");
+    if (this.searchText2 != "") {
+      this.serchText(this.searchText2, "2");
       this.fnShowTab("codeChildPlace");
     }
   },
@@ -1036,9 +1042,9 @@ export default {
       //수정버튼 예외처리
       if (obj.column.colId != "updateBtn") {
         //소분류 검색어 초기화
-        this.serchText2 = "";
+        this.searchText2 = "";
         var searchParams = this.$store.getters.searchParams;
-        searchParams.serchText2 = "";
+        searchParams.searchText2 = "";
         this.$store.dispatch("setSearchParams/setParams", searchParams);
         this.serchKey += 1;
         //기존 영역 show 초기화
@@ -1077,16 +1083,16 @@ export default {
         mainClassCd: this.dtlNav.mainClassCd,
       };
       if (gubun === "1") {
-        this.serchText1 = sText;
+        this.searchText1 = sText;
         this.fnCommonMainCode(requestParam);
         this.fnShowTab("ALL");
       } else {
-        this.serchText2 = sText;
+        this.searchText2 = sText;
         this.fnCommonChildCode(requestParam);
       }
       this.$store.dispatch("setSearchParams/setParams", {
-        serchText1: this.serchText1,
-        serchText2: this.serchText2,
+        searchText1: this.searchText1,
+        searchText2: this.searchText2,
         dtlNav: {
           mainClassCd: this.dtlNav.mainClassCd,
           mainClassNm: this.dtlNav.mainClassNm,
@@ -1138,11 +1144,31 @@ export default {
     fnRefreshChild() {
       var requestParam = {
         page: this.pageArgs.pageArg2.page,
+        searchText1,
         rows: this.pageArgs.pageArg2.rows,
         mainClassCd: this.dtlNav.mainClassCd,
       };
       this.fnCommonChildCode(requestParam);
       this.fnShowTab("codeDtlPlace2");
+    },
+
+    async fnExcelDownload() {
+      var tmp = {};
+      tmp = getExcelFileds(this.excelFiledKey);
+      console.log(tmp);
+      tmp.searchText1 = this.searchText1;
+      tmp.searchText2 = this.searchText2;
+      await excelDownload(tmp).then((response) => {
+        console.log(response.headers);
+        const url = window.URL.createObjectURL(
+          new Blob([response.data], { type: response.headers["content-type"] })
+        );
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "test.xlsx";
+        link.click();
+        console.log(response);
+      });
     },
   },
 };
