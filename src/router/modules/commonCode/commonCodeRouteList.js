@@ -5,6 +5,6 @@ export const commonCodeRouteList = [
         name: "commonCodeManage",
         props: true,
         component: () =>
-            import ("@/views/commonCode/commonCodeManage.vue"),
+            import ("@/views/inteplatform/commonCode/commonCodeManage.vue"),
     },
 ];
