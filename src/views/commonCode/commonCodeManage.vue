@@ -888,14 +888,18 @@ export default {
     },
     // select
     async fnCommonMainCode(obj) {
-      await getCommonMainCode(obj).then((response) => {
-        this.dataListMain = response.data.rows;
-        this.pageCnts.pageCnt1 = response.data.total;
-        this.pageArgs.pageArg1.rows = response.data.rowPerPage;
-        this.pageArgs.pageArg1.page = response.data.page;
-        this.gridKeys.gridKey1 += 1;
-        this.pageKeys.pageKey1 += 1;
-      });
+      await getCommonMainCode(obj)
+        .then((response) => {
+          this.dataListMain = response.data.rows;
+          this.pageCnts.pageCnt1 = response.data.total;
+          this.pageArgs.pageArg1.rows = response.data.rowPerPage;
+          this.pageArgs.pageArg1.page = response.data.page;
+          this.gridKeys.gridKey1 += 1;
+          this.pageKeys.pageKey1 += 1;
+        })
+        .catch((e) => {
+          alert(e);
+        });
     },
     async fnCommonChildCode(obj) {
       await getCommonChildCode(obj)
