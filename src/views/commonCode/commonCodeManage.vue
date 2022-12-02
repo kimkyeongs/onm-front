@@ -898,14 +898,18 @@ export default {
       });
     },
     async fnCommonChildCode(obj) {
-      await getCommonChildCode(obj).then((response) => {
-        this.dataListChild = response.data.rows;
-        this.pageCnts.pageCnt2 = response.data.total;
-        this.pageArgs.pageArg2.rows = response.data.rowPerPage;
-        this.pageArgs.pageArg2.page = response.data.page;
-        this.gridKeys.gridKey2 += 1;
-        this.pageKeys.pageKey2 += 1;
-      });
+      await getCommonChildCode(obj)
+        .then((response) => {
+          this.dataListChild = response.data.rows;
+          this.pageCnts.pageCnt2 = response.data.total;
+          this.pageArgs.pageArg2.rows = response.data.rowPerPage;
+          this.pageArgs.pageArg2.page = response.data.page;
+          this.gridKeys.gridKey2 += 1;
+          this.pageKeys.pageKey2 += 1;
+        })
+        .catch((e) => {
+          alert(e);
+        });
     },
     //insert
     async fnInsertMainCode() {
@@ -916,6 +920,8 @@ export default {
             //this.$router.go();
             // this.mainDtlData = this.mainDataParam;
             this.fnRefreshMain();
+          } else {
+            alert("중복된 대분류 코드 입니다.");
           }
         });
       }
@@ -924,13 +930,19 @@ export default {
       var result = this.validationChk(this.childDataParam, "1");
       this.childDataParam.mainClassCd = this.dtlNav.mainClassCd;
       if (result) {
-        await setCommonChildCode(this.childDataParam).then((response) => {
-          if (response.data === "SUCCESS") {
-            this.fnRefreshChild();
-            this.childDtlData = this.childDataParam;
-            this.childDtlData.modDt = getNowDate() + " " + getNowTime();
-          }
-        });
+        await setCommonChildCode(this.childDataParam)
+          .then((response) => {
+            if (response.data === "SUCCESS") {
+              this.fnRefreshChild();
+              this.childDtlData = this.childDataParam;
+              this.childDtlData.modDt = getNowDate() + " " + getNowTime();
+            } else {
+              alert("중복된 소분류 코드 입니다.");
+            }
+          })
+          .catch((e) => {
+            alert(e);
+          });
       }
     },
     //update
@@ -938,12 +950,16 @@ export default {
       var result = this.validationChk(this.mainUpdateData, "0");
       if (result) {
         this.mainUpdateData.beforeMainClassCd = this.dtlNav.mainClassCd;
-        await updateCommonMainCode(this.mainUpdateData).then((response) => {
-          console.log(response);
-          if (response.data === "SUCCESS") {
-            this.fnRefreshMain();
-          }
-        });
+        await updateCommonMainCode(this.mainUpdateData)
+          .then((response) => {
+            console.log(response);
+            if (response.data === "SUCCESS") {
+              this.fnRefreshMain();
+            }
+          })
+          .catch((e) => {
+            alert(e);
+          });
       }
     },
     async fnUpdateChildCode() {
@@ -952,12 +968,18 @@ export default {
         this.childUpdateData.mainClassCd = this.dtlNav.mainClassCd;
         this.childUpdateData.beforeMdlClassCd = this.dtlNav.mdlClassCd;
         this.childUpdateData.modId = this.$store.getters.userId;
-        await updateCommonChildCode(this.childUpdateData).then((response) => {
-          console.log(response);
-          if (response.data === "SUCCESS") {
-            this.fnRefreshChild();
-          }
-        });
+        await updateCommonChildCode(this.childUpdateData)
+          .then((response) => {
+            console.log(response);
+            if (response.data === "SUCCESS") {
+              this.fnRefreshChild();
+            } else {
+              alert("중복된 소분류 코드 입니다.");
+            }
+          })
+          .catch((e) => {
+            alert(e);
+          });
       }
     },
     //저장/수정시 유효성 체크 gubun -> 0:대분류 , 1 : 소분류
