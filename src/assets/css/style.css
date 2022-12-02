@@ -513,6 +513,7 @@ select.form-control{
   width: 220px;
   height: 100px;
   border: 1px solid #d4dde0;
+  flex: 0 0 auto;
 }
 .onmContent .upload-logo img{
   width: auto;
