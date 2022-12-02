@@ -639,6 +639,42 @@
           <td>-</td>
           <td>-</td>
         </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">REST API 키 상세보기</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_480'}" target="_blank">@/views/ONM_IA_ADM_COM_480.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">외부연동관리</td>
+          <td class="tal">REST API 키 수정</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_481'}" target="_blank">@/views/ONM_IA_ADM_COM_481.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">플랫폼관리</td>
+          <td class="tal">플랫폼디자인관리</td>
+          <td class="tal">플랫폼 디자인 관리</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_COM_560'}" target="_blank">@/views/ONM_IA_ADM_COM_560.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
         <!-- <tr>
           <td class="tal">vuetify test</td>
           <td class="tal"></td>

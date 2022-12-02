@@ -16,21 +16,18 @@
             <tbody>
               <tr>
                 <th scope="row" class="required"><span>연동사업자명</span></th>
-                <td>
-                  <input type="text" class="form-control" placeholder="연동사업자명">
-                  <p class="checkError" v-if="false">한글15자 이내로 입력해 주세요</p>
-                </td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>연동서비스명</span></th>
-                <td>
-                  <input type="text" class="form-control" placeholder="연동서비스명">
-                  <p class="checkError" v-if="false">한글15자 이내로 입력해 주세요 </p>
-                </td>
+                <td></td>
               </tr>
               <tr>
-                <th scope="row" class="required"><span>API ID</span></th>
-                <td></td>
+                <th scope="row" rowspan="2" class="required"><span>API ID</span></th>
+                <td>3ef1a88f670b4e75067f95ae0081f0eb</td>
+              </tr>
+              <tr>
+                <td>재발급 2회 (최종재발급일 2022-12-12 12:12</td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>API Key</span></th>
@@ -46,6 +43,7 @@
                       :label="key"
                       :value="key"
                       color="orange"
+                      :readonly="true"
                     />
                   </v-radio-group>
                 </td>
@@ -82,55 +80,27 @@
             <tbody>
               <tr>
                 <th scope="row"><span>담당자명</span></th>
-                <td>
-                  <input type="text" class="form-control" placeholder="담당자명">
-                  <p class="checkError" v-if="false">한글 7자 이내로 입력해 주세요</p>
-                </td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row"><span>부서</span></th>
-                <td>
-                  <input type="text" class="form-control" placeholder="부서">
-                  <p class="checkError" v-if="false">한글 15자 이내로 입력해 주세요</p>
-                </td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row"><span>직급</span></th>
-                <td>
-                  <input type="text" class="form-control" placeholder="직급">
-                  <p class="checkError" v-if="false">한글 15자 이내로 입력해 주세요</p>
-                </td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row"><span>전화번호</span></th>
-                <td>
-                  <div class="form-inline">
-                    <input type="text" class="form-control" placeholder="">
-                    <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="">
-                    <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="">
-                  </div>
-                </td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row"><span>휴대번호</span></th>
-                <td>
-                  <div class="form-inline">
-                    <input type="text" class="form-control" placeholder="">
-                    <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="">
-                    <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="">
-                  </div>
-                </td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row"><span>이메일</span></th>
-                <td>
-                  <input type="text" class="form-control" placeholder="이메일">
-                  <p class="checkError" v-if="false">30자 이내로 입력해 주세요</p>
-                </td>
+                <td></td>
               </tr>
             </tbody>
           </table>
@@ -149,76 +119,75 @@
             <tbody>
               <tr>
                 <th scope="row"><span>담당자명</span></th>
-                <td>
-                  <input type="text" class="form-control" placeholder="담당자명">
-                  <p class="checkError" v-if="false">한글 7자 이내로 입력해 주세요</p>
-                </td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row"><span>부서</span></th>
-                <td>
-                  <input type="text" class="form-control" placeholder="부서">
-                  <p class="checkError" v-if="false">한글 15자 이내로 입력해 주세요</p>
-                </td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row"><span>직급</span></th>
-                <td>
-                  <input type="text" class="form-control" placeholder="직급">
-                  <p class="checkError" v-if="false">한글 15자 이내로 입력해 주세요</p>
-                </td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row"><span>전화번호</span></th>
-                <td>
-                  <div class="form-inline">
-                    <input type="text" class="form-control" placeholder="">
-                    <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="">
-                    <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="">
-                  </div>
-                </td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row"><span>휴대번호</span></th>
-                <td>
-                  <div class="form-inline">
-                    <input type="text" class="form-control" placeholder="">
-                    <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="">
-                    <span class="bridge">-</span>
-                    <input type="text" class="form-control" placeholder="">
-                  </div>
-                </td>
+                <td></td>
               </tr>
               <tr>
                 <th scope="row"><span>이메일</span></th>
-                <td>
-                  <input type="text" class="form-control" placeholder="이메일">
-                  <p class="checkError" v-if="false">30자 이내로 입력해 주세요</p>
-                </td>
+                <td></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-
     <div class="btn-area clearFix">
       <div class="pull-left">
         <button type="button" class="btn btn-default btn-yellow btn-fixed">목록</button>
       </div>
       <div class="pull-right">
-        <button type="button" class="btn btn-default btn-gray btn-fixed">초기화</button>
-        <button type="button" class="btn btn-default btn-orange btn-fixed">저장</button>
+        <button
+          type="button"
+          class="btn btn-default btn-gray"
+          @click="modalOpen">개인정보 마스킹 제거</button>
+        <button type="button" class="btn btn-default btn-orange btn-fixed">수정</button>
       </div>
-      
+    </div>
+    <!-- 최종수정자 정보 -->
+    <sub-title title="최종수정자 정보" />
+    <div class="table">
+      <table>
+        <captiion class="sr-only">최종수정자 정보</captiion>
+        <colgroup>
+          <col width="20%">
+          <col width="30%">
+          <col width="20%">
+          <col width="*">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th scope="row"><span>최종수정자</span></th>
+            <td colspan="3"></td>
+          </tr>
+          <tr>
+            <th scope="row"><span>최종수정일시</span></th>
+            <td></td>
+            <th scope="row"><span>최종등록일시</span></th>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <!-- 이용가이드 -->
-    <sub-title title="이용가이드" />
+    <sub-title class="mt-20" title="이용가이드" />
     <use-guide
       :useGuideLists="useGuideLists" />
+    <onm-ia-adm-sup030-p />
   </section>
 </template>
 
@@ -226,12 +195,15 @@
 import HeadTitle from "@/components/HeadTitle"
 import SubTitle from "@/components/SubTitle"
 import UseGuide from "@/components/UseGuide"
+import OnmIaAdmSup030P from "@/views/pub/ONM_IA_ADM_SUP_030_P" //개인정보 마스킹제거Modal
+import { mapState, mapMutations } from "vuex"
 
 export default {
   components: {
     HeadTitle,
     SubTitle,
     UseGuide,
+    OnmIaAdmSup030P
   },
   data() {
     return {
@@ -246,6 +218,14 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      isActiveModal: (state) => state.settings.isActiveModal,
+    }),
+  },
+  methods: {
+    ...mapMutations({
+      modalOpen: "settings/MODAL_OPEN",
+    }),
   },
 }
 </script>
