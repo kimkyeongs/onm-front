@@ -1154,20 +1154,19 @@ export default {
 
     async fnExcelDownload() {
       var tmp = {};
+
       tmp = getExcelFileds(this.excelFiledKey);
-      console.log(tmp);
       tmp.searchText1 = this.searchText1;
       tmp.searchText2 = this.searchText2;
       await excelDownload(tmp).then((response) => {
-        console.log(response.headers);
         const url = window.URL.createObjectURL(
           new Blob([response.data], { type: response.headers["content-type"] })
         );
         const link = document.createElement("a");
         link.href = url;
-        link.download = "test.xlsx";
+        console.log(tmp.excelNm + nowdate + ".xlsx");
+        link.download = tmp.excelNm + nowdate + ".xlsx";
         link.click();
-        console.log(response);
       });
     },
   },
