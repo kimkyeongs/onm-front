@@ -94,9 +94,8 @@ export default {
     //   modalClose: "settings/MODAL_CLOSE",
     // }),
     popClose() {
-      (this.userPassword = ""),
-        (this.show = ""),
-        this.$store.commit("settings/MODAL_CLOSE");
+      (this.userPassword = ""), (this.show = ""), (this.status = null);
+      this.$store.commit("settings/MODAL_CLOSE");
     },
     //비밀번호 인증
     async pwCheck(val) {

@@ -1158,16 +1158,26 @@ export default {
       var nowdate = getNowDate();
       tmp.searchText1 = this.searchText1;
       tmp.searchText2 = this.searchText2;
-      await excelDownload(tmp).then((response) => {
-        console.log(response.headers);
-        const url = window.URL.createObjectURL(
-          new Blob([response.data], { type: response.headers["content-type"] })
-        );
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = tmp.excelNm + "_" + nowdate + ".xlsx";
-        link.click();
-      });
+      await excelDownload(tmp)
+        .then((response) => {
+          console.log(response.headers["content-length"]);
+          if (response.headers["content-length"] == 0) {
+            alert("데이터가 없습니다.");
+          } else {
+            const url = window.URL.createObjectURL(
+              new Blob([response.data], {
+                type: response.headers["content-type"],
+              })
+            );
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = tmp.excelNm + "_" + nowdate + ".xlsx";
+            link.click();
+          }
+        })
+        .catch((e) => {
+          alert("fail : 33486");
+        });
     },
   },
 };

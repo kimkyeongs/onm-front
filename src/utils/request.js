@@ -26,6 +26,7 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
   (response) => {
+    console.log(response);
     const data = !response.data.data ? response.data : response.data.data;
     const headers = response.headers;
 

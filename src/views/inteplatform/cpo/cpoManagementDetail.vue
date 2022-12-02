@@ -217,7 +217,7 @@
     <sub-title title="이용가이드" />
     <use-guide :useGuideLists="useGuideLists" />
     <!-- 개인정보마스킹제거 팝업 -->
-    <removeMaskingPop @pwdCheck="fnPwdCheck" />
+    <removeMaskingPop @pwdCheck="fnPwdCheck" :key="this.popupKey" />
   </section>
 </template>
 
@@ -252,6 +252,7 @@ export default {
       hpNum: "",
     },
     btnShow: "ok",
+    popupKey: 0,
   }),
   computed: {
     ...mapState({
@@ -285,9 +286,13 @@ export default {
   },
   watch: {},
   methods: {
-    ...mapMutations({
-      modalOpen: "settings/MODAL_OPEN",
-    }),
+    // ...mapMutations({
+    //   modalOpen: "settings/MODAL_OPEN",
+    // }),
+    modalOpen() {
+      this.popupKey += 1;
+      this.$store.commit("settings/MODAL_OPEN");
+    },
     fnMasking(obj) {
       if (obj.hpNum != undefined && obj.email != undefined) {
         obj.hpNum = obj.hpNum.substring(0, 9) + "*".repeat(4);
