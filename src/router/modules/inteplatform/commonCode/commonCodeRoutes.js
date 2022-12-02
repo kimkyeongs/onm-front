@@ -1,4 +1,4 @@
-import { commonCodeRouteList } from "./commonCode/commonCodeRouteList";
+import { commonCodeRouteList } from "./commonCodeRouteList";
 import Layout from "@/layout/appLayout.vue";
 export default {
     path: "/commonCode",
