@@ -316,6 +316,13 @@ const routes = [
         component: () =>
             import ("@/views/pub/ONM_IA_ADM_COM_560.vue"),
     },
+    // 사용자 권한관리
+    {
+        path: "/ONM_IA_ADM_USE_010",
+        name: "ONM_IA_ADM_USE_010",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_USE_010.vue"),
+    },
     //=============================== 퍼블리싱 url END ==========================
 ];
 

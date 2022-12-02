@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     sidebarToggle() {
-      this.$store.commit('SIDEMENU_TOGGLE')
+      this.$store.commit('settings/SIDEMENU_TOGGLE')
     },
     sideMenuEvent(e) {
       let depth1 = document.querySelectorAll('.menu > ul > li > dl > dt > a ')

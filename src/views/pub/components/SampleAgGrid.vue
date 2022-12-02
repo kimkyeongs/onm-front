@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import Pagination from '@/components/Pagination'
-import GridModBtn from '@/components/GridModBtn'
+import Pagination from '@/views/pub/components/Pagination'
+import GridModBtn from '@/views/pub/components/GridModBtn'
 import { AgGridVue } from 'ag-grid-vue'
 
 export default {

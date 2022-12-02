@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import HeaderTop from '@/components/HeaderTop'
-import SideBar from '@/components/SideBar'
-import FooterBottom from '@/components/FooterBottom'
+import HeaderTop from '@/views/pub/components/HeaderTop'
+import SideBar from '@/views/pub/components/SideBar'
+import FooterBottom from '@/views/pub/components/FooterBottom'
 
 import { mapState, mapMutations } from 'vuex'
 

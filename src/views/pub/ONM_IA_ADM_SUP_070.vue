@@ -156,11 +156,11 @@
 </template>
 
 <script>
-import HeadTitle from "@/components/HeadTitle";
-import SubTitle from "@/components/SubTitle";
-import UseGuide from "@/components/UseGuide";
-import SampleAgGrid from "@/components/SampleAgGrid";
-import GridSearchSingle from "@/components/GridSearchSingle";
+import HeadTitle from "@/views/pub/components/HeadTitle";
+import SubTitle from "@/views/pub/components/SubTitle";
+import UseGuide from "@/views/pub/components/UseGuide";
+import SampleAgGrid from "@/views/pub/components/SampleAgGrid";
+import GridSearchSingle from "@/views/pub/components/GridSearchSingle";
 import OnmIaAdmSup070P from "@/views/pub/ONM_IA_ADM_SUP_070_P";
 import { mapState, mapMutations } from "vuex";
 

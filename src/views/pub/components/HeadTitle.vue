@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Location from '@/components/Location'
+import Location from '@/views/pub/components/Location'
 
 export default {
   components: {

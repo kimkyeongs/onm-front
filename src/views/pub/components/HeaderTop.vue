@@ -54,10 +54,10 @@
 </template>
 
 <script>
-import SuperUserList from "@/components/SuperUserList";
-import NoticeList from "@/components/NoticeList";
-import ErrorList from "@/components/ErrorList";
-import AllMenu from "@/components/AllMenu";
+import SuperUserList from "@/views/pub/components/SuperUserList";
+import NoticeList from "@/views/pub/components/NoticeList";
+import ErrorList from "@/views/pub/components/ErrorList";
+import AllMenu from "@/views/pub/components/AllMenu";
 import { mapState } from "vuex";
 
 export default {

@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import Pagination from '@/components/Pagination'
+import Pagination from '@/views/pub/components/Pagination'
 import { AgGridVue } from 'ag-grid-vue'
-import GridPlusBtn from '@/components/GridPlusBtn'
-import MemberLicensesStatus from '@/components/MemberLicensesStatus'
+import GridPlusBtn from '@/views/pub/components/GridPlusBtn'
+import MemberLicensesStatus from '@/views/pub/components/MemberLicensesStatus'
 
 export default {
   components: {

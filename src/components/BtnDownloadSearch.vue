@@ -30,7 +30,7 @@
 
 <script>
 export default {
-   props: {
+  props: {
     maskingDownload: {
       type: Boolean,
       default: false,

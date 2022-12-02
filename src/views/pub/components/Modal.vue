@@ -182,9 +182,9 @@
 </template>
 
 <script>
-import BtnResetSearch from "@/components/BtnResetSearch";
-import BtnDownloadSearch from "@/components/BtnDownloadSearch.vue";
-import DatePicker from "@/components/DatePicker";
+import BtnResetSearch from "@/views/pub/components/BtnResetSearch";
+import BtnDownloadSearch from "@/views/pub/components/BtnDownloadSearch.vue";
+import DatePicker from "@/views/pub/components/DatePicker";
 
 import { mapState } from "vuex";
 
