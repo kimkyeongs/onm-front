@@ -13,8 +13,8 @@ const fileds = {
       "No",
       "대분류코드",
       "대분류명",
-      "사용여부",
       "설명",
+      "사용여부",
       "최종수정일",
       "소분류코드",
       "소분류코드명",
@@ -28,7 +28,7 @@ const fileds = {
     excelKey: [
       "rownumber",
       "mainClassCd",
-      "mainClassMm",
+      "mainClassNm",
       "descr",
       "mainUseYn",
       "mainModDt",

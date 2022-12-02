@@ -1155,7 +1155,7 @@ export default {
     async fnExcelDownload() {
       var tmp = {};
       tmp = getExcelFileds(this.excelFiledKey);
-      console.log(tmp);
+      var nowdate = getNowDate();
       tmp.searchText1 = this.searchText1;
       tmp.searchText2 = this.searchText2;
       await excelDownload(tmp).then((response) => {
@@ -1165,9 +1165,8 @@ export default {
         );
         const link = document.createElement("a");
         link.href = url;
-        link.download = "test.xlsx";
+        link.download = tmp.excelNm + "_" + nowdate + ".xlsx";
         link.click();
-        console.log(response);
       });
     },
   },
