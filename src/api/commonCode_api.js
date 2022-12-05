@@ -55,3 +55,11 @@ export function updateCommonChildCode(data) {
         data,
     });
 }
+//공통코드 가져오기
+export function getCommonCode(data) {
+    return request({
+        url: url + "/inteplatform/code/getCommonCode",
+        method: "post",
+        data,
+    });
+}
