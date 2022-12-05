@@ -70,7 +70,7 @@
       <search-filter :searchFilter="searchFilters" />
     </div>
     <!-- GRID -->
-    <sample-ag-grid />
+    <ag-grid v-bind:filedId="this.filedId" :key="gridKey" />
     <!--// GRID -->
     <div class="btn-area clearFix">
       <div class="pull-right">
@@ -97,7 +97,7 @@ import BtnResetSearch from "@/components/BtnResetSearch";
 import PageCount from "@/components/PageCount";
 import SearchFilter from "@/components/SearchFilter";
 import UseGuide from "@/components/UseGuide";
-import SampleAgGrid from "@/components/SampleAgGrid";
+import AgGrid from "@/components/AgGrid";
 
 import {
   getBatchInfoList,
@@ -118,7 +118,7 @@ export default {
     PageCount,
     SearchFilter,
     UseGuide,
-    SampleAgGrid,
+    AgGrid,
   },
   data() {
     return {
@@ -135,6 +135,8 @@ export default {
         bthId: null,
         bthNm: null,
       },
+      gridKey: 0,
+      filedId: "batchInfoList",
     };
   },
   computed: {
