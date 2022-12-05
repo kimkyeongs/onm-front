@@ -84,13 +84,13 @@
       v-bind:dataList="this.dataList"
       v-bind:filedId="this.filedId"
       v-bind:pageCnt="this.pageCnt"
-      v-bind:page="this.pageArg.page"
+      v-bind:page="this.searchValue.page"
       @clickData="fnClickRowData"
       :key="gridKey"
     />
     <pagination
       v-bind:listCount="this.pageCnt"
-      v-bind:customLimit="this.pageArg.rows"
+      v-bind:customLimit="this.searchValue.rows"
       @paging="nextGetList"
       :key="pageKey"
     />
@@ -124,9 +124,6 @@ import AgGrid from "@/components/AgGrid";
 import Pagination from "@/components/Pagination";
 import { mapState } from "vuex";
 import { getCpoLists } from "@/api/cpo_api";
-//엑셀테스트
-import { excelDownload } from "@/api/stat_api";
-import { getFileds } from "@/components/js/gridFileds";
 
 export default {
   components: {
@@ -146,9 +143,9 @@ export default {
   },
   data: () => ({
     items: [
-      { itemKey: "아이템-1", itemValue: 1 },
-      { itemKey: "아이템-2", itemValue: 2 },
-      { itemKey: "아이템-3", itemValue: 3 },
+      { itemKey: "아이템-1", itemValue: "1" },
+      { itemKey: "아이템-2", itemValue: "2" },
+      { itemKey: "아이템-3", itemValue: "3" },
     ],
     searchFilters: [
       { filterTitle: "고객사상태", filterText: "" },
@@ -177,40 +174,79 @@ export default {
       custComNm: "",
       custComId: "",
       mgrNm: "",
+      rows: 10,
+      page: 1,
     },
     //엑셀테스트
     columValues: [],
   }),
+  beforeMount() {
+    if (
+      this.$store.getters.searchParams.custComStat != undefined &&
+      this.$store.getters.searchParams.custComStatNm != undefined
+    ) {
+      this.searchValue.custComStat =
+        this.$store.getters.searchParams.custComStat;
+      this.searchValue.custComStatNm =
+        this.$store.getters.searchParams.custComStatNm;
+
+      for (
+        let i = 0;
+        i < this.$store.getters.searchParams.custComStat.length;
+        i++
+      ) {
+        this.custComStat.push({
+          itemKey: this.$store.getters.searchParams.custComStatNm[i],
+          itemValue: this.$store.getters.searchParams.custComStat[i],
+        });
+      }
+    }
+    if (this.$store.getters.searchParams.custComId != undefined) {
+      this.searchValue.custComId = this.$store.getters.searchParams.custComId;
+    }
+    if (this.$store.getters.searchParams.custComNm != undefined) {
+      this.searchValue.custComNm = this.$store.getters.searchParams.custComNm;
+    }
+    if (this.$store.getters.searchParams.mgrNm != undefined) {
+      this.searchValue.mgrNm = this.$store.getters.searchParams.mgrNm;
+    }
+    if (this.$store.getters.searchParams.rows != undefined) {
+      this.searchValue.rows = this.$store.getters.searchParams.rows;
+    }
+    if (this.$store.getters.searchParams.page != undefined) {
+      this.searchValue.page = this.$store.getters.searchParams.page;
+    }
+  },
   mounted() {
-    this.fnGetCpoLists(this.pageArg);
-    this.fnGetFileds();
+    this.fnGetCpoLists(this.searchValue);
   },
   methods: {
     //그리드 데이터
     async fnGetCpoLists(obj) {
+      this.$store.dispatch("setSearchParams/setParams", obj);
       await getCpoLists(obj).then((response) => {
         this.rows = response.data.rowPerPage; //페이지당 보여줄 row 갯수
-        this.pageArg.page = response.data.page; // 현재 페이지
+        this.searchValue.page = response.data.page; // 현재 페이지
         this.pageCnt = response.data.total; //총페이지 갯수
         this.dataList = response.data.rows; // 그리드에 뿌려질 데이터
         this.fnForceLender();
       });
     },
     async nextGetList(pageParam) {
-      this.pageArg = pageParam;
-      await getCpoLists(this.pageArg).then((response) => {
+      this.searchValue.page = pageParam.page;
+      this.searchValue.rows = pageParam.rows;
+      await getCpoLists(this.searchValue).then((response) => {
         this.rows = response.data.rowPerPage;
-        this.pageArg.page = response.data.page;
+        this.searchValue.page = response.data.page;
         this.pageCnt = response.data.total;
       });
     },
     // 그리드에 row 몇 개씩 뿌릴지 선택
     async getSelectedValue(param) {
-      this.pageArg.rows = param;
-      console.log(this.pageArg);
-      await getCpoLists(this.pageArg).then((response) => {
+      this.searchValue.rows = param;
+      await getCpoLists(this.searchValue).then((response) => {
         this.rows = response.data.rowPerPage;
-        this.pageArg.page = response.data.page;
+        this.searchValue.page = response.data.page;
         this.pageCnt = response.data.total;
         this.fnForceLender();
       });
@@ -226,9 +262,6 @@ export default {
     },
     // 검색버튼
     fnSearchBtn() {
-      this.searchValue.rows = this.pageArg.rows;
-      this.searchValue.page = this.pageArg.page;
-      console.log(this.searchValue);
       this.fnSetSearchFilterList();
       this.fnGetCpoLists(this.searchValue);
     },
@@ -275,9 +308,9 @@ export default {
     },
     //검색필터 초기화후 그리드 초기화
     fnGridResetBtn() {
-      this.pageArg.page = 1;
-      this.pageArg.rows = 10;
-      this.fnGetCpoLists(this.pageArg);
+      this.searchValue.page = 1;
+      this.searchValue.rows = 10;
+      this.fnGetCpoLists(this.searchValue);
     },
     //등록페이지로 이동
     fnCpoInsert() {
