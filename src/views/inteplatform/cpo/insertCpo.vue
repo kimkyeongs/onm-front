@@ -123,7 +123,6 @@
                     type="text"
                     class="form-control mt-1"
                     placeholder="상세주소"
-                    readonly
                   />
                 </td>
               </tr>
@@ -308,7 +307,6 @@
                     type="text"
                     class="form-control mt-1"
                     placeholder="상세주소"
-                    readonly
                   />
                 </td>
               </tr>
