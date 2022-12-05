@@ -37,7 +37,6 @@
     <!--// 검색영역 -->
     <!-- 필터 -->
     <div class="pagekeyWord-wrap">
-      /components
       <page-count />
       <search-filter :searchFilter="searchFilters" />
     </div>
@@ -46,7 +45,11 @@
     <!--// GRID -->
     <div class="btn-area clearFix">
       <div class="pull-right">
-        <button type="button" class="btn btn-default btn-orange btn-fixed">
+        <button
+          type="button"
+          class="btn btn-default btn-orange btn-fixed"
+          @click="fnInsertBatch"
+        >
           등록
         </button>
       </div>
@@ -100,7 +103,15 @@ export default {
     }),
   },
   mounted() {},
-  methods: {},
+  methods: {
+    fnInsertBatch() {
+      this.$router
+        .push({
+          name: "batchJobInfoManageInsert",
+        })
+        .catch(() => {});
+    },
+  },
 };
 </script>
 

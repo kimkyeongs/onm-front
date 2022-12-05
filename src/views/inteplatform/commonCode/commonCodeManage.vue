@@ -26,6 +26,7 @@
         <PaginationMain
           v-bind:listCount="this.pageCnts.pageCnt1"
           v-bind:customLimit="this.pageArgs.pageArg1.rows"
+          @paging="fnSetCurrentPage($event, '1')"
           :key="pageKeys.pageKey1"
         />
         <!--// GRID -->
@@ -313,6 +314,7 @@
           v-bind:listCount="this.pageCnts.pageCnt2"
           v-bind:customLimit="this.pageArgs.pageArg2.rows"
           :key="pageKeys.pageKey2"
+          @paging="fnSetCurrentPage($event, '2')"
         />
         <!--// GRID -->
         <div class="btn-area text-right">
@@ -799,6 +801,8 @@ export default {
         modId: this.$store.getters.userId, //임시
         modDt: "",
       },
+      currentPageNo1: 1,
+      currentPageNo2: 1,
     };
   },
   beforeMount() {
@@ -817,21 +821,38 @@ export default {
         this.dtlNav.mainClassNm =
           this.$store.getters.searchParams.dtlNav.mainClassNm;
       }
+      /*
+      if (this.$store.getters.pageParams.currentPageNo1 != undefined) {
+        this.pageArgs.pageArg1.page =
+          this.$store.getters.pageParams.currentPageNo1;
+        this.pageCnts.pageCnt1 = this.$store.getters.pageParams.pageCnt1;
+      }
+      if (this.$store.getters.pageParams.currentPageNo2 != undefined) {
+        this.pageArgs.pageArg2.page =
+          this.$store.getters.pageParams.currentPageNo2;
+        this.pageCnts.pageCnt2 = this.$store.getters.pageParams.pageCnt2;
+      }
+      */
     } catch (e) {
       this.searchText1 = "";
       this.searchText2 = "";
       this.dtlNav.mainClassCd = "";
       this.dtlNav.mainClassNm = "";
+      this.pageArgs.pageArg1.page = 1;
+      this.pageArgs.pageArg2.page = 1;
+      this.pageCnts.pageCnt1 = 1;
+      this.pageCnts.pageCnt2 = 1;
     }
   },
   mounted() {
-    this.fnCommonMainCode(this.pageArgs.pageArg1);
     if (this.searchText1 != "") {
       this.serchText(this.searchText1, "1");
     }
     if (this.searchText2 != "") {
       this.serchText(this.searchText2, "2");
       this.fnShowTab("codeChildPlace");
+    } else {
+      this.fnCommonMainCode(this.pageArgs.pageArg1);
     }
   },
   methods: {
@@ -897,7 +918,7 @@ export default {
       await getCommonMainCode(obj)
         .then((response) => {
           this.dataListMain = response.data.rows;
-          this.pageCnts.pageCnt1 = response.data.total;
+          this.pageCnts.pageCnt1 = response.data.records;
           this.pageArgs.pageArg1.rows = response.data.rowPerPage;
           this.pageArgs.pageArg1.page = response.data.page;
           this.gridKeys.gridKey1 += 1;
@@ -911,7 +932,7 @@ export default {
       await getCommonChildCode(obj)
         .then((response) => {
           this.dataListChild = response.data.rows;
-          this.pageCnts.pageCnt2 = response.data.total;
+          this.pageCnts.pageCnt2 = response.data.records;
           this.pageArgs.pageArg2.rows = response.data.rowPerPage;
           this.pageArgs.pageArg2.page = response.data.page;
           this.gridKeys.gridKey2 += 1;
@@ -1178,6 +1199,42 @@ export default {
         .catch((e) => {
           alert("fail : 33486");
         });
+    },
+    async fnSetCurrentPage(data, gubun) {
+      var requestParam = data;
+      if (gubun === "1") {
+        if (this.searchText1) {
+          requestParam.searchText = this.searchText1;
+        }
+        await getCommonMainCode(requestParam).then((response) => {
+          this.dataListMain = response.data.rows;
+          this.pageCnts.pageCnt1 = response.data.records;
+          this.pageArgs.pageArg1.rows = response.data.rowPerPage;
+          this.pageArgs.pageArg1.page = response.data.page;
+          this.gridKeys.gridKey1 += 1;
+        });
+      } else {
+        requestParam.mainClassCd = this.dtlNav.mainClassCd;
+        if (this.searchText2) {
+          requestParam.searchText = this.searchText2;
+        }
+        await getCommonChildCode(requestParam).then((response) => {
+          this.dataListChild = response.data.rows;
+          this.pageCnts.pageCnt2 = response.data.records;
+          this.pageArgs.pageArg2.rows = response.data.rowPerPage;
+          this.pageArgs.pageArg2.page = response.data.page;
+          this.gridKeys.gridKey2 += 1;
+        });
+      }
+
+      this.$store.dispatch("setSearchParams/setParams", {
+        searchText1: this.searchText1,
+        searchText2: this.searchText2,
+        dtlNav: {
+          mainClassCd: this.dtlNav.mainClassCd,
+          mainClassNm: this.dtlNav.mainClassNm,
+        },
+      });
     },
   },
 };
