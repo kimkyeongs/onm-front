@@ -11,6 +11,7 @@
           label="선택"
           dense
           solo
+          v-model="port"
         />
       </div>
     </div>
@@ -94,39 +95,39 @@
             </thead>
             <tbody>
               <tr>
-                <th scope="row"><span>전체</span></th>
+                <th scope="row"><span>경기도</span></th>
                 <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
-                <th scope="row"><span>서울특별시</span></th>
+                <th scope="row"><span>강원도</span></th>
                 <td></td>
               </tr>
               <tr>
-                <th scope="row"><span>부산광역시</span></th>
+                <th scope="row"><span>충청북도</span></th>
                 <td></td>
               </tr>
               <tr>
-                <th scope="row"><span>대구광역시</span></th>
+                <th scope="row"><span>충청남도</span></th>
                 <td></td>
               </tr>
               <tr>
-                <th scope="row"><span>인천광역시</span></th>
+                <th scope="row"><span>전라북도</span></th>
                 <td></td>
               </tr>
               <tr>
-                <th scope="row"><span>광주광역시</span></th>
+                <th scope="row"><span>전라남도</span></th>
                 <td></td>
               </tr>
               <tr>
-                <th scope="row"><span>대전광역시</span></th>
+                <th scope="row"><span>경상북도</span></th>
                 <td></td>
               </tr>
               <tr>
-                <th scope="row"><span>울산광역시</span></th>
+                <th scope="row"><span>경상남도</span></th>
                 <td></td>
               </tr>
               <tr>
-                <th scope="row"><span>세종특별자치시</span></th>
+                <th scope="row"><span>제주특별자치도</span></th>
                 <td></td>
               </tr>
             </tbody>
@@ -144,24 +145,60 @@
       <div class="gridMultiSearch">
         <div class="searchGroup">
           <label for="">권역선택</label>
-          <v-select
-            :items="items"
+
+          <v-combobox
+            :items="region"
+            class="multiCombox text-crop"
+            style="width: 200px"
+            label="멀티선택"
+            hide-selected
+            multiple
+            small-chips
+            solo
+            return-object
+            item-text="itemKey"
+            item-value="itemValue"
+            @change="fnSelectRegion"
+            v-model="regionModel"
+          >
+            <template v-slot:selection="{ item, parent }">
+              <v-chip label>
+                <span>
+                  {{ item.itemKey }}
+                </span>
+                <v-icon small @click="parent.selectItem(item)">
+                  $delete
+                </v-icon>
+              </v-chip>
+            </template>
+          </v-combobox>
+          <!-- <v-select
+            :items="region"
+            item-text="itemKey"
+            item-value="itemValue"
             class="selectBox"
             style="width: 200px"
             label="선택"
             dense
             solo
-          />
+            return-object
+            @change="fnSelectRegion"
+          /> -->
         </div>
         <div class="searchGroup">
           <label for="">시간간격</label>
           <v-select
-            :items="items"
+            :items="timeInterval"
+            item-text="itemKey"
+            item-value="itemValue"
             class="selectBox"
             style="width: 200px"
             label="선택"
             dense
             solo
+            return-object
+            @change="fnSelectInterval"
+            v-model="intervalModel"
           />
         </div>
       </div>
@@ -200,7 +237,21 @@ export default {
       useGuideLists: [
         "- 이 페이지는 충전기 8887포트를 통해 연결된 충전기수에 대한 통계로 플랫폼통합관리자만 사용이 가능합니다.",
       ],
-      items: ["아이템-1", "아이템-2", "아이템-3"],
+      items: ["8887"],
+      region: [
+        { itemKey: "서울특별시", itemValue: "0" },
+        { itemKey: "부산광역시", itemValue: "1" },
+        { itemKey: "대구광역시", itemValue: "2" },
+      ],
+      timeInterval: [
+        { itemKey: "1분", itemValue: "0" },
+        { itemKey: "10분", itemValue: "1" },
+        { itemKey: "60분", itemValue: "2" },
+        { itemKey: "1일", itemValue: "3" },
+        { itemKey: "1주", itemValue: "4" },
+        { itemKey: "1달", itemValue: "5" },
+      ],
+      port: "8887",
       chartOptions: {
         credits: {
           enabled: false, // HightCharts Display
@@ -217,19 +268,7 @@ export default {
           },
         },
         xAxis: {
-          categories: [
-            "22:29",
-            "22:30",
-            "22:31",
-            "22:32",
-            "22:33",
-            "22:34",
-            "22:35",
-            "22:36",
-            "22:37",
-            "22:38",
-            "22:39",
-          ],
+          categories: [],
         },
         // navigation: {
         //   buttonOptions: {
@@ -237,6 +276,22 @@ export default {
         //   }
         // },
         // colors: ['#21b7fa', '#0357ad','#fa219c', '#1aba00']
+        series: [],
+      },
+      data: {
+        categories: [
+          "22:29",
+          "22:30",
+          "22:31",
+          "22:32",
+          "22:33",
+          "22:34",
+          "22:35",
+          "22:36",
+          "22:37",
+          "22:38",
+          "22:39",
+        ],
         series: [
           {
             name: "서울특별시",
@@ -268,13 +323,206 @@ export default {
           },
         ],
       },
+      data1: {
+        categories: [
+          " 22:00",
+          " 22:10",
+          " 22:20",
+          " 22:30",
+          " 22:40",
+          " 22:50",
+          " 23:00",
+          " 23:10",
+          " 23:20",
+          " 23:30",
+          " 23:40",
+        ],
+        series: [
+          {
+            name: "서울특별시",
+            data: [13, 134, 20, 12, 57, 120, 128, 36, 62, 80, 48],
+          },
+          {
+            name: "부산광역시",
+            data: [128, 115, 19, 106, 21, 99, 70, 72, 30, 11, 42],
+          },
+          {
+            name: "대구광역시",
+            data: [86, 138, 33, 123, 128, 37, 100, 91, 112, 52, 82],
+          },
+        ],
+      },
+      data2: {
+        categories: [
+          " 00:00",
+          " 01:00",
+          " 02:00",
+          " 03:00",
+          " 04:00",
+          " 05:00",
+          " 06:00",
+          " 07:00",
+          " 08:00",
+          " 09:00",
+          " 10:00",
+          " 11:00",
+        ],
+        series: [
+          {
+            name: "서울특별시",
+            data: [126, 28, 66, 12, 130, 56, 93, 42, 24, 108, 124],
+          },
+          {
+            name: "부산광역시",
+            data: [63, 23, 95, 137, 28, 106, 56, 109, 5, 104, 144],
+          },
+          {
+            name: "대구광역시",
+            data: [8, 125, 83, 92, 121, 3, 2, 24, 70, 113, 28],
+          },
+        ],
+      },
+
+      data3: {
+        categories: [
+          "22-12-10 22:00",
+          "22-12-11 22:00",
+          "22-12-12 22:00",
+          "22-12-13 22:00",
+          "22-12-14 22:00",
+          "22-12-15 22:00",
+          "22-12-16 22:00",
+          "22-12-17 22:00",
+          "22-12-18 22:00",
+          "22-12-19 22:00",
+          "22-12-20 22:00",
+        ],
+        series: [
+          {
+            name: "서울특별시",
+            data: [123, 132, 130, 84, 138, 134, 41, 100, 2, 57, 146],
+          },
+          {
+            name: "부산광역시",
+            data: [26, 73, 130, 133, 133, 71, 141, 4, 101, 103, 125],
+          },
+          {
+            name: "대구광역시",
+            data: [134, 99, 46, 27, 8, 110, 49, 140, 110, 99, 69],
+          },
+        ],
+      },
+      data4: {
+        categories: [
+          "22-12-10 22:00",
+          "22-12-17 22:00",
+          "22-12-24 22:00",
+          "22-12-31 22:00",
+          "23-01-07 22:00",
+          "23-01-14 22:00",
+          "23-01-21 22:00",
+          "23-01-28 22:00",
+          "23-02-04 22:00",
+          "23-02-11 22:00",
+          "23-02-18 22:00",
+        ],
+        series: [
+          {
+            name: "서울특별시",
+            data: [141, 64, 33, 62, 107, 57, 18, 32, 49, 44, 145],
+          },
+          {
+            name: "부산광역시",
+            data: [80, 95, 47, 137, 32, 72, 49, 117, 88, 51, 95],
+          },
+          {
+            name: "대구광역시",
+            data: [45, 27, 12, 5, 74, 146, 3, 42, 29, 124, 141],
+          },
+        ],
+      },
+      data5: {
+        categories: [
+          "22-12-10 22:00",
+          "23-01-10 22:00",
+          "23-02-10 22:00",
+          "23-03-10 22:00",
+          "23-04-10 22:00",
+          "23-05-10 22:00",
+          "23-06-10 22:00",
+          "23-07-10 22:00",
+          "23-08-10 22:00",
+          "23-09-10 22:00",
+          "23-10-10 22:00",
+        ],
+        series: [
+          {
+            name: "서울특별시",
+            data: [136, 58, 25, 42, 33, 12, 110, 101, 16, 29, 58],
+          },
+          {
+            name: "부산광역시",
+            data: [42, 35, 106, 129, 130, 62, 82, 26, 76, 63, 4],
+          },
+          {
+            name: "대구광역시",
+            data: [16, 117, 117, 42, 140, 107, 112, 11, 66, 118, 45],
+          },
+        ],
+      },
+      radomNum: [],
+      regionModel: [],
+      originRegion: [],
+      intervalModel: "",
     };
   },
 
   computed: {},
   created() {},
   watch: {},
-  methods: {},
+  mounted() {
+    this.chartOptions.xAxis.categories = this.data.categories;
+    this.chartOptions.series = this.data.series;
+  },
+  methods: {
+    fnSelectRegion(e) {
+      console.log(e.length);
+      if (e.length == 0) {
+        if (this.intervalModel == "" || this.intervalModel == "1") {
+          console.log("Zz");
+          this.chartOptions.series = this.data.series;
+        }
+      } else {
+        this.chartOptions.series = [];
+        if (this.intervalModel == "" || this.intervalModel == "1") {
+          e.forEach((item) => {
+            this.chartOptions.series.push(this.data.series[item.itemValue]);
+          });
+        }
+      }
+    },
+    fnSelectInterval(e) {
+      if (e.itemValue == "0") {
+        this.chartOptions.xAxis.categories = this.data.categories;
+        this.chartOptions.series = this.data.series;
+      } else if (e.itemValue == "1") {
+        this.chartOptions.xAxis.categories = this.data1.categories;
+        this.chartOptions.series = this.data1.series;
+      } else if (e.itemValue == "2") {
+        this.chartOptions.xAxis.categories = this.data2.categories;
+        this.chartOptions.series = this.data2.series;
+      } else if (e.itemValue == "3") {
+        this.chartOptions.xAxis.categories = this.data3.categories;
+        this.chartOptions.series = this.data3.series;
+      } else if (e.itemValue == "4") {
+        this.chartOptions.xAxis.categories = this.data4.categories;
+        this.chartOptions.series = this.data4.series;
+      } else if (e.itemValue == "5") {
+        this.chartOptions.xAxis.categories = this.data5.categories;
+        this.chartOptions.series = this.data5.series;
+      }
+    },
+  },
 };
 </script>
 

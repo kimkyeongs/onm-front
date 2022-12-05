@@ -30,7 +30,7 @@
                 <span>
                   {{ item.itemKey }}
                 </span>
-                <v-icon small @click="parent.selectItem(item.itemKey)">
+                <v-icon small @click="parent.selectItem(item)">
                   $delete
                 </v-icon>
               </v-chip>
