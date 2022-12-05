@@ -104,6 +104,7 @@
                       class="form-control"
                       placeholder="우편번호"
                       style="width: 100px"
+                      readonly
                     />
                     <!-- <button type="button" class="btn btn-sm btn-gray ml-2">
                       주소검색
@@ -115,12 +116,14 @@
                     type="text"
                     class="form-control mt-1"
                     placeholder="큰주소"
+                    readonly
                   />
                   <input
                     v-model="headOffice.addressDtl"
                     type="text"
                     class="form-control mt-1"
                     placeholder="상세주소"
+                    readonly
                   />
                 </td>
               </tr>
@@ -273,6 +276,7 @@
                         class="form-control"
                         placeholder="우편번호"
                         style="width: 100px"
+                        readonly
                       />
                       <!-- <button
                         type="button"
@@ -296,6 +300,7 @@
                     type="text"
                     class="form-control mt-1"
                     placeholder="큰주소"
+                    readonly
                   />
                   <input
                     v-model="personOffice.addressDtl"
@@ -303,6 +308,7 @@
                     type="text"
                     class="form-control mt-1"
                     placeholder="상세주소"
+                    readonly
                   />
                 </td>
               </tr>
@@ -359,7 +365,7 @@
                 </td>
               </tr>
               <tr>
-                <th scope="row" class="required"><span>전화번호</span></th>
+                <th scope="row"><span>전화번호</span></th>
                 <td>
                   <div class="form-inline">
                     <input
@@ -562,7 +568,7 @@ export default {
         bizNum3: "",
         sectCd: "",
         entCd: "",
-        custComStat: "",
+        custComStat: "0",
         mgrNm: "",
         deptNm: "",
         deptRank: "",
@@ -588,7 +594,7 @@ export default {
         signetHpNum2: "",
         signetHpNum3: "",
         signetEmail: "",
-        dboardTpeTp: "",
+        dboardTpeTp: "0",
         cont: "",
         hdZipcd: "",
         hdAddr: "",
@@ -716,9 +722,11 @@ export default {
       };
     },
     saveBtn() {
-      this.summaryModel();
+      this.summaryNum();
       console.log(this.model);
-      this.fnInsertCpo(this.model);
+      if (this.validation(this.model)) {
+        this.fnInsertCpo(this.model);
+      }
     },
     fnMoveList() {
       this.$router
@@ -735,31 +743,67 @@ export default {
       this.personOffice = json;
       this.addressCheckbox = this.personOffice.checkBoxCtrl;
     },
-    validation() {
-      if (values.title === "") {
-        alert("제목을 입력해주세요.");
-        this.$refs.title.focus();
+    validation(values) {
+      if (values.custComNm === "") {
+        alert("고객사명을 입력해주세요.");
+        //this.$refs.custComNm.focus();
         return false;
-      } else if (this.model.projectNo === "") {
-        alert("프로젝트를 선택해주세요.");
-        this.$refs.projectNo.focus();
+      } else if (values.custComId === "") {
+        alert("고객사ID를 선택해주세요.");
+        //this.$refs.custComId.focus();
         return false;
-      } else if (values.boardMasterIndex === "") {
-        alert("게시판을 선택해주세요.");
-        this.$refs.boardMasterIndex.focus();
+      } else if (values.bizNum === "") {
+        alert("사업자 등록번호를 입력해주세요.");
+        //this.$refs.bizNum.focus();
         return false;
-      } else if (values.contents === "") {
-        alert("내용을 입력해주세요.");
-        this.$refs.contents.focus();
+      } else if (values.hdZipcd === "") {
+        alert("본사 주소를 입력해주세요.");
+        //this.$refs.bizNum.focus();
         return false;
-      } else if (values.postType === "") {
-        alert("공지종류를 선택해주세요.");
-        this.$refs.postType.focus();
+      } else if (values.mgrNm === "") {
+        alert("담담자 명을 입력해주세요.");
+        //this.$refs.postType.focus();
+        return false;
+      } else if (values.deptNm === "") {
+        alert("담담자 부서를 입력해주세요.");
+        //this.$refs.postType.focus();
+        return false;
+      } else if (values.deptRank === "") {
+        alert("담담자 직급을 입력해주세요.");
+        //this.$refs.postType.focus();
+        return false;
+      } else if (values.hpNum === "") {
+        alert("담담자 핸드폰번호를 입력해주세요.");
+        //this.$refs.postType.focus();
+        return false;
+      } else if (values.email === "") {
+        alert("담담자 이메일을 입력해주세요.");
+        //this.$refs.postType.focus();
+        return false;
+      } else if (values.signetMgrNm === "") {
+        alert("SK시그넷 담당자명을 입력해주세요.");
+        //this.$refs.postType.focus();
+        return false;
+      } else if (values.signetDeptNm === "") {
+        alert("SK시그넷 담담자 부서를 입력해주세요.");
+        //this.$refs.postType.focus();
+        return false;
+      } else if (values.signetDeptRank === "") {
+        alert("SK시그넷 담담자 직급을 입력해주세요.");
+        //this.$refs.postType.focus();
+        return false;
+      } else if (values.signetHpNum === "") {
+        alert("SK시그넷 담담자 핸드폰번호를 입력해주세요.");
+        //this.$refs.postType.focus();
+        return false;
+      } else if (values.signetEmail === "") {
+        alert("SK시그넷 담담자 이메일을 입력해주세요.");
+        //this.$refs.postType.focus();
         return false;
       }
       return true;
     },
-    summaryModel() {
+    summaryNum() {
       this.model.bizNum = combineNumToStr(
         this.model.bizNum1,
         this.model.bizNum2,
