@@ -918,7 +918,8 @@ export default {
       await getCommonMainCode(obj)
         .then((response) => {
           this.dataListMain = response.data.rows;
-          this.pageCnts.pageCnt1 = response.data.records;
+          this.pageCnts.pageCnt1 =
+            response.data.records === 0 ? 1 : response.data.records;
           this.pageArgs.pageArg1.rows = response.data.rowPerPage;
           this.pageArgs.pageArg1.page = response.data.page;
           this.gridKeys.gridKey1 += 1;
@@ -932,7 +933,8 @@ export default {
       await getCommonChildCode(obj)
         .then((response) => {
           this.dataListChild = response.data.rows;
-          this.pageCnts.pageCnt2 = response.data.records;
+          this.pageCnts.pageCnt2 =
+            response.data.records === 0 ? 1 : response.data.records;
           this.pageArgs.pageArg2.rows = response.data.rowPerPage;
           this.pageArgs.pageArg2.page = response.data.page;
           this.gridKeys.gridKey2 += 1;
@@ -1208,7 +1210,8 @@ export default {
         }
         await getCommonMainCode(requestParam).then((response) => {
           this.dataListMain = response.data.rows;
-          this.pageCnts.pageCnt1 = response.data.records;
+          this.pageCnts.pageCnt1 =
+            response.data.records === 0 ? 1 : response.data.records;
           this.pageArgs.pageArg1.rows = response.data.rowPerPage;
           this.pageArgs.pageArg1.page = response.data.page;
           this.gridKeys.gridKey1 += 1;
@@ -1220,7 +1223,8 @@ export default {
         }
         await getCommonChildCode(requestParam).then((response) => {
           this.dataListChild = response.data.rows;
-          this.pageCnts.pageCnt2 = response.data.records;
+          this.pageCnts.pageCnt2 =
+            response.data.records === 0 ? 1 : response.data.records;
           this.pageArgs.pageArg2.rows = response.data.rowPerPage;
           this.pageArgs.pageArg2.page = response.data.page;
           this.gridKeys.gridKey2 += 1;
