@@ -83,7 +83,7 @@
     <ag-grid
       v-bind:dataList="this.dataList"
       v-bind:filedId="this.filedId"
-      v-bind:pageCnt="this.pageCnt"
+      v-bind:total="this.total"
       v-bind:page="this.searchValue.page"
       @clickData="fnClickRowData"
       :key="gridKey"
@@ -160,6 +160,7 @@ export default {
     ],
     filedId: "cpoList",
     dataList: [],
+    total: 1,
     pageCnt: 1,
     gridKey: 0,
     pageKey: 100,
@@ -225,29 +226,37 @@ export default {
     async fnGetCpoLists(obj) {
       this.$store.dispatch("setSearchParams/setParams", obj);
       await getCpoLists(obj).then((response) => {
-        this.rows = response.data.rowPerPage; //페이지당 보여줄 row 갯수
+        this.searchValue.rows = response.data.rowPerPage; //페이지당 보여줄 row 갯수
         this.searchValue.page = response.data.page; // 현재 페이지
-        this.pageCnt = response.data.total; //총페이지 갯수
+        this.pageCnt = response.data.records; // 총데이터 갯수
         this.dataList = response.data.rows; // 그리드에 뿌려질 데이터
+        this.total = response.data.total; // 총 페이지 갯수
         this.fnForceLender();
       });
     },
     async nextGetList(pageParam) {
       this.searchValue.page = pageParam.page;
       this.searchValue.rows = pageParam.rows;
+      console.log(this.searchValue);
       await getCpoLists(this.searchValue).then((response) => {
-        this.rows = response.data.rowPerPage;
+        console.log(response.data);
+        this.searchValue.rows = response.data.rowPerPage;
         this.searchValue.page = response.data.page;
-        this.pageCnt = response.data.total;
+        this.dataList = response.data.rows;
+        this.pageCnt = response.data.records;
+        this.total = response.data.total;
+        this.gridKey += 1;
       });
     },
     // 그리드에 row 몇 개씩 뿌릴지 선택
     async getSelectedValue(param) {
       this.searchValue.rows = param;
       await getCpoLists(this.searchValue).then((response) => {
-        this.rows = response.data.rowPerPage;
+        this.searchValue.rows = response.data.rowPerPage;
         this.searchValue.page = response.data.page;
-        this.pageCnt = response.data.total;
+        this.dataList = response.data.rows;
+        this.pageCnt = response.data.records;
+        this.total = response.data.total;
         this.fnForceLender();
       });
     },
