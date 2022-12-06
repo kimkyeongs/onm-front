@@ -105,8 +105,8 @@ const fileds = {
         { field: "gpNm", headerName: "배치그룹명" },
         { field: "fileNm", headerName: "배치파일명" },
         { field: "bthDtText", headerName: "배치시간" },
-        { field: "", headerName: "최종배치일시" },
-        { field: "", headerName: "최종배치결과" },
+        { headerName: "최종배치일시" },
+        { headerName: "최종배치결과" },
         { field: "lastUpDt", headerName: "배치파일 최종 업데이트일" },
     ],
     //ag-grid  group 기능 테스트용

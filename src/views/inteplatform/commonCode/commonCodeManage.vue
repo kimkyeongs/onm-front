@@ -17,7 +17,7 @@
         <AgGridMain
           v-bind:dataList="this.dataListMain"
           v-bind:filedId="this.gridFiledKey.key1"
-          v-bind:pageCnt="this.pageCnts.pageCnt1"
+          v-bind:total="this.totalCnts.totalCnt1"
           v-bind:page="this.pageArgs.pageArg1.page"
           :key="gridKeys.gridKey1"
           @clickData="setChildData"
@@ -304,7 +304,7 @@
         <AgGridChild
           v-bind:dataList="this.dataListChild"
           v-bind:filedId="this.gridFiledKey.key2"
-          v-bind:pageCnt="this.pageCnts.pageCnt1"
+          v-bind:total="this.totalCnts.totalCnt2"
           v-bind:page="this.pageArgs.pageArg2.page"
           :key="gridKeys.gridKey2"
           @clickData="setChildDtlData"
@@ -733,6 +733,10 @@ export default {
         key2: "commonChildCodeList",
       },
       excelFiledKey: "commonCodeManage",
+      totalCnts: {
+        totalCnt1: 0,
+        totalCnt2: 0,
+      },
       pageCnts: {
         pageCnt1: 0,
         pageCnt2: 0,
@@ -919,6 +923,7 @@ export default {
           this.dataListMain = response.data.rows;
           this.pageCnts.pageCnt1 =
             response.data.records === 0 ? 1 : response.data.records;
+          this.totalCnts.totalCnt1 = response.data.total;
           this.pageArgs.pageArg1.rows = response.data.rowPerPage;
           this.pageArgs.pageArg1.page = response.data.page;
           this.gridKeys.gridKey1 += 1;
@@ -934,6 +939,7 @@ export default {
           this.dataListChild = response.data.rows;
           this.pageCnts.pageCnt2 =
             response.data.records === 0 ? 1 : response.data.records;
+          this.totalCnts.totalCnt2 = response.data.total;
           this.pageArgs.pageArg2.rows = response.data.rowPerPage;
           this.pageArgs.pageArg2.page = response.data.page;
           this.gridKeys.gridKey2 += 1;
@@ -1212,6 +1218,7 @@ export default {
           this.pageCnts.pageCnt1 =
             response.data.records === 0 ? 1 : response.data.records;
           this.pageArgs.pageArg1.rows = response.data.rowPerPage;
+          this.totalCnts.totalCnt1 = response.data.total;
           this.pageArgs.pageArg1.page = response.data.page;
           this.gridKeys.gridKey1 += 1;
         });
@@ -1224,6 +1231,7 @@ export default {
           this.dataListChild = response.data.rows;
           this.pageCnts.pageCnt2 =
             response.data.records === 0 ? 1 : response.data.records;
+          this.totalCnts.totalCnt2 = response.data.total;
           this.pageArgs.pageArg2.rows = response.data.rowPerPage;
           this.pageArgs.pageArg2.page = response.data.page;
           this.gridKeys.gridKey2 += 1;

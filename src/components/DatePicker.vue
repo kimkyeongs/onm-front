@@ -29,7 +29,16 @@
     >
       <v-spacer />
       <v-btn text color="primary" @click="menu = false"> 취소 </v-btn>
-      <v-btn text color="primary" @click="$refs.menu.save(date)"> 확인 </v-btn>
+      <v-btn
+        text
+        color="primary"
+        @click="
+          $refs.menu.save(date);
+          getSelectedDate(date);
+        "
+      >
+        확인
+      </v-btn>
     </v-date-picker>
   </v-menu>
 </template>
@@ -58,6 +67,9 @@ export default {
     },
   },
   methods: {
+    getSelectedDate(date) {
+      this.$emit("getDate", date);
+    },
     getDay(date) {
       const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
       let i = new Date(date).getDay(date);

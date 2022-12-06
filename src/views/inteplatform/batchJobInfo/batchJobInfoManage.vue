@@ -66,11 +66,23 @@
     <!--// 검색영역 -->
     <!-- 필터 -->
     <div class="pagekeyWord-wrap">
-      <page-count />
-      <search-filter :searchFilter="searchFilters" />
+      <page-count @selected="fnCustomLimit" />
+      <search-filter :searchFilter="searchFilters" @resetBtn="fnResetBtn" />
     </div>
     <!-- GRID -->
-    <ag-grid v-bind:filedId="this.filedId" :key="gridKey" />
+    <ag-grid
+      v-bind:dataList="this.dataList"
+      v-bind:pageCnt="this.pageArg.pageCnt"
+      v-bind:page="this.pageArg.page"
+      v-bind:filedId="this.filedId"
+      @clickData="fnBatchInfoDetail"
+      :key="gridKey"
+    />
+    <Pagination
+      v-bind:listCount="this.pageArg.pageCnt"
+      v-bind:customLimit="this.pageArg.rows"
+      :key="pageKey"
+    />
     <!--// GRID -->
     <div class="btn-area clearFix">
       <div class="pull-right">
@@ -98,13 +110,9 @@ import PageCount from "@/components/PageCount";
 import SearchFilter from "@/components/SearchFilter";
 import UseGuide from "@/components/UseGuide";
 import AgGrid from "@/components/AgGrid";
+import Pagination from "@/components/Pagination";
 
-import {
-  getBatchInfoList,
-  setBatchInfo,
-  updateBatchInfo,
-} from "@/api/bathInfo_api";
-
+import { getBatchInfoList } from "@/api/bathInfo_api";
 import { getCommonCode } from "@/api/commonCode_api";
 
 import { mapState } from "vuex";
@@ -119,6 +127,7 @@ export default {
     SearchFilter,
     UseGuide,
     AgGrid,
+    Pagination,
   },
   data() {
     return {
@@ -135,6 +144,13 @@ export default {
         bthId: null,
         bthNm: null,
       },
+      dataList: null,
+      pageArg: {
+        page: 1,
+        rows: 10,
+        pageCnt: 0,
+      },
+      pageKey: 100,
       gridKey: 0,
       filedId: "batchInfoList",
     };
@@ -148,7 +164,9 @@ export default {
     this.getCodes({ mainClassCd: "B0000" }, "1");
     this.getCodes({ mainClassCd: "B0001" }, "2");
   },
-  mounted() {},
+  mounted() {
+    this.fnGetBatchInfoList(this.searchValues);
+  },
   methods: {
     fnResetBtn() {
       this.searchFilters = [];
@@ -158,10 +176,12 @@ export default {
         bthId: null,
         bthNm: null,
       };
+      this.searchValues.page = this.pageArg.page;
+      this.searchValues.rows = this.pageArg.rows;
+      this.fnGetBatchInfoList(this.searchValues);
     },
     fnSearchFilters() {
       this.searchFilters = [];
-
       var batchGropNm = this.batchCodeList.filter((items) => {
         return items.mdlClassCd == this.searchValues.batchGroup;
       });
@@ -185,9 +205,19 @@ export default {
         filterTitle: "배치명",
         filterText: this.searchValues.bthNm,
       });
+      this.searchValues.page = this.pageArg.page;
+      this.searchValues.rows = this.pageArg.rows;
+      this.fnGetBatchInfoList(this.searchValues);
     },
-    async fnGetBatchInfoList({}) {
-      await getBatchInfoList({}).then((response) => {});
+    async fnGetBatchInfoList(obj) {
+      await getBatchInfoList(obj).then((response) => {
+        this.dataList = response.data.rows;
+        this.pageArg.rows = response.data.rowPerPage;
+        this.pageArg.page = response.data.page;
+        this.pageArg.pageCnt = response.data.total;
+        this.gridKey += 1;
+        this.pageKey += 1;
+      });
     },
     async getCodes(param, gubun) {
       await getCommonCode(param).then((response) => {
@@ -198,10 +228,24 @@ export default {
         }
       });
     },
+    fnCustomLimit(limit) {
+      this.pageArg.rows = limit;
+      this.searchValues.rows = limit;
+      this.searchValues.page = this.pageArg.page;
+      this.fnGetBatchInfoList(this.searchValues);
+    },
     fnInsertBatch() {
       this.$router
         .push({
           name: "batchJobInfoManageInsert",
+        })
+        .catch(() => {});
+    },
+    fnBatchInfoDetail(obj) {
+      this.$router
+        .push({
+          name: "batchJobInfoManageDetail",
+          params: { bthId: obj.data.bthId },
         })
         .catch(() => {});
     },

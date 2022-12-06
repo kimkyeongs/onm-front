@@ -11,6 +11,15 @@ export function getBatchInfoList(data) {
     });
 }
 
+//배치작업정보 관리 상세
+export function getBatchInfoDetail(data) {
+    return request({
+        url: url + "/inteplatform/batchInfo/selectBacthInfoDetail",
+        method: "post",
+        data,
+    });
+}
+
 //배치작업정보 관리 등록
 export function setBatchInfo(data) {
     return request({
