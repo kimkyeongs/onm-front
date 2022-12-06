@@ -643,11 +643,22 @@ export default {
     ...mapMutations({
       resize: "settings/RESIZE",
     }),
+    //저장 rest
     async fnInsertCpo(obj) {
-      await insertCpo(obj).then((response) => {
-        console.log(response.data);
-      });
+      await insertCpo(obj)
+        .then((response) => {
+          if (response.data === "success") {
+            this.$store.dispatch("setRouterParams/setParams", {
+              viewData: obj,
+            });
+            this.fnCpoUpdate();
+          }
+        })
+        .catch((e) => {
+          alert(e);
+        });
     },
+    //
     fnCheckBoxCtl(val) {
       if (val) {
         this.personOffice = this.headOffice;
@@ -721,7 +732,6 @@ export default {
     },
     saveBtn() {
       this.summaryNum();
-      console.log(this.model);
       if (this.validation(this.model)) {
         this.fnInsertCpo(this.model);
       }
@@ -834,6 +844,13 @@ export default {
       this.model.zipcd = this.personOffice.postcode;
       this.model.addr = this.personOffice.address;
       this.model.addrDtl = this.personOffice.addressDtl;
+    },
+    fnCpoUpdate() {
+      this.$router
+        .push({
+          name: "cpoManagementDetail",
+        })
+        .catch(() => {});
     },
   },
 };

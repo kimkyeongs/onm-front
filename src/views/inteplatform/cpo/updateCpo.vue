@@ -661,15 +661,20 @@ export default {
     }),
 
     async fnUpdateCpo(obj) {
-      await updateCpo(obj).then((response) => {
-        this.fnCpoUpdate();
-      });
+      await updateCpo(obj)
+        .then((response) => {
+          if (response.data === "success") {
+            this.fnCpoUpdate();
+          }
+        })
+        .catch((e) => {
+          alert(e);
+        });
     },
     async fnGetCpo(obj) {
       await selectCpo(obj).then((response) => {
         this.model = response.data;
         this.fnBindModel();
-        console.log(this.model);
       });
     },
     fnCheckBoxCtl(val) {
@@ -693,7 +698,7 @@ export default {
 
     saveBtn() {
       this.fnSummaryModel();
-      if (this.validation(this.mocel)) {
+      if (this.validation(this.model)) {
         this.fnUpdateCpo(this.model);
       }
     },

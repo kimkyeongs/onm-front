@@ -496,6 +496,7 @@ export default {
     this.chartOptions.series = this.data.series;
   },
   methods: {
+    //권역 선택시
     fnSelectRegion(e) {
       console.log(e);
       console.log(this.intervalModel);
@@ -552,6 +553,7 @@ export default {
       } else {
       }
     },
+    //시간대 클릭시
     fnSelectInterval(e) {
       var tmp = this.regionModel;
       if (e.itemValue == "0") {
