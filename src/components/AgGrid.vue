@@ -39,7 +39,7 @@ import { getFileds } from "@/components/js/gridFileds";
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 export default {
-  props: ["dataList", "filedId", "pageCnt", "page"],
+  props: ["dataList", "filedId", "total", "page"],
   components: {
     AgGridVue,
     GridPlusBtn,
@@ -63,7 +63,7 @@ export default {
       groupDisplayType: null,
       groupRowRenderer: null,
       groupDefaultExpanded: null,
-      totalPage: this.$props.pageCnt,
+      totalPage: this.$props.total,
       nowPage: this.$props.page,
     };
   },
@@ -91,10 +91,6 @@ export default {
     },
     fnClickBtn(e) {
       this.$emit("clickBtnData", e.rowData.data);
-    },
-    fnGetGridData(e) {
-      console.log(1);
-      console.log(e);
     },
   },
 };
