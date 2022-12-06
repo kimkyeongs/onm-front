@@ -19,25 +19,25 @@
             <tbody>
               <tr>
                 <th scope="row"><span>배치ID</span></th>
-                <td></td>
+                <td>{{ this.dtlData.bthId }}</td>
                 <th scope="row" class="required"><span>배치명</span></th>
-                <td></td>
+                <td>{{ this.dtlData.bthNm }}</td>
               </tr>
               <tr>
                 <th scope="row" class="required"><span>배치그룹명</span></th>
-                <td></td>
+                <td>{{ this.dtlData.gpNm }}</td>
                 <th scope="row" class="required"><span>배치파일명</span></th>
-                <td></td>
+                <td>{{ this.dtlData.fileNm }}</td>
               </tr>
               <tr>
                 <th scope="row"><span>배치시간</span></th>
                 <td></td>
                 <th scope="row"><span>최종수정일시</span></th>
-                <td></td>
+                <td>{{ this.dtlData.modDt }}</td>
               </tr>
               <tr>
                 <th scope="row"><span>배치파일경로</span></th>
-                <td colspan="3"></td>
+                <td colspan="3">{{ this.dtlData.filePath }}</td>
               </tr>
             </tbody>
           </table>
@@ -63,7 +63,11 @@
                 </th>
                 <td>
                   <div class="col-lg-5">
-                    <date-picker />
+                    <date-picker
+                      v-bind:currentDate="this.dtlData.lastUpDt"
+                      @getDate="fnGetDate"
+                      :key="this.datePickerKey"
+                    />
                   </div>
                 </td>
               </tr>
@@ -147,23 +151,31 @@ export default {
         "- 이 페이지는 실행된 배치결과를 모니터링 할 수 있으며, 배치처리 및 실행과 관련하여서는 개발파트와 별도 협의하시면 됩니다.",
       ],
       items: ["아이템-1", "아이템-2", "아이템-3"],
-      dtlData: null,
+      dtlData: {},
+      datePickerKey: 0,
     };
   },
   computed: {},
   created() {
-    if (this.$store.getters.routeParams.bthId) {
+    if (this.$store.getters.routeParams.bthId != undefined) {
+      this.$route.params.bthId = this.$store.getters.routeParams.bthId;
     }
   },
   beforeMount() {
     this.$store.dispatch("setRouterParams/setParams", this.$route.params);
   },
-  mounted() {},
+  mounted() {
+    this.getDetail({ bthId: this.$route.params.bthId });
+  },
   watch: {},
   methods: {
+    fnGetDate(date) {
+      this.dtlData.lastUpDt = date;
+    },
     async getDetail(requestParam) {
       await getBatchInfoDetail(requestParam).then((response) => {
-        console.log(response.data);
+        this.dtlData = response.data;
+        this.datePickerKey += 1;
       });
     },
   },

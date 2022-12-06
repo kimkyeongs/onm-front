@@ -50,6 +50,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    currentDate: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
@@ -65,6 +69,11 @@ export default {
       }
       return this.date;
     },
+  },
+  mounted() {
+    if (this.currentDate != "") {
+      this.date = this.currentDate;
+    }
   },
   methods: {
     getSelectedDate(date) {
