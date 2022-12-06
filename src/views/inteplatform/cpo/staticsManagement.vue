@@ -557,6 +557,7 @@ export default {
       if (e.itemValue == "0") {
         if (this.regionModel.length > 0) {
           this.chartOptions.series = [];
+          this.chartOptions.xAxis.categories = this.data.categories;
           tmp.forEach((item) => {
             this.chartOptions.series.push(this.data.series[item.itemValue]);
           });
@@ -567,6 +568,7 @@ export default {
       } else if (e.itemValue == "1") {
         if (this.regionModel.length > 0) {
           this.chartOptions.series = [];
+          this.chartOptions.xAxis.categories = this1.data.categories;
           tmp.forEach((item) => {
             this.chartOptions.series.push(this.data1.series[item.itemValue]);
           });
@@ -577,6 +579,7 @@ export default {
       } else if (e.itemValue == "2") {
         if (this.regionModel.length > 0) {
           this.chartOptions.series = [];
+          this.chartOptions.xAxis.categories = this.data2.categories;
           tmp.forEach((item) => {
             this.chartOptions.series.push(this.data2.series[item.itemValue]);
           });
@@ -587,6 +590,7 @@ export default {
       } else if (e.itemValue == "3") {
         if (this.regionModel.length > 0) {
           this.chartOptions.series = [];
+          this.chartOptions.xAxis.categories = this.data3.categories;
           tmp.forEach((item) => {
             this.chartOptions.series.push(this.data3.series[item.itemValue]);
           });
@@ -597,6 +601,7 @@ export default {
       } else if (e.itemValue == "4") {
         if (this.regionModel.length > 0) {
           this.chartOptions.series = [];
+          this.chartOptions.xAxis.categories = this.data4.categories;
           tmp.forEach((item) => {
             this.chartOptions.series.push(this.data4.series[item.itemValue]);
           });
@@ -607,6 +612,7 @@ export default {
       } else if (e.itemValue == "5") {
         if (this.regionModel.length > 0) {
           this.chartOptions.series = [];
+          this.chartOptions.xAxis.categories = this.data5.categories;
           tmp.forEach((item) => {
             this.chartOptions.series.push(this.data5.series[item.itemValue]);
           });
