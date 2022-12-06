@@ -182,6 +182,7 @@ export default {
     columValues: [],
   }),
   beforeMount() {
+    //검색조건 유지
     if (
       this.$store.getters.searchParams.custComStat != undefined &&
       this.$store.getters.searchParams.custComStatNm != undefined
@@ -234,17 +235,15 @@ export default {
         this.fnForceLender();
       });
     },
+    // 페이징 버튼클릭시
     async nextGetList(pageParam) {
       this.searchValue.page = pageParam.page;
       this.searchValue.rows = pageParam.rows;
-      console.log(this.searchValue);
       await getCpoLists(this.searchValue).then((response) => {
-        console.log(response.data);
         this.searchValue.rows = response.data.rowPerPage;
         this.searchValue.page = response.data.page;
         this.dataList = response.data.rows;
         this.pageCnt = response.data.records;
-        this.total = response.data.total;
         this.gridKey += 1;
       });
     },
