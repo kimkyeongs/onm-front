@@ -322,6 +322,17 @@ const routes = [
         name: "ONM_IA_ADM_USE_010",
         component: () =>
             import ("@/views/pub/ONM_IA_ADM_USE_010.vue"),
+    },{
+        path: "/ONM_IA_ADM_USE_030",
+        name: "ONM_IA_ADM_USE_030",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_USE_030.vue"),
+    },
+    {
+        path: "/ONM_IA_ADM_USE_070",
+        name: "ONM_IA_ADM_USE_070",
+        component: () =>
+            import ("@/views/pub/ONM_IA_ADM_USE_070.vue"),
     },
     //=============================== 퍼블리싱 url END ==========================
 ];

@@ -32,7 +32,7 @@
           <td class="tal"></td>
           <td></td>
           <td class="tal">
-            <router-link :to="{name: 'Design'}" target="_blank">@/views/Design.vue</router-link>
+            <router-link :to="{name: 'Design'}" target="_blank">@/views/pub/Design.vue</router-link>
           </td>
           <td>-</td>
           <td>-</td>
@@ -681,8 +681,31 @@
           <td class="tal">사용자관리</td>
           <td></td>
           <td class="tal">
-            <router-link :to="{name:'ONM_IA_ADM_USE_010'}" target="_blank">@/views/ONM_IA_ADM_USE_010
-.vue</router-link>
+            <router-link :to="{name:'ONM_IA_ADM_USE_010'}" target="_blank">@/views/ONM_IA_ADM_USE_010.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">사용자</td>
+          <td class="tal">권한관리</td>
+          <td class="tal">사용자등록</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_USE_030'}" target="_blank">@/views/ONM_IA_ADM_USE_030.vue</router-link>
+          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td class="tal">사용자</td>
+          <td class="tal">권한관리</td>
+          <td class="tal">사용자상세보기</td>
+          <td></td>
+          <td class="tal">
+            <router-link :to="{name:'ONM_IA_ADM_USE_070'}" target="_blank">@/views/ONM_IA_ADM_USE_070.vue</router-link>
           </td>
           <td>-</td>
           <td>-</td>
