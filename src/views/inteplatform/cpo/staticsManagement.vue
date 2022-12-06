@@ -41,35 +41,35 @@
               </tr>
               <tr>
                 <th scope="row"><span>서울특별시</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>부산광역시</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>대구광역시</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>인천광역시</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>광주광역시</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>대전광역시</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>울산광역시</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>세종특별자치시</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
             </tbody>
           </table>
@@ -100,35 +100,35 @@
               </tr>
               <tr>
                 <th scope="row"><span>강원도</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>충청북도</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>충청남도</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>전라북도</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>전라남도</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>경상북도</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>경상남도</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
               <tr>
                 <th scope="row"><span>제주특별자치도</span></th>
-                <td></td>
+                <td>[연결] 999 (99.9%) / [전체] 999</td>
               </tr>
             </tbody>
           </table>
@@ -136,7 +136,11 @@
       </div>
     </div>
     <div class="btn-area text-right">
-      <button type="button" class="btn btn-default btn-darkGreen">
+      <button
+        type="button"
+        class="btn btn-default btn-darkGreen"
+        @click="fnExcelDownload"
+      >
         현재 연결 충전기 목록 엑셀 다운로드
       </button>
     </div>
@@ -221,7 +225,10 @@ import SubTitle from "@/components/SubTitle";
 import UseGuide from "@/components/UseGuide";
 import DatePicker from "@/components/DatePicker";
 import { Chart } from "highcharts-vue";
+//엑셀 다운로드
 import { excelDownload } from "@/api/stat_api";
+import { getExcelFileds } from "@/components/js/excelFileds";
+import { getNowDate, getNowTime } from "@/utils/dataFormatUtils";
 
 export default {
   components: {
@@ -473,7 +480,11 @@ export default {
       radomNum: [],
       regionModel: [],
       originRegion: [],
-      intervalModel: "",
+      intervalModel: {
+        itemKey: "",
+        itemValue: "",
+      },
+      excelFiledKey: "staticsManage",
     };
   },
 
@@ -486,41 +497,151 @@ export default {
   },
   methods: {
     fnSelectRegion(e) {
-      console.log(e.length);
-      if (e.length == 0) {
-        if (this.intervalModel == "" || this.intervalModel == "1") {
-          console.log("Zz");
-          this.chartOptions.series = this.data.series;
-        }
-      } else {
+      console.log(e);
+      console.log(this.intervalModel);
+      if (e.length > 0) {
         this.chartOptions.series = [];
-        if (this.intervalModel == "" || this.intervalModel == "1") {
+        if (
+          this.intervalModel.itemValue == "" ||
+          this.intervalModel.itemValue == "0"
+        ) {
           e.forEach((item) => {
             this.chartOptions.series.push(this.data.series[item.itemValue]);
           });
+        } else if (this.intervalModel.itemValue == "1") {
+          e.forEach((item) => {
+            this.chartOptions.series.push(this.data1.series[item.itemValue]);
+          });
+        } else if (this.intervalModel.itemValue == "2") {
+          e.forEach((item) => {
+            this.chartOptions.series.push(this.data2.series[item.itemValue]);
+          });
+        } else if (this.intervalModel.itemValue == "3") {
+          e.forEach((item) => {
+            this.chartOptions.series.push(this.data3.series[item.itemValue]);
+          });
+        } else if (this.intervalModel.itemValue == "4") {
+          e.forEach((item) => {
+            this.chartOptions.series.push(this.data4.series[item.itemValue]);
+          });
+        } else if (this.intervalModel.itemValue == "5") {
+          e.forEach((item) => {
+            this.chartOptions.series.push(this.data5.series[item.itemValue]);
+          });
         }
+      } else {
+        if (
+          this.intervalModel.itemValue == "" ||
+          this.intervalModel.itemValue == "0"
+        ) {
+          this.chartOptions.series = this.data.series;
+        } else if (this.intervalModel.itemValue == "1") {
+          this.chartOptions.series = this.data1.series;
+        } else if (this.intervalModel.itemValue == "2") {
+          this.chartOptions.series = this.data2.series;
+        } else if (this.intervalModel.itemValue == "3") {
+          this.chartOptions.series = this.data3.series;
+        } else if (this.intervalModel.itemValue == "4") {
+          this.chartOptions.series = this.data4.series;
+        } else if (this.intervalModel.itemValue == "5") {
+          this.chartOptions.series = this.data4.series;
+        }
+      }
+
+      if (e.length == 0) {
+      } else {
       }
     },
     fnSelectInterval(e) {
+      var tmp = this.regionModel;
       if (e.itemValue == "0") {
-        this.chartOptions.xAxis.categories = this.data.categories;
-        this.chartOptions.series = this.data.series;
+        if (this.regionModel.length > 0) {
+          this.chartOptions.series = [];
+          tmp.forEach((item) => {
+            this.chartOptions.series.push(this.data.series[item.itemValue]);
+          });
+        } else {
+          this.chartOptions.xAxis.categories = this.data.categories;
+          this.chartOptions.series = this.data.series;
+        }
       } else if (e.itemValue == "1") {
-        this.chartOptions.xAxis.categories = this.data1.categories;
-        this.chartOptions.series = this.data1.series;
+        if (this.regionModel.length > 0) {
+          this.chartOptions.series = [];
+          tmp.forEach((item) => {
+            this.chartOptions.series.push(this.data1.series[item.itemValue]);
+          });
+        } else {
+          this.chartOptions.xAxis.categories = this.data1.categories;
+          this.chartOptions.series = this.data1.series;
+        }
       } else if (e.itemValue == "2") {
-        this.chartOptions.xAxis.categories = this.data2.categories;
-        this.chartOptions.series = this.data2.series;
+        if (this.regionModel.length > 0) {
+          this.chartOptions.series = [];
+          tmp.forEach((item) => {
+            this.chartOptions.series.push(this.data2.series[item.itemValue]);
+          });
+        } else {
+          this.chartOptions.xAxis.categories = this.data2.categories;
+          this.chartOptions.series = this.data2.series;
+        }
       } else if (e.itemValue == "3") {
-        this.chartOptions.xAxis.categories = this.data3.categories;
-        this.chartOptions.series = this.data3.series;
+        if (this.regionModel.length > 0) {
+          this.chartOptions.series = [];
+          tmp.forEach((item) => {
+            this.chartOptions.series.push(this.data3.series[item.itemValue]);
+          });
+        } else {
+          this.chartOptions.xAxis.categories = this.data3.categories;
+          this.chartOptions.series = this.data3.series;
+        }
       } else if (e.itemValue == "4") {
-        this.chartOptions.xAxis.categories = this.data4.categories;
-        this.chartOptions.series = this.data4.series;
+        if (this.regionModel.length > 0) {
+          this.chartOptions.series = [];
+          tmp.forEach((item) => {
+            this.chartOptions.series.push(this.data4.series[item.itemValue]);
+          });
+        } else {
+          this.chartOptions.xAxis.categories = this.data4.categories;
+          this.chartOptions.series = this.data4.series;
+        }
       } else if (e.itemValue == "5") {
-        this.chartOptions.xAxis.categories = this.data5.categories;
-        this.chartOptions.series = this.data5.series;
+        if (this.regionModel.length > 0) {
+          this.chartOptions.series = [];
+          tmp.forEach((item) => {
+            this.chartOptions.series.push(this.data5.series[item.itemValue]);
+          });
+        } else {
+          this.chartOptions.xAxis.categories = this.data5.categories;
+          this.chartOptions.series = this.data5.series;
+        }
       }
+    },
+    async fnExcelDownload() {
+      var tmp = {};
+      tmp = getExcelFileds(this.excelFiledKey);
+      var nowdate = getNowDate();
+      tmp.searchText1 = this.searchText1;
+      tmp.searchText2 = this.searchText2;
+      await excelDownload(tmp)
+        .then((response) => {
+          console.log(response.headers["content-length"]);
+          if (response.headers["content-length"] == 0) {
+            alert("데이터가 없습니다.");
+          } else {
+            const url = window.URL.createObjectURL(
+              new Blob([response.data], {
+                type: response.headers["content-type"],
+              })
+            );
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = tmp.excelNm + "_" + nowdate + ".xlsx";
+            link.click();
+          }
+        })
+        .catch((e) => {
+          alert("fail : 33486");
+        });
     },
   },
 };

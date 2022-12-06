@@ -677,7 +677,6 @@ import {
 } from "@/api/commonCode_api";
 //엑셀 다운로드
 import { excelDownload } from "@/api/stat_api";
-import { getFileds } from "@/components/js/gridFileds";
 import { getExcelFileds } from "@/components/js/excelFileds";
 
 import { getNowDate, getNowTime } from "@/utils/dataFormatUtils";

@@ -76,6 +76,30 @@ const fileds = {
     pageId: "commonCodeManage",
     excelNm: "공통코드",
   },
+  staticsManage: {
+    excelHeader: [
+      "No",
+      "연결포트",
+      "고객사명",
+      "권역",
+      "충전기ID",
+      "충전기명",
+      "충전소명",
+    ],
+    excelKey: ["rownumber", "port", "cpoNm", "region", "cpId", "cpNm", "cpoNm"],
+    excelWidth: ["50", "100", "100", "100", "100", "100", "100"],
+    excelDataType: [
+      "string",
+      "string",
+      "string",
+      "string",
+      "string",
+      "string",
+      "string",
+    ],
+    pageId: "staticsManage",
+    excelNm: "충전기 연결포트 통계",
+  },
 };
 // id에 해당하는 컬럼 List 를 리턴 -> 사용할 페이지에 import후 메서드 실행
 export function getExcelFileds(id) {
